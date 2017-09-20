@@ -1,6 +1,9 @@
 ### Intro
-Yilu Bao
+
 Erol Bahadiroglu
+Andre Williams
+Christoph Porwol
+
 This this is the readme for group 7b in Software Engineering at UF in Fall 2017
 
 [![MEAN.JS Logo](http://meanjs.org/img/logo-small.png)](http://meanjs.org/)
