@@ -1,0 +1,4 @@
+app.log
+bower_components
+node_modules
+config/env/local-development.js
