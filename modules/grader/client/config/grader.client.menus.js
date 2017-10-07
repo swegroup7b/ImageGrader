@@ -27,7 +27,7 @@
     // Add the dropdown list item
     menuService.addSubMenuItem('topbar', 'grader', {
       title: 'Resume Session',
-      state: 'grader.annotater',
+      state: 'grader.annotator',
       roles: ['*']
     });
   }*/
@@ -48,7 +48,7 @@
     menuService.addSubMenuItem('topbar', 'grader', {
       title: 'Resume',
       title: 'Resume',
-      state: 'grader.annotater',
+      state: 'grader.annotator',
       roles: ['*']
     });
   }
