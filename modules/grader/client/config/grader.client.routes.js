@@ -35,7 +35,7 @@
         controllerAs: 'vm'
       });
 
-    //  $urlRouterProvider
-    //    .when('/grader', '/grader/annotator');
+      $urlRouterProvider
+        .when('/grader', '/grader/annotate');
   }
 }());
