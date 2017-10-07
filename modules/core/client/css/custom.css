@@ -1,0 +1,17 @@
+/* csslint ignore:start */
+/* csslint complains about not having radients for all browsers,
+   but this is a webkit only property... */
+.home-img {
+  border-radius: 15px;
+  -webkit-box-reflect: below 0 -webkit-gradient(linear, left top, left bottom, from(transparent), color-stop(70%, transparent) , to(rgba(250, 250, 250, 0.08)));
+  height: 225px;
+  margin: auto;
+  margin-bottom: 10px;
+}
+/* csslint ignore:end */
+footer {color:black;float:left;font-size:85%;margin-top:1em;padding:10px 0 15px 0;text-align:center;width:100%;}
+footer a{color:black;}
+footer a:hover{color:#888; text-decoration: none}
+footer ul{padding-right:390px;}
+footer ul a:hover{color:white;}
+footer li{display:inline;font-size:95%;padding-right:1px;padding-top:15px;}
