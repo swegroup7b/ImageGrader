@@ -33,6 +33,12 @@
         templateUrl: '/modules/grader/client/views/results-grader.client.view.html',
         controller: 'GraderController',
         controllerAs: 'vm'
+      })
+      .state('grader.history', {
+        url: '',
+        templateUrl: '/modules/grader/client/views/history-grader.client.view.html',
+        controller: 'GraderController',
+        controllerAs: 'vm'
       });
   }
 }());

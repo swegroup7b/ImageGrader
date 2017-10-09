@@ -11,13 +11,20 @@
   function menuConfig(menuService) {
     menuService.addMenuItem('topbar', {
       title: 'Training',
-      state: 'tutorial',
+      state: 'training',
+      roles: ['*'],
+      type: 'dropdown'
+    });
+
+    menuService.addSubMenuItem('topbar', 'training', {
+      title: 'How to Grade',
+      state: 'training.example',
       roles: ['*']
     });
 
-    menuService.addMenuItem('topbar', {
-      title: 'Grade Our Images',
-      state: 'imageset',
+    menuService.addSubMenuItem('topbar', 'training', {
+      title: 'Interactive Tutorial',
+      state: 'training.interactive',
       roles: ['*']
     });
   }

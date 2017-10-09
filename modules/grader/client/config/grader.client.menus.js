@@ -7,30 +7,7 @@
 
   menuConfig.$inject = ['menuService'];
 
-  // Configuring the Users module
-  /*
-  function menuConfig(menuService) {
-    menuService.addMenuItem('topbar', {
-      title: 'Grader',
-      state: 'grader',
-      type: 'dropdown',
-      roles: ['*']
-    });
-
-    // Add the dropdown list item
-    menuService.addSubMenuItem('topbar', 'grader', {
-      title: 'Start Session',
-      state: 'grader.upload',
-      roles: ['*']
-    });
-
-    // Add the dropdown list item
-    menuService.addSubMenuItem('topbar', 'grader', {
-      title: 'Resume Session',
-      state: 'grader.annotater',
-      roles: ['*']
-    });
-  }*/
+  // Configuring the Grader module
   function menuConfig(menuService) {
     menuService.addMenuItem('topbar', {
       title: 'Image Grader',
@@ -47,9 +24,14 @@
 
     menuService.addSubMenuItem('topbar', 'grader', {
       title: 'Resume',
-      title: 'Resume',
       state: 'grader.annotater',
       roles: ['*']
+    });
+
+    menuService.addMenuItem('topbar', {
+      title: 'Grading History',
+      state: 'grader.history',
+      roles: ['*'],
     });
   }
 }());
