@@ -34,8 +34,8 @@
         controller: 'GraderController',
         controllerAs: 'vm'
       })
-      .state('grader.history', {
-        url: '',
+      .state('history', {
+        url: '/history',
         templateUrl: '/modules/grader/client/views/history-grader.client.view.html',
         controller: 'GraderController',
         controllerAs: 'vm'
