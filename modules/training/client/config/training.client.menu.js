@@ -12,20 +12,20 @@
     menuService.addMenuItem('topbar', {
       title: 'Training',
       state: 'training',
-      roles: ['*'],
+      roles: ['user', 'admin'],
       type: 'dropdown'
     });
 
     menuService.addSubMenuItem('topbar', 'training', {
       title: 'How to Grade',
       state: 'training.example',
-      roles: ['*']
+      roles: ['user', 'admin']
     });
 
     menuService.addSubMenuItem('topbar', 'training', {
       title: 'Interactive Tutorial',
       state: 'training.interactive',
-      roles: ['*']
+      roles: ['user', 'admin']
     });
   }
 }());
