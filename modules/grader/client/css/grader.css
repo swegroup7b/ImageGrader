@@ -1,1 +1,11 @@
+.annotator {
+  float: left;
+}
 
+.text-window {
+  background-color: #DFDFDF;
+  float:left;
+  height: 425px;
+  width: 425px;
+  padding: 1em;
+}
