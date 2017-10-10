@@ -43,7 +43,7 @@
       var mouseDown; // bool
 
       var mImage = new Image();
-      mImage.src = '/modules/core/client/img/brand/logo.png';
+      mImage.src = '/modules/grader/client/img/D4_KDA_5.jpg';
       elem.addClass("annotator");
 
       angular.element(mImage).on('load', function() {
