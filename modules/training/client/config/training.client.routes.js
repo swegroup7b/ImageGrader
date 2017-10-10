@@ -18,7 +18,7 @@
       })
       .state('training.example', {
         url: '',
-        templateUrl: '/modules/training/client/views/example-training.client.view.html',
+        templateUrl: '/modules/training/client/views/training.client.view.html',
         controller: 'TrainingController',
         controllerAs: 'vm'
       })
