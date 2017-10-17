@@ -182,11 +182,10 @@ function evaluateOsteophyte(border){
 // analyzes lesion
 function evaluateLesion(plateau, border, surface){
   var lesion_area = area(border);
-  // calculate surface slope and width
-  var surface_slope = (surface[1][1]-surface[0][1]) / (surface[1][0]-surface[0][0]);
-  var surface_width = Math.sqrt(Math.pow(surface[1][1]-surface[0][1],2) + Math.pow(surface[1][0]-surface[0][0], 2));
+  var plateau_slope = (plateau[1][1]-plateau[0][1]) / (plateau[1][0]-plateau[0][0]);
+  var plateau_width = distance(plateau[0], plateau[1]);
   // convert coordinates
-  var new_points = translate(surface_slope, surface[0][0], surface[0][1], border);
+  var new_points = translate(plateau_slope, plateau[0][0], plateau[0][1], border);
   // find maximum depth
   var max_depth = 0;
   for (var i = 0; i < new_points.length; i++){
@@ -195,7 +194,7 @@ function evaluateLesion(plateau, border, surface){
     }
   }
   // calculate lesion width at the surface
-  var width_0 = width_at_depth(new_points, 0);
+  var width_0 = width_at_depth(new_points, 0.03); // this constant can be adjusted
   // calculate lesion width at 50%
   var width_50 = width_at_depth(new_points, 0.5);
   // calculate lestion width at 95%
