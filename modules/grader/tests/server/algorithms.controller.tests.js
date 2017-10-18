@@ -25,7 +25,7 @@ describe("Test Coordinate Translation", function () {
 
 // ensure that the minimum distance function works
 describe("Test Minimum Distance Function", function() {
-  it('calculate the minimum distance a point and a two-dimensional surface', function(){
+  it('calculates the minimum distance a point and a two-dimensional surface', function(){
     var surface = [[0,0],[2,0],[4,2]];
     var point = [6,4];
     var distance = controller.min_distance(point, surface);
@@ -35,3 +35,35 @@ describe("Test Minimum Distance Function", function() {
     distance.should.be.approximately(Math.sqrt(2), 0.001);
   })
 });
+
+describe("Test Vertical Distance Function", function() {
+  it('calculates the vertical distance between two horizontal lines at a given x-value', function(){
+    var distance = controller.vertical_distance(2, [0,0], [5,0], [0,1], [5,1]);
+    distance.should.be.equal(1);
+  });
+  it('uses a slightly more complex scenario', function() {
+    var distance = controller.vertical_distance(2, [0,0], [4,0], [0,2], [4,4]);
+    distance.should.be.equal(3);
+  });
+});
+
+// ensure that the cartilage is properly analyzed
+describe("Test Cartilage Analysis", function() {
+  describe("test using flat lines", function() {
+    it('calculates the average width (and standard deviation) for segments of cartilage', function () {
+      var surface = [[1,1], [2,1], [3,1], [4,1], [5,1]];
+      var oc_interface = [[0,0], [1,0], [2,0], [4,0], [5,0]];
+      var data = controller.evaluateCartilage(surface, oc_interface, 3);
+      console.log(data);
+    })
+  });
+  describe("more complex case", function() {
+    it('calculates the average width (and standard deviation) for segments of cartilage', function() {
+      var surface = [[1.1,1], [2,1.5], [3.3,1.2], [4,1.3], [4.9,1], [5.7,1]];
+      var oc_interface = [[0,0], [1,0], [2,0], [4,0], [5,0], [7,0.5]];
+      var data = controller.evaluateCartilage(surface, oc_interface, 3);
+      console.log(data);
+    })
+  });
+});
+

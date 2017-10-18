@@ -59,7 +59,7 @@ function std(values){
   var total = 0;
   var mean = avg(values);
   for (var i = 0; i < values.length; i++){
-    total += Math.pow((total-mean), 2);
+    total += Math.pow((values[i]-mean), 2);
   }
   return Math.sqrt(total/values.length);
 }
@@ -68,7 +68,7 @@ exports.std = std;
 
 // helper function to determine if a number is between two values
 function between(num, bound1, bound2){
-  return (((bound1 > num) && (bound2 < num)) || ((bound1 < num) && (bound2 > num)))
+  return (((bound1 >= num) && (bound2 <= num)) || ((bound1 <= num) && (bound2 >= num)))
 }
 
 exports.between = between;
@@ -116,6 +116,22 @@ function min_distance(point, surface){
 }
 
 exports.min_distance = min_distance;
+
+// finds the vertical distance between two lines at a given x-value
+function vertical_distance(x, line1_p1, line1_p2, line2_p1, line2_p2){
+  // detect invalid values (not between x-ranges of both segments)
+  if (!(between(x, line1_p1[0], line1_p2[0]) && (between(x, line2_p1[0], line2_p2[0])))){
+    return NaN;
+  }
+  // find corresponding points on both lines
+  var slope1 = (line1_p1[1]-line1_p2[1]) / (line1_p1[0]-line1_p2[0]);
+  var slope2 = (line2_p1[1]-line2_p2[1]) / (line2_p1[0]-line2_p2[0]);
+  var y1 = line1_p1[1] + ((x - line1_p1[0]) * slope1);
+  var y2 = line2_p1[1] + ((x - line2_p1[0]) * slope2);
+  return Math.abs(y1-y2);
+}
+
+exports.vertical_distance = vertical_distance;
 
 // finds the width of a lesion at a given percentage of its maximum depth
 function width_at_depth (points, percent_depth){
@@ -177,7 +193,7 @@ exports.area = area;
 // acts as a wrapper for the area function
 function evaluateOsteophyte(border){
   return area(border);
-};
+}
 
 // analyzes lesion
 function evaluateLesion(plateau, border, surface){
@@ -206,19 +222,46 @@ function evaluateLesion(plateau, border, surface){
 
 // analyzes cartilage width, accepts two sets of points representing the cartilage surface and osteochondral interface
 function evaluateCartilage(surface, oc_interface, interval_count){
+  // transform coordinates so that a line between the ends of the OC interface is horizontal
+  var oc_slope = (oc_interface[oc_interface.length-1][1]-oc_interface[0][1]) /
+    (oc_interface[oc_interface.length-1][0]-oc_interface[0][0]);
+  var new_surface = translate(oc_slope, oc_interface[0][0], oc_interface[0][1], surface);
+  var new_interface = translate(oc_slope, oc_interface[0][0], oc_interface[0][1], oc_interface);
+  // compute boundaries and intervals
+  var interface_x = [];
+  var surface_x = [];
+  for (var i = 0; i < new_interface.length; i++){ interface_x.push(new_interface[i][0]); }
+  for (var i = 0; i < new_surface.length; i++){ surface_x.push(new_surface[i][0]); }
+  var lower = Math.max.apply(null, [Math.min.apply(null, interface_x), Math.min.apply(null, surface_x)]);
+  var upper = Math.min.apply(null, [Math.max.apply(null, interface_x), Math.max.apply(null, surface_x)]);
   var results = [];
-  var x_interval = (oc_interface[oc_interface.length-1][0] - oc_interface[0][0]) / interval_count;
-  for (var i = 0; i < interval-1; i++){
+  var x_interval = (upper-lower) / interval_count;
+  for (var i = 0; i < interval_count; i++){
     // find points within interval and their distances from the surface
     var points = [];
     var distances = [];
-    var lower_bound = oc_interface[0][0] + (x_interval*i);
-    var upper_bound = lower_bound + interval;
-    for (var j = 0; j < oc_interface.length; j++){
-      if (between(oc_interface[j][0], lower_bound, upper_bound)){
-        points.push(oc_interface[j]);
-        distances.push(min_distance(oc_interface, surface));
+    for (var j = 0; j < 10; j++){
+      var current_x = lower + (x_interval*i) + (x_interval*j/10);
+      // find boundary points in OC interface and define a line intersecting them
+      var line1_p1;
+      var line1_p2;
+      for (var k = 0; k < new_interface.length-1; k++){
+        if (between(current_x, new_interface[k][0], new_interface[k+1][0])){
+          line1_p1 = new_interface[k];
+          line1_p2 = new_interface[k+1];
+          break;
+        }
       }
+      var line2_p1;
+      var line2_p2;
+      for (var k = 0; k < surface.length-1; k++){
+        if (between(current_x, new_surface[k][0], new_surface[k+1][0])){
+          line2_p1 = new_surface[k];
+          line2_p2 = new_surface[k+1];
+          break;
+        }
+      }
+      distances.push(vertical_distance(current_x, line1_p1, line1_p2, line2_p1, line2_p2));
     }
     var mean = avg(distances);
     var deviation = std(distances);
@@ -226,6 +269,8 @@ function evaluateCartilage(surface, oc_interface, interval_count){
   }
   return results;
 }
+
+exports.evaluateCartilage = evaluateCartilage;
 
 /**
  * function to handle requests from the client
