@@ -68,6 +68,21 @@ var UserSchema = new Schema({
     type: String,
     trim: true
   },
+  organization: {
+    name: {
+      type: String,
+      trim: true
+    },
+    state: {
+      type: String,
+      trim: true
+    },
+    city: {
+      type: String,
+      lowercase: true,
+      trim: true
+    }
+  },
   email: {
     type: String,
     index: {
@@ -98,6 +113,45 @@ var UserSchema = new Schema({
     type: String,
     default: 'modules/users/client/img/profile/default.png'
   },
+  session: {
+    _id: Schema.Types.ObjectId,
+    created: Date,
+    expires: Number,
+    duration: Number,
+    finished: {
+      type: Boolean,
+      default: false
+    },
+    images: [{
+      name: String,
+      url: String,
+      gradingTime: Number,
+      grade: Number,
+      plateauWidth: [{ x: Number, y: Number }],
+      legionArea: [{ x: Number, y: Number }],
+      legionWidth: {
+        at0Depth: [{ x: Number, y: Number }],
+        at50Depth: [{ x: Number, y: Number }],
+        at100Depth: [{ x: Number, y: Number }]
+      },
+      legionMaxDepth: [{ x: Number, y: Number }],
+      legionMaxDepthLocation: [{ x: Number, y: Number }],
+      TotalSurfaceArea: [{ x: Number, y: Number }],
+      osteophyteWidth: [{ x: Number, y: Number }],
+      osteochondralInterface: [{ x: Number, y: Number }],
+      cartilageDepth: [{ x: Number, y: Number }]
+    }]
+  },
+  gradingHistory: [{
+    sessionID: String,
+    created: Date,
+    duration: Number,
+    results: [{
+      imageName: String,
+      gradingTime: Number,
+      grade: Number
+    }]
+  }],
   provider: {
     type: String,
     required: 'Provider is required'
