@@ -4,7 +4,7 @@
 .home-img {
   border-radius: 15px;
   -webkit-box-reflect: below 0 -webkit-gradient(linear, left top, left bottom, from(transparent), color-stop(70%, transparent) , to(rgba(250, 250, 250, 0.08)));
-  height: 225px;
+  width: 600px;
   margin: auto;
   margin-bottom: 10px;
 }
@@ -13,11 +13,26 @@
   margin-right: 5px;
   float: left;
 }
-
+.labLogo-img {
+  height: 50px;
+  float: right;
+}
+.home-body {
+  padding-bottom: 40px;
+}
+.home-footer {
+  padding-top: 20px;
+  padding-bottom: 50px;
+}
+.headline {
+  font-size: 80px;
+  font-weight: bold;
+}
+.sub-headline {
+  font-size: 25px;
+  font-style: italic;
+}
+.buttons-headline {
+  padding-top: 15px;
+}
 /* csslint ignore:end */
-footer {color:black;float:left;font-size:85%;margin-top:1em;padding:10px 0 15px 0;text-align:center;width:100%;}
-footer a{color:black;}
-footer a:hover{color:#888; text-decoration: none}
-footer ul{padding-right:390px;}
-footer ul a:hover{color:white;}
-footer li{display:inline;font-size:95%;padding-right:1px;padding-top:15px;}
