@@ -114,7 +114,6 @@ var UserSchema = new Schema({
     default: 'modules/users/client/img/profile/default.png'
   },
   session: {
-    _id: Schema.Types.ObjectId,
     created: Date,
     expires: Number,
     duration: Number,
@@ -122,34 +121,55 @@ var UserSchema = new Schema({
       type: Boolean,
       default: false
     },
+    imageIndex: Number,
     images: [{
       name: String,
       url: String,
       gradingTime: Number,
-      grade: Number,
-      plateauWidth: [{ x: Number, y: Number }],
-      legionArea: [{ x: Number, y: Number }],
+      plateauWidthPoints: [{ x: Number, y: Number }],
+      plateauWidth: Number,
+      legionAreaPoints: [{ x: Number, y: Number }],
+      legionArea: Number,
       legionWidth: {
-        at0Depth: [{ x: Number, y: Number }],
-        at50Depth: [{ x: Number, y: Number }],
-        at100Depth: [{ x: Number, y: Number }]
+        at0DepthPoints: [{ x: Number, y: Number }],
+        at0Depth: Number,
+        at50DepthPoints: [{ x: Number, y: Number }],
+        at50Depth: Number,
+        at100DepthPoints: [{ x: Number, y: Number }],
+        at100Depth: Number
       },
-      legionMaxDepth: [{ x: Number, y: Number }],
+      legionMaxDepthPoints: [{ x: Number, y: Number }],
+      legionMaxDepth: Number,
       legionMaxDepthLocation: [{ x: Number, y: Number }],
-      TotalSurfaceArea: [{ x: Number, y: Number }],
-      osteophyteWidth: [{ x: Number, y: Number }],
-      osteochondralInterface: [{ x: Number, y: Number }],
-      cartilageDepth: [{ x: Number, y: Number }]
+      totalSurfaceAreaPoints: [{ x: Number, y: Number }],
+      totalSurfaceArea: Number,
+      osteophyteWidthPoints: [{ x: Number, y: Number }],
+      osteophyteWidth: Number,
+      osteochondralInterfacePoints: [{ x: Number, y: Number }],
+      osteochondralInterface: Number,
+      cartilageDepthPoints: [{ x: Number, y: Number }],
+      cartilageDepth: Number
     }]
   },
   gradingHistory: [{
-    sessionID: String,
     created: Date,
     duration: Number,
     results: [{
       imageName: String,
       gradingTime: Number,
-      grade: Number
+      plateauWidth: Number,
+      legionArea: Number,
+      legionWidth: {
+        at0Depth: Number,
+        at50Depth: Number,
+        at100Depth: Number
+      },
+      legionMaxDepth: Number,
+      legionMaxDepthLocation: [{ x: Number, y: Number }],
+      totalSurfaceArea: Number,
+      osteophyteWidth: Number,
+      osteochondralInterface: Number,
+      cartilageDepth: Number
     }]
   }],
   provider: {
