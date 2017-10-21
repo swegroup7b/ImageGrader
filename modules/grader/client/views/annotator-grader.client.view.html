@@ -1,0 +1,21 @@
+<h1>This is the grader annotator thing</h1>
+<canvas annotator id="canvas" width="490" height="425"></canvas>
+<div class="text-window">
+  <div ng-show="currentAnnotation==0">
+    <h3>1. Fibial Palate</h3>
+    <p>Someone design this, 'cause I don't really know what should go here</p>
+  </div>
+  <div ng-show="currentAnnotation==1">
+    <h3>2. Cartilage Thing</h3>
+    <p>Brief instructions could go here</p>
+  </div>
+  <div ng-show="currentAnnotation==2">
+    <h3>3. Bone Intersection</h3>
+    <p>But maybe we don't need all of this detail idk.</p>
+  </div>
+  <div ng-show="currentAnnotation>2">
+    <h3>4+. This stays the same</h3>
+    <p>I guess we should do something</p>
+  </div>
+  <button ng-show="currentAnnotation>0" ng-click="goBack()">Back</button>
+</div>
