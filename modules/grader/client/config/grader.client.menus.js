@@ -24,14 +24,14 @@
 
     menuService.addSubMenuItem('topbar', 'grader', {
       title: 'Resume',
-      state: 'grader.annotater',
+      state: 'grader.annotator',
       roles: ['user', 'admin']
     });
 
     menuService.addMenuItem('topbar', {
       title: 'Grading History',
       state: 'history',
-      roles: ['user', 'admin'],
+      roles: ['user', 'admin']
     });
   }
 }());
