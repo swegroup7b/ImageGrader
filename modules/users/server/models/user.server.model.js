@@ -71,6 +71,7 @@ var UserSchema = new Schema({
   organization: {
     name: {
       type: String,
+      required: 'Please fill in your organization',
       trim: true
     },
     state: {
@@ -113,7 +114,11 @@ var UserSchema = new Schema({
     type: String,
     default: 'modules/users/client/img/profile/default.png'
   },
-  session: {
+  currentSessionIndex: {
+    type: Number,
+    default: 0
+  },
+  session: [{
     created: Date,
     expires: Number,
     duration: Number,
@@ -121,7 +126,10 @@ var UserSchema = new Schema({
       type: Boolean,
       default: false
     },
-    imageIndex: Number,
+    currentImageIndex: {
+      type: Number,
+      default: 0
+    },
     images: [{
       name: String,
       url: String,
@@ -149,27 +157,6 @@ var UserSchema = new Schema({
       osteochondralInterfacePoints: [{ x: Number, y: Number }],
       osteochondralInterface: Number,
       cartilageDepthPoints: [{ x: Number, y: Number }],
-      cartilageDepth: Number
-    }]
-  },
-  gradingHistory: [{
-    created: Date,
-    duration: Number,
-    results: [{
-      imageName: String,
-      gradingTime: Number,
-      plateauWidth: Number,
-      legionArea: Number,
-      legionWidth: {
-        at0Depth: Number,
-        at50Depth: Number,
-        at100Depth: Number
-      },
-      legionMaxDepth: Number,
-      legionMaxDepthLocation: [{ x: Number, y: Number }],
-      totalSurfaceArea: Number,
-      osteophyteWidth: Number,
-      osteochondralInterface: Number,
       cartilageDepth: Number
     }]
   }],
