@@ -1,6 +1,8 @@
 var assert = require('should'),
   path = require('path'),
   controller = require(path.resolve('../../server/controllers/algorithms.controller'));
+  //app = require(path.resolve('../../../../config/lib/express'))
+  //request = require('supertest');
 
 // ensures that the area function works
 describe("Test Area Function", function () {
@@ -67,3 +69,22 @@ describe("Test Cartilage Analysis", function() {
   });
 });
 
+describe('Test Lesion Analysis', function() {
+  it('tests the function with a simple trapazoidal region', function() {
+    var plateau = [[0,1], [4,1]];  // a horizontal line
+    var surface = [[0,0], [4,0]];
+    var border = [[0,0], [1,-1], [2,-1], [3,0]];
+    var data = controller.evaluateLesion(plateau, border, surface);
+    console.log(data);
+  });
+});
+
+/**
+// test router
+describe("test route", function (){
+  it('sends a message to /grade', function(){
+    request.post('/grade').body('{}').expect('200');
+  })
+});
+
+**/
