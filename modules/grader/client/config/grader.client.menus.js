@@ -31,7 +31,7 @@
     menuService.addMenuItem('topbar', {
       title: 'Grading History',
       state: 'history',
-      roles: ['user', 'admin'],
+      roles: ['user', 'admin']
     });
   }
 }());

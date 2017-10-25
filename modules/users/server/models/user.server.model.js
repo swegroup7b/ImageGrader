@@ -69,20 +69,9 @@ var UserSchema = new Schema({
     trim: true
   },
   organization: {
-    name: {
-      type: String,
-      required: 'Please fill in your organization',
-      trim: true
-    },
-    state: {
-      type: String,
-      trim: true
-    },
-    city: {
-      type: String,
-      lowercase: true,
-      trim: true
-    }
+    type: String,
+    required: 'Please fill in your organization',
+    trim: true
   },
   email: {
     type: String,
@@ -116,7 +105,7 @@ var UserSchema = new Schema({
   },
   currentSessionIndex: {
     type: Number,
-    default: 0
+    default: -1
   },
   session: [{
     created: Date,
