@@ -164,6 +164,7 @@ exports.me = function (req, res) {
       email: validator.escape(req.user.email),
       lastName: validator.escape(req.user.lastName),
       firstName: validator.escape(req.user.firstName),
+      organization: validator.escape(req.user.organization),
       additionalProvidersData: req.user.additionalProvidersData
     };
   }
