@@ -8,6 +8,12 @@
   margin: auto;
   margin-bottom: 10px;
 }
+.brand-img {
+  height: 20px;
+  margin-right: 5px;
+  float: left;
+}
+
 /* csslint ignore:end */
 footer {color:black;float:left;font-size:85%;margin-top:1em;padding:10px 0 15px 0;text-align:center;width:100%;}
 footer a{color:black;}
