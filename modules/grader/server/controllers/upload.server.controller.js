@@ -12,4 +12,5 @@ var path = require('path'),
 
 exports.upload = function (req, res) {
   console.log(req.files);
+  res.send();
 };
