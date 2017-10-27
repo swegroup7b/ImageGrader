@@ -135,19 +135,24 @@ exports.vertical_distance = vertical_distance;
 
 // finds the width of a lesion at a given percentage of its maximum depth
 function width_at_depth (points, percent_depth){
-  var max_depth = 0;
+  var lowest = 1000000;
+  var highest = -1000000;
   for (var i = 0; i < points.length; i++){
-    if (Math.abs(points[i][1]) > max_depth){
-      max_depth = Math.abs(points[i][1]);
+    if (points[i][1] < lowest){
+      lowest = points[i][1];
+    }
+    if (points[i][1] > highest){
+      highest = points[i][1];
     }
   }
   var pair1 = [];
   var pair2 = []; // defines the line segments that intersect with y = -max_depth/2
-  var target_depth = max_depth*percent_depth;
+  var target_y = highest - (Math.abs(highest-lowest)*percent_depth);
+  console.log(target_y);
   for (var i = 0; i < points.length; i++){
     if (i === 0){
       // if on the first point, compare with the last point
-      if (((points[points.length-1][1]+target_depth) * (points[0][1]+target_depth)) <= 0){
+      if (((points[points.length-1][1]-target_y) * (points[0][1]-target_y)) <= 0){
         // if the differences between the y-coordinates and half of max_depth have opposite signs
         if (pair1.length === 0) {
           pair1 = [points[0], points[points.length - 1]];
@@ -156,7 +161,7 @@ function width_at_depth (points, percent_depth){
         }
       }
     } else {
-      if (((points[i-1][1]+target_depth) * (points[i][1]+target_depth)) <= 0){
+      if (((points[i-1][1]-target_y) * (points[i][1]-target_y)) <= 0){
         if (pair1.length === 0) {
           pair1 = [points[i-1], points[i]];
         } else{
@@ -168,8 +173,8 @@ function width_at_depth (points, percent_depth){
   // find x-coordinates of intersections
   var slope1 = (pair1[1][1]-pair1[0][1]) / (pair1[1][0]-pair1[0][0]);
   var slope2 = (pair2[1][1]-pair2[0][1]) / (pair2[1][0]-pair2[0][0]);
-  var intersection1 = (-target_depth-pair1[0][1]) / slope1 + pair1[0][0];
-  var intersection2 = (-target_depth-pair2[0][1]) / slope2 + pair2[0][0];
+  var intersection1 = (target_y-pair1[0][1]) / slope1 + pair1[0][0];
+  var intersection2 = (target_y-pair2[0][1]) / slope2 + pair2[0][0];
   return Math.abs(intersection1-intersection2);
 }
 
@@ -199,14 +204,36 @@ function evaluateOsteophyte(border){
 function evaluateLesion(plateau, border, surface){
   var lesion_area = area(border);
   var plateau_slope = (plateau[1][1]-plateau[0][1]) / (plateau[1][0]-plateau[0][0]);
-  var plateau_width = distance(plateau[0], plateau[1]);
+  var surface_width = distance(surface[0], surface[1]);
   // convert coordinates
   var new_points = translate(plateau_slope, plateau[0][0], plateau[0][1], border);
   // find maximum depth
-  var max_depth = 0;
+  var highest = -1000000;
+  var lowest = 1000000;
   for (var i = 0; i < new_points.length; i++){
-    if (Math.abs(new_points[i][1]) > max_depth){
-      max_depth = Math.abs(new_points[i][1]);
+    if (new_points[i][1] > highest){
+      highest = new_points[i][1];
+    }
+    if (new_points[i][1] < lowest){
+      lowest = new_points[i][1];
+    }
+  }
+  var max_depth = highest - lowest;
+  // find position of maximum depth
+  var left_bound = 1000000;
+  var right_bound = -1000000;
+  for (var i = 0; i < new_points.length; i++){
+    if (new_points[i][0] < left_bound){
+      left_bound = new_points[i][0];
+    }
+    if (new_points[i][0] > right_bound){
+      right_bound = new_points[i][0];
+    }
+  }
+  var max_depth_pos = 0;
+  for (var i = 0; i < new_points.length; i++){
+    if (new_points[0][1] === lowest){
+      max_depth_pos = (new_points[i][0]-left_bound) / (right_bound-left_bound);  // as a fraction of the total width
     }
   }
   // calculate lesion width at the surface
@@ -216,9 +243,11 @@ function evaluateLesion(plateau, border, surface){
   // calculate lestion width at 95%
   var width_95 = width_at_depth(new_points, 0.95);
   // return data as JSON object
-  return {"area": lesion_area, "depth": max_depth, "surface": surface_width, "width_0": width_0, "width_50": width_50,
-    "width_95": width_95};
+  return {"area": lesion_area, "depth": max_depth, "max_depth_position": max_depth_pos, "surface": surface_width,
+    "width_0": width_0, "width_50": width_50, "width_95": width_95};
 }
+
+exports.evaluateLesion = evaluateLesion;
 
 // analyzes cartilage width, accepts two sets of points representing the cartilage surface and osteochondral interface
 function evaluateCartilage(surface, oc_interface, interval_count){
@@ -280,7 +309,6 @@ exports.evaluateCartilage = evaluateCartilage;
  *    [{"border": [(X1,Y1),...(Xn,Yn)]}, ...],
  *  "lesion": {
  *    "plateau": [(X1,Y1),(X2,Y2)],
- *    "depth": ...,
  *    "surface": [(X1,Y1),...(Xn,Yn)],
  *  },
  *  "interface": [(X1,Y1),...(Xn,Yn)],

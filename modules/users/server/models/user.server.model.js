@@ -233,7 +233,8 @@ UserSchema.statics.generateRandomPassphrase = function () {
 
 UserSchema.statics.seed = seed;
 
-mongoose.model('User', UserSchema);
+var User = mongoose.model('User', UserSchema);
+exports.User = User;
 
 /**
 * Seeds the User collection with document (User)
