@@ -26,7 +26,13 @@
         url: '/annotate',
         templateUrl: '/modules/grader/client/views/annotator-grader.client.view.html',
         controller: 'GraderController',
-        controllerAs: 'vm'
+        controllerAs: 'vm',
+        resolve: {
+          currentImage: function(GraderService) {
+            console.log("Resolving currentImage");
+            return GraderService.getImage();
+          }
+        }
       })
       .state('grader.results', {
         url: '/results',

@@ -1,89 +1,86 @@
 (function () {
   'use strict';
 
+
   // Users service used for communicating with the users REST endpoint
   angular
-    .module('grader.services')
+    .module('grader.routes')
     .factory('GraderService', GraderService);
+  GraderService.$inject = ['$http'];
 
-  GraderService.$inject = ['$resource'];
+  var index = 0;
+  var images = [
+    {
+      id: '1010',
+      url: '/modules/grader/client/img/D4_KDA_3.jpg',
+      step: 0
+    },
+    {
+      id: '2010',
+      url: '/modules/grader/client/img/D4_KDA_4.jpg',
+      step: 0
+    },
+    {
+      id: '2310',
+      url: '/modules/grader/client/img/D4_KDA_5.jpg',
+      step: 0
+    }
+  ];
 
-  function GraderService($resource) {
-    var Users = $resource('/api/users', {}, {
-      update: {
-        method: 'PUT'
+  function GraderService($http) {
+    var service = {
+      Annotation: Annotation,
+      getImage: function() {
+        // Replace this with an http requeset
+        console.log("Inside GraderService");
+        index = (index + 1) % images.length;
+        return images[index];
       },
-      updatePassword: {
-        method: 'POST',
-        url: '/api/users/password'
+      numImages: function() {
+        return images.length;
       },
-      deleteProvider: {
-        method: 'DELETE',
-        url: '/api/users/accounts',
-        params: {
-          provider: '@provider'
-        }
+      numCompleted: function() {
+        return index;
       },
-      sendPasswordResetToken: {
-        method: 'POST',
-        url: '/api/auth/forgot'
-      },
-      resetPasswordWithToken: {
-        method: 'POST',
-        url: '/api/auth/reset/:token'
-      },
-      signup: {
-        method: 'POST',
-        url: '/api/auth/signup'
-      },
-      signin: {
-        method: 'POST',
-        url: '/api/auth/signin'
-      }
-    });
+      annotationSteps: function() {
+        return [
+          {
+            name: "Fibial Palate",
+            color: "#ff0000",
+            type: "polygon"
+          },
+          {
+            name: "Ulner Thinga",
+            color: "#50ff00",
+            type: "line"
+          }
+        ]
 
-    angular.extend(Users, {
-      changePassword: function (passwordDetails) {
-        return this.updatePassword(passwordDetails).$promise;
       },
-      removeSocialAccount: function (provider) {
-        return this.deleteProvider({
-          provider: provider // api expects provider as a querystring parameter
-        }).$promise;
+      submitAnnotation: function(id, points) {
+        // Do some http request to submit annotation for the image
+        console.log("Submitting annotation");
       },
-      requestPasswordReset: function (credentials) {
-        return this.sendPasswordResetToken(credentials).$promise;
-      },
-      resetPassword: function (token, passwordDetails) {
-        return this.resetPasswordWithToken({
-          token: token // api expects token as a parameter (i.e. /:token)
-        }, passwordDetails).$promise;
-      },
-      userSignup: function (credentials) {
-        return this.signup(credentials).$promise;
-      },
-      userSignin: function (credentials) {
-        return this.signin(credentials).$promise;
-      }
-    });
+    };
 
-    return Users;
+    return service;
   }
 
-  // TODO this should be Users service
-  angular
-    .module('users.admin.services')
-    .factory('AdminService', AdminService);
+  function Annotation(step) {
+    this.pointX = [];
+    this.pointY = [];
+    this.annotationType = step.type;
+    this.strokeColor = step.color || "#ff0000";
+    this.strokeWidth = step.width || 2;
 
-  AdminService.$inject = ['$resource'];
+    this.addPoint = function(x, y) {
+      this.pointX.push(x);
+      this.pointY.push(y);
+    };
 
-  function AdminService($resource) {
-    return $resource('/api/users/:userId', {
-      userId: '@_id'
-    }, {
-      update: {
-        method: 'PUT'
-      }
-    });
+    this.clear = function() {
+      this.pointX = [];
+      this.pointY = [];
+    };
   }
 }());
