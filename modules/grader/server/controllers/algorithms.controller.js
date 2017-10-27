@@ -315,8 +315,8 @@ exports.evaluateCartilage = evaluateCartilage;
  *  "surface": [(X1,Y1),...(Xn,Yn)],
  * }
  */
-exports.analyze = function(req, res){
-  var data = JSON.parse(req.body);
+exports.gradingMiddleware = function(req, res, next){
+  var data = req.body;
   var results = {"lesion_properties": {}, "osteophyte_properties": [], "cartilage_widths": {}};
   // find area of each osteophyte
   for (var i = 0; i < data.osteophytes.length; i++){
@@ -327,6 +327,6 @@ exports.analyze = function(req, res){
   results.lesion_properties = evaluateLesion(data.lesion.plateau, data.lesion.border, data.lesion.surface);
   // find widths (along with standard deviation) over regular intervals
   results.cartilage_properties = evaluateCartilage(data.surface, data.interface, 3);
-
-  res.body = JSON.stringify(results);
+  res.grading = results;
+  next();
 };
