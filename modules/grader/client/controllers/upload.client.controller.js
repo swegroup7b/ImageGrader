@@ -12,8 +12,9 @@
       var vm = this;
 
       var uploader = $scope.uploader = new FileUploader({
-        url: '/api/grader/uploads'
+        url: '/api/grader/upload'
       });
+
       // FILTERS
 
       // a sync filter
@@ -55,7 +56,7 @@
           console.info('onProgressAll', progress);
       };
       uploader.onSuccessItem = function(fileItem, response, status, headers) {
-          console.info('onSuccessItem', fileItem, response, status, headers);
+          console.info('1 onSuccessItem', fileItem, response, status, headers);
       };
       uploader.onErrorItem = function(fileItem, response, status, headers) {
           console.info('onErrorItem', fileItem, response, status, headers);
@@ -67,7 +68,7 @@
           console.info('onCompleteItem', fileItem, response, status, headers);
       };
       uploader.onCompleteAll = function() {
-          console.info('onCompleteAll');
+          console.info('2 onCompleteAll');
       };
 
       console.info('uploader', uploader);

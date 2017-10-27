@@ -22,6 +22,7 @@ coverage/
 public/dist/
 uploads
 modules/users/client/img/profile/uploads
+uploaded-images
 config/env/local.js
 config/env/local-*.js
 *.pem
@@ -79,4 +80,3 @@ mongod
 *.ntvs*
 *.njsproj
 *.sln
-
