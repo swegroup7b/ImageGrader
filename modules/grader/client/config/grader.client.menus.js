@@ -6,7 +6,7 @@
     .run(menuConfig);
 
   menuConfig.$inject = ['menuService'];
-
+  console.log('Configuring the menu for grader');
   // Configuring the Grader module
   function menuConfig(menuService) {
     menuService.addMenuItem('topbar', {

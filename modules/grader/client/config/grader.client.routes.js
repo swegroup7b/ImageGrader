@@ -7,7 +7,6 @@
     .config(routeConfig);
 
   routeConfig.$inject = ['$stateProvider'];
-
   function routeConfig($stateProvider) {
     // Grader state routing
     $stateProvider
@@ -37,7 +36,7 @@
       .state('history', {
         url: '/history',
         templateUrl: '/modules/grader/client/views/history-grader.client.view.html',
-        controller: 'GraderController',
+        controller: 'resultController',
         controllerAs: 'vm'
       });
   }
