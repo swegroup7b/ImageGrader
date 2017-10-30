@@ -10,18 +10,16 @@ var path = require('path'),
   config = require(path.resolve('./config/config')),
   User = mongoose.model('User'),
   errorHandler = require(path.resolve('./modules/core/server/controllers/errors.server.controller')),
-  session = require('../services/session.js');
+  session = require('../services/session.server.service.js');
 
 exports.upload = function (req, res) {
   console.log(req.files);
 
-  session.newSession();
-  session.addImage();
-  session.newImage();
+  session.newSession(req.user);
+ session.addImage(req.user);
+  session.newImage(req.user);
 
-  //need more stuff here.
-
-
+  //may need more stuff here.
   res.send();
 
 };

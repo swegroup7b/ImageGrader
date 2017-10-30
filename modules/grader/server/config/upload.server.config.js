@@ -13,7 +13,7 @@ module.exports = function (app) {
 
   bb.extend(app, {
     upload: true,
-    path: 'uploaded-images',     //eventually will be google drive (possiblu)
+    path: 'public/uploaded-images',     //eventually will be google drive (possiblu)
     allowedPath: /./
   });
 
