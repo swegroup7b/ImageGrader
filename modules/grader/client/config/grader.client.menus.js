@@ -7,7 +7,7 @@
 
   menuConfig.$inject = ['menuService'];
 
-  // Configuring the Grader module
+  // Configure Grader menu
   function menuConfig(menuService) {
     menuService.addMenuItem('topbar', {
       title: 'Image Grader',

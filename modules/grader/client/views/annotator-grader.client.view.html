@@ -1,0 +1,10 @@
+<div style="text-align:center">
+<div class="text-window" style="margin:auto;position: relative">
+  <h3 style="display:inline-block">{{on.step+1}}. {{annotationSteps[on.step].name}}</h3>
+  <button style="position: absolute; top: 35px;right:10px" ng-disabled="on.step==0" ng-click="goBack()">Back</button>
+</div>
+<div style="display: inline-block; margin: auto;margin-top: 1em; background-color: rgba(50, 50, 50, .3); padding: 1em; border-radius: 1em">
+<canvas annotator style="display: block;padding:0px;margin: auto" id="canvas" width="500" height="375"></canvas>
+</div>
+<h4>Completed {{numCompleted}}/{{numImages}}<h4>
+</div>
