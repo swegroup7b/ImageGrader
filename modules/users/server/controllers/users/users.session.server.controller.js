@@ -21,8 +21,6 @@ exports.updateSession = function (req, res) {
 
   if (user) {
     user.session = req.body.session;
-    user.updated = Date.now();
-
     user.save(function (err) {
       if (err) {
         return res.status(422).send({
