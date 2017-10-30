@@ -3,7 +3,7 @@
 <html id="ng-app" ng-app="app"> <!-- id="ng-app" IE<8 -->
 
     <head>
-        <title>Simple example</title>
+        <title>Upload</title>
         <link rel="stylesheet" href="http://netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css" />
 
         <!-- Fix for old browsers -->
@@ -20,10 +20,18 @@
         <script src="controllers.js"></script>
 
         <style>
-            .my-drop-zone { border: dotted 3px lightgray; }
+            .my-drop-zone { border: dotted 3px lightgray; } /*may use these late if we need to implement a drop box*/
             .nv-file-over { border: dotted 3px red; } /* Default class applied to drop zones on over */
             .another-file-over-class { border: dotted 3px green; }
+            table{
+               overflow-y:scroll;
+               height:250px;
+               display:block;
+            }
+
             html, body { height: 100%; }
+
+
         </style>
 
     </head>
@@ -33,11 +41,9 @@
 
             <div class="row">
 
-                <div class="col-md-3">
+                <div class="col-md-3" style="padding: 10px">
 
-                    <h3>Please select the images that you would like to grade</h3>
-
-
+                    <h3 style="display: block; border: solid 3px lightgray; text-align: center">Please Select Image Files</h3>
 
                     <!-- Example: nv-file-select="" uploader="{Object}" options="{Object}" filters="{String}" -->
                     <input type="file" nv-file-select="" uploader="uploader" accept="image/*" multiple  /><br/>
@@ -46,8 +52,8 @@
                 <div class="col-md-9" style="margin-bottom: 40px">
 
                     <h3>Upload queue</h3>
-                    <p>Queue length: {{ uploader.queue.length }}</p>
-
+                    <p>Queue length: {{uploader.queue.length}}</p>
+                    <hr />
                     <table class="table">
                         <thead>
                             <tr>
@@ -86,7 +92,6 @@
                             </tr>
                         </tbody>
                     </table>
-
                     <div>
                         <div>
                             Queue progress:
@@ -106,6 +111,8 @@
                     </div>
 
                 </div>
+
+
 
             </div>
 

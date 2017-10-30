@@ -22,7 +22,7 @@
           name: 'syncFilter',
           fn: function(item /*{File|FileLikeObject}*/, options) {
               console.log('syncFilter');
-              return this.queue.length < 10;
+              return this.queue.length < 250;
           }
       });
 
@@ -72,7 +72,6 @@
       };
 
       console.info('uploader', uploader);
-
     }
 
 }());
