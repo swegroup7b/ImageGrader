@@ -20,40 +20,28 @@
         var status = true;
         if (password) {
           var result = PasswordValidator.getResult(password);
-          var requirementsIdx = 0;
 
           // Requirements Meter - visual indicator for users
-          var requirementsMeter = [{
-            color: 'danger',
-            progress: '20'
-          }, {
-            color: 'warning',
-            progress: '40'
-          }, {
-            color: 'info',
-            progress: '60'
-          }, {
-            color: 'primary',
-            progress: '80'
-          }, {
-            color: 'success',
-            progress: '100'
-          }];
+          var requirementsMeter = {
+            invalid: '0',
+            valid: '100',
+            invalidColor: 'danger',
+            validColor: 'success'
+          };
 
-          if (result.errors.length < requirementsMeter.length) {
-            requirementsIdx = requirementsMeter.length - result.errors.length - 1;
-          }
-
-          scope.requirementsColor = requirementsMeter[requirementsIdx].color;
-          scope.requirementsProgress = requirementsMeter[requirementsIdx].progress;
-
-          if (result.errors.length) {
+          if (result.requiredTestErrors.length) {
             scope.getPopoverMsg = PasswordValidator.getPopoverMsg();
-            scope.passwordErrors = result.errors;
+            scope.passwordErrors = result.requiredTestErrors;
+            scope.requirementsProgress = requirementsMeter.invalid;
+            scope.requirementsColor = requirementsMeter.invalidColor;
+            scope.requirementsDone = '';
             status = false;
           } else {
             scope.getPopoverMsg = '';
             scope.passwordErrors = [];
+            scope.requirementsProgress = requirementsMeter.valid;
+            scope.requirementsColor = requirementsMeter.validColor;
+            scope.requirementsDone = 'Valid';
             status = true;
           }
         }

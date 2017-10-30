@@ -1,21 +1,10 @@
-<h1>This is the grader annotator thing</h1>
-<canvas annotator id="canvas" width="490" height="425"></canvas>
-<div class="text-window">
-  <div ng-show="currentAnnotation==0">
-    <h3>1. Fibial Palate</h3>
-    <p>Someone design this, 'cause I don't really know what should go here</p>
-  </div>
-  <div ng-show="currentAnnotation==1">
-    <h3>2. Cartilage Thing</h3>
-    <p>Brief instructions could go here</p>
-  </div>
-  <div ng-show="currentAnnotation==2">
-    <h3>3. Bone Intersection</h3>
-    <p>But maybe we don't need all of this detail idk.</p>
-  </div>
-  <div ng-show="currentAnnotation>2">
-    <h3>4+. This stays the same</h3>
-    <p>I guess we should do something</p>
-  </div>
-  <button ng-show="currentAnnotation>0" ng-click="goBack()">Back</button>
+<div style="text-align:center">
+<div class="text-window" style="margin:auto;position: relative">
+  <h3 style="display:inline-block">{{on.step+1}}. {{annotationSteps[on.step].name}}</h3>
+  <button style="position: absolute; top: 35px;right:10px" ng-disabled="on.step==0" ng-click="goBack()">Back</button>
+</div>
+<div style="display: inline-block; margin: auto;margin-top: 1em; background-color: rgba(50, 50, 50, .3); padding: 1em; border-radius: 1em">
+<canvas annotator style="display: block;padding:0px;margin: auto" id="canvas" width="500" height="375"></canvas>
+</div>
+<h4>Completed {{numCompleted}}/{{numImages}}<h4>
 </div>

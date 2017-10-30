@@ -14,6 +14,8 @@ var path = require('path'),
 
 exports.upload = function (req, res) {
   console.log(req.files);
+
+  session.newSession();
   session.addImage();
   session.newImage();
 

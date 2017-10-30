@@ -7,7 +7,7 @@
 
   menuConfig.$inject = ['menuService'];
 
-  // Configuring the Grader module
+  // Configure Grader menu
   function menuConfig(menuService) {
     menuService.addMenuItem('topbar', {
       title: 'Image Grader',
@@ -24,7 +24,7 @@
 
     menuService.addSubMenuItem('topbar', 'grader', {
       title: 'Resume',
-      state: 'grader.annotator',
+      state: 'grader.annotater',
       roles: ['user', 'admin']
     });
 

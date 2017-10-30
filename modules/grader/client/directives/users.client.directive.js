@@ -14,70 +14,28 @@
 
     return directive;
 
-    function Annotation(type) {
-      this.pointX = [];
-      this.pointY = [];
-      this.annotationType = type;
-      this.strokeColor = "#df4b26";
-      this.strokeWidth = 2;
-
-      this.addPoint = function(x, y) {
-        this.pointX.push(x);
-        this.pointY.push(y);
-      }
-    }
-
     function link(scope, elem, attrs, modelCtrl) {
       var domElement = elem[0];
+      elem.addClass("annotator");
 
       var context =  domElement.getContext("2d");
       var offsetTop = domElement.getBoundingClientRect().top;
       var offsetLeft = domElement.getBoundingClientRect().left;
-
-      var annotations = new Array();
-      annotations.push(new Annotation("polygon"))
-      scope.currentAnnotation = 0;
 
       var mouseX;
       var mouseY;
       var mouseDown; // bool
 
       var mImage = new Image();
-      mImage.src = '/modules/grader/client/img/D4_KDA_5.jpg';
-      elem.addClass("annotator");
 
       angular.element(mImage).on('load', function() {
-        onReady();
+        console.log("Image loaded");
+        redraw();
       });
 
-      function onReady() {
-        redraw();
-      }
-
-      scope.goBack = function() {
-        if (scope.currentAnnotation > 0) {
-          annotations.pop();
-          scope.currentAnnotation--;
-          annotations[scope.currentAnnotation].pointX = [];
-          annotations[scope.currentAnnotation].pointY = [];
-          redraw();
-        }
-      }
-
-      //scope.clearAnnotation = clearAnnotation;
-      //scope.newAnnotation = newAnnotation;
-
-      function resetAnnotation() {
-        var ann = annotations[scope.currentAnnotation];
-        ann.pointX = [];
-        ann.pointY = [];
-      }
-
-      function finishAnnotation() {
-        annotations.push(new Annotation("polygon"));
-        scope.currentAnnotation += 1;
-        scope.$apply();
-      };
+      scope.$watch('on', function(newValue, oldValue) {
+        mImage.src = newValue.url;
+      });
 
       // If this polygon is being drawn interactively, show a line to
       // the current mouse position.
@@ -95,12 +53,29 @@
         context.stroke();
       }
 
-      function redraw(){
-        context.clearRect(0, 0, context.canvas.width, context.canvas.height); // Clears the canvas
-        context.drawImage(mImage, 0, 0, mImage.width, mImage.height);
+      scope.redraw = redraw;
 
-        for (var i = 0; i < annotations.length; i++) {
-          var annotation = annotations[i];
+      function drawImage() {
+        var width=490, height=425;
+        var canvasRatio = width/height;
+        var imageRatio = mImage.width/mImage.height;
+        // If the image is wider than ours, use their width to set the height
+
+        if (imageRatio > canvasRatio) {
+          height = width/imageRatio;
+        } else {
+          width = height * imageRatio;
+        }
+
+        context.drawImage(mImage, 0, 0, width, height);
+      }
+
+      function redraw(){
+        // Clear the canvas
+        context.clearRect(0, 0, domElement.width, domElement.height);
+        drawImage();
+        for (var i = 0; i < scope.annotations.length; i++) {
+          var annotation = scope.annotations[i];
           if (annotation.pointX.length == 0) {
             continue;
           }
@@ -109,19 +84,11 @@
           context.strokeStyle = annotation.strokeColor;
           context.lineWidth = annotation.strokeWidth;
 
-          var drawFunction;
-          switch (annotation.annotationType) {
-            case "polygon":
-              drawFunction = drawPolygon;
-              break;
-            default:
-              drawFunction = drawPolygon
-          }
 
-          if (scope.currentAnnotation == i) {
-            drawFunction(annotation.pointX, annotation.pointY, mouseX, mouseY);
+          if (scope.on.step == i) {
+            drawPolygon(annotation.pointX, annotation.pointY, mouseX, mouseY);
           } else {
-            drawFunction(annotation.pointX, annotation.pointY);
+            drawPolygon(annotation.pointX, annotation.pointY);
           }
         }
       }
@@ -131,7 +98,7 @@
         mouseY = e.pageY - this.offsetTop;
 
         console.log("Mouse Down, "+mouseX+", "+mouseY);
-        var ann = annotations[scope.currentAnnotation];
+        var ann = scope.annotations[scope.on.step];
 
         function dist(x1, y1, x2, y2) {
           return Math.sqrt(Math.pow(x1-x2,2) + Math.pow(y1-y2,2));
@@ -141,7 +108,7 @@
           case "polygon":
             if (dist(mouseX, mouseY, ann.pointX[0], ann.pointY[0]) < 10) {
               ann.addPoint(ann.pointX[0], ann.pointY[0]);
-              finishAnnotation();
+              scope.finishAnnotation();
             } else {
               ann.addPoint(mouseX, mouseY);
             }
@@ -149,7 +116,7 @@
           case "line":
             ann.addPoint(mouseX, mouseY);
             if (ann.pointX.length == 2) {
-              finishAnnotation();
+              scope.finishAnnotation();
             }
             break;
         }
@@ -160,8 +127,8 @@
         mouseX = e.pageX - this.offsetLeft;
         mouseY = e.pageY - this.offsetTop;
 
-        var ann = annotations[scope.currentAnnotation];
-        if (ann.annotationType == "polygon" && ann.pointX.length > 0) {
+        var ann = scope.annotations[scope.on.step];
+        if (ann.pointX.length > 0) {
           redraw();
         }
       });
@@ -176,7 +143,7 @@
 
       $document.on('keypress', function(e) {
         console.log('Key pressed: '+e.which);
-        resetAnnotation();
+        scope.resetAnnotation();
         redraw();
       });
     }
