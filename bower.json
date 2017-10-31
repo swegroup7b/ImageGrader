@@ -27,5 +27,8 @@
     "jquery": {
       "main": []
     }
+  },
+  "resolutions": {
+    "webcomponentsjs": "^0.6.0"
   }
 }

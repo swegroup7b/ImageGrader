@@ -1,0 +1,71 @@
+
+    <div class="container-fluid">
+      <div class="row" style="text-align: center">
+        <h1>Result Page</h1>
+      </div>
+
+
+        </div>
+
+<br>
+      <div class="container-fluid">
+      <div class="row" >
+        
+        
+            <div class="tableWrapper">
+
+            <table class="table table-striped table-hover ">
+            <thead>
+            <tr>
+             <th>ID</th>
+             <th>legionMaxDepth</th>
+             <th>Leision Area</th>  
+             <th>legionMaxDepthPoints.x</th>
+             <th>legionMaxDepthPoints.y</th>
+             <th>osteochondralInterface</th>
+             </tr>
+            </thead>
+                <tr ng-repeat="grader in results"  ng-click="showResults($index)">
+                <th>
+                <div id="codeBuilding" >
+                 {{grader.imageId}}
+                </div>
+                </th>
+
+                <th>
+                <div id="legionMaxDepth" >
+                 {{grader.legionMaxDepth}}
+                </div>
+                </th>
+                
+                <th>
+                <div id="cartilageDepth">
+                <p>{{grader.cartilageDepth}}</p>
+                </div>
+                </th>
+                <th>
+                <div id="legionMaxDepthPoints.x">
+                <p>{{grader.legionMaxDepthPoints.x}}</p>
+                </div>
+                </th>
+                <th>
+                <div id="legionMaxDepthPoints">
+                <p> {{grader.legionMaxDepthPoints.y}}</p>
+                </div>
+                </th>
+                <th>
+                <div id="osteochondralInterface">
+                <p> {{grader.osteochondralInterface}}</p>
+                </div>
+                </th>
+              </tr>
+
+           
+            </table>
+          </div>
+
+  
+         
+     
+    
+
