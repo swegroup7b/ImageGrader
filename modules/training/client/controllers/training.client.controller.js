@@ -9,21 +9,16 @@
 
   function TrainingController($scope, $state) {
     var vm = this;
- 
     $scope.currentAnnotation = 0;
- 
-    $scope.goBack = function(){
-    
-    	$scope.currentAnnotation -= 1;
-    
+    $scope.goBack = function() {
+      $scope.currentAnnotation -= 1;
     };
- 
-    $scope.goNext = function(){
-
-    	$scope.currentAnnotation += 1;
-    
+    $scope.goNext = function() {
+      $scope.currentAnnotation += 1;
     };
-  
+    $scope.goFirst = function() {
+      $scope.currentAnnotation = 0;
+    };
   }
 
 }());
