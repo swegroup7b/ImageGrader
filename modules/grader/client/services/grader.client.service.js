@@ -1,72 +1,16 @@
 (function () {
   'use strict';
 
-
   // Users service used for communicating with the users REST endpoint
   angular
     .module('grader.routes')
     .factory('GraderService', GraderService);
   GraderService.$inject = ['$http'];
 
-  var index = 0;
-  var images = [
-    {
-      id: '1010',
-      url: '/modules/grader/client/img/D4_KDA_3.jpg',
-      step: 0
-    },
-    {
-      id: '2010',
-      url: '/modules/grader/client/img/D4_KDA_4.jpg',
-      step: 0
-    },
-    {
-      id: '2310',
-      url: '/modules/grader/client/img/D4_KDA_5.jpg',
-      step: 0
-    }
-  ];
-
-  function GraderService($http) {
-    var service = {
-      Annotation: Annotation,
-      getImage: function() {
-        // Replace this with an http requeset
-        console.log("Inside GraderService");
-        index = (index + 1) % images.length;
-        return images[index];
-      },
-      numImages: function() {
-        return images.length;
-      },
-      numCompleted: function() {
-        return index;
-      },
-      annotationSteps: function() {
-        return [
-          {
-            name: "Fibial Palate",
-            color: "#ff0000",
-            type: "polygon"
-          },
-          {
-            name: "Ulner Thinga",
-            color: "#50ff00",
-            type: "line"
-          }
-        ]
-
-      },
-      submitAnnotation: function(id, points) {
-        // Do some http request to submit annotation for the image
-        console.log("Submitting annotation");
-      },
-    };
-
-    return service;
-  }
-
-  function Annotation(step) {
+  function Annotation(stepNumber) {
+    console.log("Creating annotation number: "+stepNumber);
+    var step = annotationSteps[stepNumber];
+    this.name = step.name;
     this.pointX = [];
     this.pointY = [];
     this.annotationType = step.type;
@@ -83,4 +27,107 @@
       this.pointY = [];
     };
   }
+
+  function GraderService($http) {
+    var service = {
+      Annotation: Annotation,
+      getImage: function() {
+        // Replace this with an http requeset
+        return $http({
+          method: 'GET',
+          url: '/api/grader/getImage'
+        }).then(function successCallback(response) {
+            return response.data;
+          }, function errorCallback(err) {
+            // called asynchronously if an error occurs
+            // or server returns response with an error status.
+            throw err;
+          });
+      },
+      numImages: function() {
+        return $http({
+          method: 'GET',
+          url: '/api/grader/totalImages'
+        }).then(function successCallback(response) {
+            console.log("Num images");
+            console.log(response);
+            return response.data.result;
+          }, function errorCallback(err) {
+            // called asynchronously if an error occurs
+            // or server returns response with an error status.
+            throw err;
+          });
+      },
+      numCompleted: function() {
+        return $http({
+          method: 'GET',
+          url: '/api/grader/currentImage'
+        }).then(function successCallback(response) {
+            return response.data.result;
+          }, function errorCallback(err) {
+            // called asynchronously if an error occurs
+            // or server returns response with an error status.
+            throw err;
+          });
+      },
+      submitAnnotation: function(annotation) {
+        var points = {};
+        points[annotation.name] = [];
+        for (var i = 0; i < annotation.pointX.length; i++) {
+          points[annotation.name].push([
+            annotation.pointX[i],
+            annotation.pointY[i]
+          ]);
+        }
+        return $http.post('/api/grader/grade', {
+          points: points
+        }, {}).then(
+          function successCallback(response) {
+            return response.data;
+          },
+          function errorCallback(err) {
+            // called asynchronously if an error occurs
+            // or server returns response with an error status.
+            throw err;
+          });
+      },
+      annotationSteps: function() {
+        return annotationSteps;
+      }
+    };
+    return service;
+  }
+
+  var annotationSteps = [
+    {
+      name: "osteophytePoints",
+      color: "#ff0000",
+      type: "line"
+    },
+    {
+      name: "plateauPoints",
+      color: "#50ff00",
+      type: "polygon"
+    },
+    {
+      name: "lesionBorderPoints",
+      color: "#50ff00",
+      type: "line"
+    },
+    {
+      name: "lesionSurfacePoints",
+      color: "#50ff00",
+      type: "polygon"
+    },
+    {
+      name: "interfacePoints",
+      color: "#50ff00",
+      type: "line"
+    },
+    {
+      name: "sufacePoints",
+      color: "#50ff00",
+      type: "polygon"
+    },
+  ];
 }());
