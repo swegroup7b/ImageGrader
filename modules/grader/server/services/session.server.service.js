@@ -31,8 +31,8 @@ function newSession(user, callback) {
     duration: 0,
     images: [],
   };
-  user.currentSessionIndex = user.session.length-1;
   user.session.push(session);
+  user.currentSessionIndex = user.session.length-1;
   user.save(function(err) {
     if (err) throw err;
     console.log("The session was changed. Index = "+user.currentSessionIndex);
@@ -61,11 +61,12 @@ function getImage(user) {
         name: 'IMage1.jpg',
         url: '/modules/grader/client/img/D4_KDA_3.jpg',
         step: 0
-      });
-      addImage(user, {
-        name: 'IMage1.jpg',
-        url: '/modules/grader/client/img/D4_KDA_4.jpg',
-        step: 0
+      }, function() {
+        addImage(user, {
+          name: 'IMage1.jpg',
+          url: '/modules/grader/client/img/D4_KDA_4.jpg',
+          step: 0
+        })
       });
     });
   } else {

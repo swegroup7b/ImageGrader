@@ -11,9 +11,12 @@ module.exports = function (app) {
   app.route('/api/grader/currentImage').get(grader.currentImage);
   app.route('/api/grader/totalImages').get(grader.totalImages);
   app.route('/api/grader/reset').get(function(req, res) {
-    req.user.session = [];
-    req.user.currentImageIndex = 0;
-    req.user.save();
-    res.send();
+
+    console.log(req.user);
+    req.user.set('session', []);
+    req.user.save(function(err){
+      if (err) throw err;
+      res.send();
+    });
   });
 };

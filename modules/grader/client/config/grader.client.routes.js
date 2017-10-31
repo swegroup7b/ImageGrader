@@ -19,10 +19,10 @@
       .state('grader.upload', {
         url: '/upload',
         templateUrl: '/modules/grader/client/views/upload-grader.client.view.html',
-        controller: 'GraderController',
+        controller: 'UploadController',
         controllerAs: 'vm'
       })
-      .state('grader.annotator', {
+      .state('grader.annotate', {
         url: '/annotate',
         templateUrl: '/modules/grader/client/views/annotator-grader.client.view.html',
         controller: 'GraderController',

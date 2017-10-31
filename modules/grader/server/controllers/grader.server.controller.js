@@ -55,7 +55,6 @@ exports.update = function(req, res) {
   if (user && points) {
 
     session.updateCurrentGrading(user, points);
-    console.log("Did this finish?");
     // Check whether the image is done grading.
     // For now, we'll say that the image is done
     // if we've graded the "cartilageDepthPoints"

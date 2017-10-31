@@ -8,9 +8,14 @@
   function GraderController($scope, $state, GraderService, currentImage) {
     var vm = $scope;
     var annotationSteps = vm.annotationSteps = GraderService.annotationSteps();
-    vm.on = currentImage;
-    vm.on.step = 0;
-    vm.annotations = [new GraderService.Annotation(vm.on.step)];
+    if (currentImage.url) {
+      vm.on = currentImage;
+      vm.on.step = 0;
+      vm.annotations = [new GraderService.Annotation(vm.on.step)];
+    } else {
+      vm.finished = true;
+    }
+
     GraderService.numImages().then(function(result) {
       vm.numImages = result;
     });
@@ -39,13 +44,17 @@
         if (vm.on.step == annotationSteps.length - 1) {
           // If this was the last annotation, fetch a new image from the server
           GraderService.getImage().then(function(result) {
-            vm.on = result;
-            vm.on.step = 0;
-            // reset the annotations
-            vm.annotations = [new GraderService.Annotation(vm.on.step)];
-            vm.numImages = GraderService.numImages();
-            vm.numCompleted++;
-            console.log(vm.on);
+            if (result) {
+              vm.on = result;
+              vm.on.step = 0;
+              // reset the annotations
+              vm.annotations = [new GraderService.Annotation(vm.on.step)];
+              vm.numImages = GraderService.numImages();
+              vm.numCompleted++;
+              console.log(vm.on);
+            } else {
+              vm.finished = true;
+            }
           });
         } else {
           // Go to the next annotation
