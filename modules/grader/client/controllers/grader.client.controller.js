@@ -5,24 +5,17 @@
     .module('grader')
     .controller('GraderController', GraderController);
 
-  function GraderController($scope, $state, GraderService) {
+  function GraderController($scope, $state, GraderService, currentImage) {
     var vm = $scope;
     var annotationSteps = vm.annotationSteps = GraderService.annotationSteps();
-    vm.on = {};
-
-    GraderService.getImage().then(function(result) {
-      console.log("Got image");
-      console.log(result);
-      console.log("Updating vm.on");
-      vm.on = result;
-      vm.on.step = 0;
-      vm.annotations = [new GraderService.Annotation(vm.on.step)];
-      GraderService.numImages().then(function(result) {
-        vm.numImages = result;
-      });
-      GraderService.numCompleted().then(function(result) {
-        vm.numCompleted = result;
-      });
+    vm.on = currentImage;
+    vm.on.step = 0;
+    vm.annotations = [new GraderService.Annotation(vm.on.step)];
+    GraderService.numImages().then(function(result) {
+      vm.numImages = result;
+    });
+    GraderService.numCompleted().then(function(result) {
+      vm.numCompleted = result;
     });
 
     vm.resetAnnotation = function() {

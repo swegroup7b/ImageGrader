@@ -1,57 +1,52 @@
-<section>
+<section class="home-body" ng-controller="HomeController as vm">
+
+  <div class="loader-container" id="page-loader"> 
+  <div class="loading-wrapper loading-wrapper-hide">
+    <div class="loader-animation" id="loader-animation">
+      <div class="sk-folding-cube">
+      <div class="sk-cube1 sk-cube"></div>
+      <div class="sk-cube2 sk-cube"></div>
+      <div class="sk-cube4 sk-cube"></div>
+      <div class="sk-cube3 sk-cube"></div>
+    </div>
+    </div>    
+    <div class="loader-name" id="loader-name">
+      <img src="/modules/core/client/img/home/LogoSmallTrans.png" alt="">
+    </div>
+  </div>   
+</div>
+
   <div class="jumbotron text-center">
     <div class="row">
-      <div class="col-md-6 col-md-offset-3 col-sm-6 col-sm-offset-3 col-xs-12">
-        <img alt="OthopedicPic" class="home-img img-responsive text-center" src="/modules/core/client/img/brand/logo.png" />
-        <h2>GEKO</h2>
-      </div>
-    </div>
-    <br>
-    <div class="row">
-      <p class="lead">
-        Open-Source HTML5 Image Grader
-      </p>
+      <img alt="OthopedicPic" class="home-img img-responsive text-center" src="/modules/core/client/img/home/orthopedicKnee.jpg" />
     </div>
     <div class="row">
+      <span class="headline">GEKO</span>
+      <br><span class="sub-headline">Open-Source HTML5 Image Grader</span>
+    </div>
+    <div class="row buttons-headline" ng-hide="vm.authentication.user">
       <p>
-        <a class="btn btn-primary btn-lg" ui-sref="authentication.signin">Login</a>
+        <a class="btn btn-primary btn-lg" ui-sref="authentication.signin">
+          <span class="glyphicon glyphicon-log-in"></span> Login
+        </a>
         <a class="btn btn-link btn-lg" ui-sref="authentication.signup">Sign Up</a>
       </p>
     </div>
   </div>
   <div>
-    <h2>Welcome to GEKO</h2>
-    <p>We created this so that your rat knee images can be graded faster than ever. Like, really fast.</p>
-    <p>In addition, we're looking to compare differences between how labs grade their rat knee photo collections, so we'd appreciate it if you'd be a dear and grade our pre-uploaded collection. Muchos gracis, e plurbus unum, dengdeng.</p>
-    <ul>
-      <li>
-        Click
-        <em>Sign Up</em> to get started.
-      </li>
-      <li>
-        Configure your app to work with your social accounts, by editing the
-        <em>/config/env/*.js</em> files.
-      </li>
-      <li>
-        Edit your users module.
-      </li>
-      <li>
-        Add new CRUD modules.
-      </li>
-      <li>
-        Have fun...
-      </li>
-    </ul>
+    <h1>Welcome</h1>
+
+    <p>GEKO (GUI for the Evaluation of Knee Osteoarthritis) is a custom image grading
+    system that evaluates frontal histological images of rodent knee OA. GEKO reads in
+    histological images and asks the user to identify certain features within the
+    joint before calculating the OARSI scores, saving the marked up images, and
+    writing the information to a result page.</p>
+
+    <p>If you do not already have an account, please register for free by clicking on
+    the "Sign Up" button above. Upon account creation, you will have full access to all
+    features of this application.
   </div>
-  <br>Enjoy &amp; Let Us Know What You Think!
-  <br>Sincerely,
-  <br>The UF Lab Thinggy
+  <div class="home-footer">
+    <img alt="UFBMALogo" class="labLogo-img" src="/modules/core/client/img/home/LogoSmallTrans.png" />
+  </div>
 </section>
-<footer>
-	<p class="footer-p1" style="margin-bottom: 0px;">Copyright ©  CEN3031 Software Engineering Group 7B, All rights reserved. <br>
-		<a href="#">Terms of Use</a> &nbsp;|&nbsp;
-		<a href="#">Contact Us</a>&nbsp; |&nbsp;
-		<a href="#">Send Comments to Webmaster</a>
-	</p>
-	<p class="footer-p2" style="margin-bottom: 0px;">Developed and hosted by CEN3031 Software Engineering Group 7B </p> <p class="footer-p2" style="margin-bottom: 0px;"><a href="#" target="_blank">University of Florida</a></p>
-</footer>
