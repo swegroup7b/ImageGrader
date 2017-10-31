@@ -6,9 +6,9 @@
     .controller('UploadController', UploadController);
 
 
-    UploadController.$inject = ['$scope', '$state', 'FileUploader'];
+    UploadController.$inject = ['$scope', '$state', '$http', 'FileUploader'];
 
-    function UploadController($scope, $state, FileUploader) {
+    function UploadController($scope, $state, $http, FileUploader) {
       var vm = this;
 
       var uploader = $scope.uploader = new FileUploader({
@@ -69,6 +69,16 @@
       };
       uploader.onCompleteAll = function() {
           console.info('2 onCompleteAll');
+          $http({
+            method: 'GET',
+            url: '/api/grader/doneUploading'
+          }).then(function successCallback(response) {
+              $state.go('grader.annotate');
+            }, function errorCallback(err) {
+              // called asynchronously if an error occurs
+              // or server returns response with an error status.
+              throw err;
+            });
       };
 
       console.info('uploader', uploader);

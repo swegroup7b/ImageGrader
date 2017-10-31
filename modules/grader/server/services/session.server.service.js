@@ -11,14 +11,14 @@ module.exports = {
 
 function currentImage(user) {
   var sessionIndex = user.currentSessionIndex;
-  if (sessionIndex < 0 || sessionIndex >= user.session.length) throw new Error("Invalid session");
+  if (sessionIndex < 0 || sessionIndex >= user.session.length) return undefined;
   var session = user.session[sessionIndex];
   return session.currentImageIndex;
 }
 
 function totalImages(user) {
   var sessionIndex = user.currentSessionIndex;
-  if (sessionIndex < 0 || sessionIndex >= user.session.length) throw new Error("Invalid session");
+  if (sessionIndex < 0 || sessionIndex >= user.session.length) return undefined;
   var session = user.session[sessionIndex];
   return session.images.length;
 }
@@ -30,6 +30,7 @@ function newSession(user, callback) {
     expires: 0,
     duration: 0,
     images: [],
+    currentImageIndex: -1
   };
   user.session.push(session);
   user.currentSessionIndex = user.session.length-1;
@@ -55,20 +56,8 @@ function addImage(user, image, callback) {
 function getImage(user) {
   var sessionIndex = user.currentSessionIndex;
   if (sessionIndex < 0 || sessionIndex >= user.session.length || user.session[sessionIndex].finished) {
-    console.log("Create a new session because this is invalid or finished");
-    newSession(user, function() {
-      addImage(user, {
-        name: 'IMage1.jpg',
-        url: '/modules/grader/client/img/D4_KDA_3.jpg',
-        step: 0
-      }, function() {
-        addImage(user, {
-          name: 'IMage1.jpg',
-          url: '/modules/grader/client/img/D4_KDA_4.jpg',
-          step: 0
-        })
-      });
-    });
+    console.log("Session is invalid or finished");
+    return;
   } else {
     // throw "Invalid session";
     console.log("Valid Session");
@@ -77,25 +66,28 @@ function getImage(user) {
     // Make sure we have a valid current image
     var imageIndex = session.currentImageIndex;
     if (imageIndex < 0 || imageIndex >= session.images.length) {
-      //throw new Error("Invalid image");
-      session.currentImageIndex = 0;
-      user.save();
+      console.log("Image index is "+imageIndex);
+      return null;
     }
     var image = session.images[imageIndex];
     console.log("Retrieved the current image");
+    console.log(session.images);
+    console.log(image);
     return image;
   }
 }
 
 // Make the session go to the next image
 function nextImage(user) {
-  console.log("Requesting the next time");
+  console.log("Requesting the next image");
   var sessionIndex = user.currentSessionIndex;
   if (sessionIndex < 0 || sessionIndex >= user.session.length) throw "Invalid session";
   var session = user.session[sessionIndex];
-
-  if (session.currentImageIndex == session.length - 1) {
+  console.log("Current: "+session.currentImageIndex);
+  console.log("Lenght-1: "+(session.images.length-1));
+  if (session.currentImageIndex == session.images.length - 1) {
     session.finished = true;
+    user.currentImageIndex = -1;
     user.save(function(err) {
       if (err) throw err;
       console.log("Finished the current session");
