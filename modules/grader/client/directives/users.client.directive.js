@@ -33,9 +33,14 @@
         redraw();
       });
 
+      // $scope.on contains the url of the current image
       scope.$watch('on', function(newValue, oldValue) {
+        console.log("$scope.on was changed");
         mImage.src = newValue.url;
       });
+
+      // refreshes the canvas based on the annotations in scope.annotations
+      scope.redraw = redraw;
 
       // If this polygon is being drawn interactively, show a line to
       // the current mouse position.
@@ -52,8 +57,6 @@
         context.closePath();
         context.stroke();
       }
-
-      scope.redraw = redraw;
 
       function drawImage() {
         var width=490, height=425;

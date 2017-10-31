@@ -123,30 +123,24 @@ var UserSchema = new Schema({
       name: String,
       url: String,
       gradingTime: Number,
-      plateauWidthPoints: [{ x: Number, y: Number }],
-      plateauWidth: Number,
-      legionAreaPoints: [{ x: Number, y: Number }],
-      legionArea: Number,
-      legionWidth: {
-        at0DepthPoints: [{ x: Number, y: Number }],
+      plateauPoints: [{ x: Number, y: Number }],
+      lesionArea: Number,
+      lesionWidth: {
         at0Depth: Number,
-        at50DepthPoints: [{ x: Number, y: Number }],
         at50Depth: Number,
-        at100DepthPoints: [{ x: Number, y: Number }],
-        at100Depth: Number
+        at95Depth: Number
       },
-      legionMaxDepthPoints: [{ x: Number, y: Number }],
-      legionMaxDepth: Number,
-      legionMaxDepthLocationPoints: [{ x: Number, y: Number }],
-      legionMaxDepthLocation: Number,
-      totalSurfaceAreaPoints: [{ x: Number, y: Number }],
-      totalSurfaceArea: Number,
-      osteophyteWidthPoints: [{ x: Number, y: Number }],
-      osteophyteWidth: Number,
+      lesionMaxDepthPosition: Number,
+      lesionMaxDepth: Number,
+      lesionSurfacePoints: [{ x: Number, y: Number }],
+      lesionSurfaceWidth: Number,
+      osteophyteAreaPoints: [{ x: Number, y: Number }],
+      osteophyteArea: Number,
       osteochondralInterfacePoints: [{ x: Number, y: Number }],
-      osteochondralInterface: Number,
-      cartilageDepthPoints: [{ x: Number, y: Number }],
-      cartilageDepth: Number
+      cartilageDepth: [{
+        avgDepth: Number,
+        std: Number
+      }]
     }]
   }],
   provider: {

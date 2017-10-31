@@ -24,7 +24,7 @@
 
     menuService.addSubMenuItem('topbar', 'grader', {
       title: 'Resume',
-      state: 'grader.annotater',
+      state: 'grader.annotate',
       roles: ['user', 'admin']
     });
 

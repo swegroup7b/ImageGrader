@@ -22,7 +22,7 @@
         controller: 'UploadController',
         controllerAs: 'vm'
       })
-      .state('grader.annotator', {
+      .state('grader.annotate', {
         url: '/annotate',
         templateUrl: '/modules/grader/client/views/annotator-grader.client.view.html',
         controller: 'GraderController',
@@ -43,7 +43,7 @@
       .state('history', {
         url: '/history',
         templateUrl: '/modules/grader/client/views/history-grader.client.view.html',
-        controller: 'GraderController',
+        controller: 'resultController',
         controllerAs: 'vm'
       });
 

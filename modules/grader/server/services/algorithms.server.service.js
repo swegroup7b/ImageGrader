@@ -315,18 +315,30 @@ exports.evaluateCartilage = evaluateCartilage;
  *  "surface": [(X1,Y1),...(Xn,Yn)],
  * }
  */
-exports.gradingMiddleware = function(req, res, next){
-  var data = req.body;
-  var results = {"lesion_properties": {}, "osteophyte_properties": [], "cartilage_widths": {}};
-  // find area of each osteophyte
-  for (var i = 0; i < data.osteophytes.length; i++){
-    var points = data.osteophytes[i].border;
-    results.osteophyte_properties.push(evaluateOsteophyte(points));
+exports.grade = function(data) {
+  console.log('Grading an image!');
+  var results = {'lesion_properties': {}, 'osteophyte_properties': [], 'cartilage_widths': {}};
+
+  if (data.osteophytePoints) {
+    //data.osteophytes = data.osteophytesPoints;
+    // find area of each osteophyte
+    //for (var i = 0; i < data.osteophytes.length; i++){
+      var points = data.osteophytePoints;
+      results.osteophyte_properties.push({
+        area: evaluateOsteophyte(points)
+      });
+    //}
   }
+
+  if (data.plateauPoints && data.lesionBorderPoints && data.lesionSurfacePoints) {
+    results.lesion_properties = evaluateLesion(data.plateauPoints, data.lesionBorderPoints, data.lesionSurfacePoints);
+  }
+
   // find properties of lesion
-  results.lesion_properties = evaluateLesion(data.lesion.plateau, data.lesion.border, data.lesion.surface);
   // find widths (along with standard deviation) over regular intervals
-  results.cartilage_properties = evaluateCartilage(data.surface, data.interface, 3);
-  res.grading = results;
-  next();
+  if (data.interfacePoints && data.surfacePoints) {
+    results.cartilage_properties = evaluateCartilage(data.surfacePoints, data.interfacePoints, 3);
+  }
+
+  return results;
 };
