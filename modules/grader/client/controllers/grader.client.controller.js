@@ -11,4 +11,8 @@
     var vm = this;
 
   }
+
+  function NextImage($scope){
+
+  }
 }());
