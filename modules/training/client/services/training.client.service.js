@@ -3,12 +3,12 @@
 
   // Users service used for communicating with the users REST endpoint
   angular
-    .module('grader.services')
-    .factory('GraderService', GraderService);
+    .module('training.services')
+    .factory('TrainingService', TrainingService);
 
-  GraderService.$inject = ['$resource'];
+  TrainingService.$inject = ['$resource'];
 
-  function GraderService($resource) {
+  function TrainingService($resource) {
     var Users = $resource('/api/users', {}, {
       update: {
         method: 'PUT'

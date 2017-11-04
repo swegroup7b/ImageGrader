@@ -68,6 +68,11 @@ var UserSchema = new Schema({
     type: String,
     trim: true
   },
+  organization: {
+    type: String,
+    required: 'Please fill in your organization',
+    trim: true
+  },
   email: {
     type: String,
     index: {
@@ -98,6 +103,46 @@ var UserSchema = new Schema({
     type: String,
     default: 'modules/users/client/img/profile/default.png'
   },
+  currentSessionIndex: {
+    type: Number,
+    default: -1
+  },
+  session: [{
+    created: Date,
+    expires: Number,
+    duration: Number,
+    finished: {
+      type: Boolean,
+      default: false
+    },
+    currentImageIndex: {
+      type: Number,
+      default: 0
+    },
+    images: [{
+      name: String,
+      url: String,
+      gradingTime: Number,
+      plateauPoints: [{ x: Number, y: Number }],
+      lesionArea: Number,
+      lesionWidth: {
+        at0Depth: Number,
+        at50Depth: Number,
+        at95Depth: Number
+      },
+      lesionMaxDepthPosition: Number,
+      lesionMaxDepth: Number,
+      lesionSurfacePoints: [{ x: Number, y: Number }],
+      lesionSurfaceWidth: Number,
+      osteophyteAreaPoints: [{ x: Number, y: Number }],
+      osteophyteArea: Number,
+      osteochondralInterfacePoints: [{ x: Number, y: Number }],
+      cartilageDepth: [{
+        avgDepth: Number,
+        std: Number
+      }]
+    }]
+  }],
   provider: {
     type: String,
     required: 'Provider is required'
@@ -146,8 +191,8 @@ UserSchema.pre('save', function (next) {
 UserSchema.pre('validate', function (next) {
   if (this.provider === 'local' && this.password && this.isModified('password')) {
     var result = owasp.test(this.password);
-    if (result.errors.length) {
-      var error = result.errors.join(' ');
+    if (result.requiredTestErrors.length) {
+      var error = result.requiredTestErrors.join(' ');
       this.invalidate('password', error);
     }
   }
@@ -233,7 +278,8 @@ UserSchema.statics.generateRandomPassphrase = function () {
 
 UserSchema.statics.seed = seed;
 
-mongoose.model('User', UserSchema);
+var User = mongoose.model('User', UserSchema);
+exports.User = User;
 
 /**
 * Seeds the User collection with document (User)

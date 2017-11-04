@@ -11,15 +11,20 @@
   function routeConfig($stateProvider) {
     // Training state routing
     $stateProvider
-      .state('tutorial', {
-        url: '/tutorial',
-        templateUrl: '/modules/training/client/views/start-training.client.view.html',
+      .state('training', {
+        abstract: true,
+        url: '/training',
+        template: '<ui-view/>'
+      })
+      .state('training.example', {
+        url: '',
+        templateUrl: '/modules/training/client/views/training.client.view.html',
         controller: 'TrainingController',
         controllerAs: 'vm'
       })
-      .state('imageset', {
-        url: '/imageset',
-        templateUrl: '/modules/training/client/views/imageset-training.client.view.html',
+      .state('training.interactive', {
+        url: '',
+        templateUrl: '/modules/training/client/views/interactive-training.client.view.html',
         controller: 'TrainingController',
         controllerAs: 'vm'
       });

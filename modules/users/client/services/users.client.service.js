@@ -13,6 +13,10 @@
       update: {
         method: 'PUT'
       },
+      updateSession: {
+        method: 'PUT',
+        url: '/api/users/session'
+      },
       updatePassword: {
         method: 'POST',
         url: '/api/users/password'

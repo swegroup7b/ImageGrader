@@ -6,9 +6,9 @@
     .module('grader.routes')
     .config(routeConfig);
 
-  routeConfig.$inject = ['$stateProvider'];
+  routeConfig.$inject = ['$stateProvider', '$urlRouterProvider'];
 
-  function routeConfig($stateProvider) {
+  function routeConfig($stateProvider, $urlRouterProvider) {
     // Grader state routing
     $stateProvider
       .state('grader', {
@@ -17,22 +17,37 @@
         template: '<ui-view/>'
       })
       .state('grader.upload', {
-        url: '',
+        url: '/upload',
         templateUrl: '/modules/grader/client/views/upload-grader.client.view.html',
-        controller: 'GraderController',
+        controller: 'UploadController',
         controllerAs: 'vm'
       })
-      .state('grader.annotater', {
-        url: '',
-        templateUrl: '/modules/grader/client/views/annotater-grader.client.view.html',
+      .state('grader.annotate', {
+        url: '/annotate',
+        templateUrl: '/modules/grader/client/views/annotator-grader.client.view.html',
         controller: 'GraderController',
-        controllerAs: 'vm'
+        controllerAs: 'vm',
+        resolve: {
+          currentImage: function(GraderService) {
+            console.log("Resolving currentImage");
+            return GraderService.getImage();
+          }
+        }
       })
       .state('grader.results', {
-        url: '',
+        url: '/results',
         templateUrl: '/modules/grader/client/views/results-grader.client.view.html',
         controller: 'GraderController',
         controllerAs: 'vm'
+      })
+      .state('history', {
+        url: '/history',
+        templateUrl: '/modules/grader/client/views/history-grader.client.view.html',
+        controller: 'resultController',
+        controllerAs: 'vm'
       });
+
+      $urlRouterProvider
+        .when('/grader', '/grader/annotate');
   }
 }());

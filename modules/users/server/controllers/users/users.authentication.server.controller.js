@@ -164,6 +164,7 @@ exports.saveOAuthUserProfile = function (req, providerUserProfile, done) {
           user = new User({
             firstName: providerUserProfile.firstName,
             lastName: providerUserProfile.lastName,
+            organization: providerUserProfile.organization,
             username: availableUsername,
             displayName: providerUserProfile.displayName,
             profileImageURL: providerUserProfile.profileImageURL,

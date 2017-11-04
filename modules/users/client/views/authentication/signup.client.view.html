@@ -1,5 +1,5 @@
 <div>
-  <h3 class="col-xs-12 text-center">Or sign up using your email</h3>
+  <h3 class="col-xs-12 text-center">Sign Up</h3>
   <div class="col-xs-offset-2 col-xs-8 col-md-offset-4 col-md-4">
     <form name="vm.userForm" ng-submit="vm.signup(vm.userForm.$valid)" class="signin" novalidate autocomplete="off">
       <fieldset>
@@ -15,6 +15,13 @@
           <input type="text" id="lastName" name="lastName" class="form-control" ng-model="vm.credentials.lastName" placeholder="Last Name" required>
           <div ng-messages="vm.userForm.lastName.$error" role="alert">
             <p class="help-block error-text" ng-message="required">Last name is required.</p>
+          </div>
+        </div>
+        <div class="form-group" show-errors>
+          <label for="organization">Organization</label>
+          <input type="text" id="organization" name="organization" class="form-control" ng-model="vm.credentials.organization" placeholder="Organization" required>
+          <div ng-messages="vm.userForm.organization.$error" role="alert">
+            <p class="help-block error-text" ng-message="required">Organization is required.</p>
           </div>
         </div>
         <div class="form-group" show-errors>
@@ -45,12 +52,12 @@
         </div>
         <div class="form-group" ng-show="!vm.userForm.password.$error.required">
           <label>Password Requirements</label>
-          <uib-progressbar value="requirementsProgress" type="{{requirementsColor}}"><span style="color:white; white-space:nowrap;">{{requirementsProgress}}%</span></uib-progressbar>
+          <uib-progressbar value="requirementsProgress" type="{{requirementsColor}}"><span style="color:white; white-space:nowrap;">{{requirementsDone}}</span></uib-progressbar>
         </div>
         <div class="text-center form-group">
-          <button type="submit" class="btn btn-primary">Sign up</button>
+          <button type="submit" class="btn btn-primary">Sign Up</button>
           &nbsp; or&nbsp;
-          <a ui-sref="authentication.signin" class="show-signup">Sign in</a>
+          <a ui-sref="authentication.signin" class="show-signup">Login</a>
         </div>
       </fieldset>
     </form>
