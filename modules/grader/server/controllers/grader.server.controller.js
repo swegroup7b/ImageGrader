@@ -39,6 +39,17 @@ exports.getImage = function(req, res) {
   }
 };
 
+exports.getSession = function(req, res) {
+  var user = req.user;
+  if(user) {
+    console.log("Getting sessions array")
+    res.json(session.getSession(user));
+  } else {
+    res.status(500);
+    res.send();
+  }
+}
+
 exports.update = function(req, res) {
   var user = req.user;
   var points = req.body.points;

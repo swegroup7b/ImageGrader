@@ -5,6 +5,7 @@ module.exports = {
   addImage: addImage,
   getImage: getImage,
   nextImage: nextImage,
+  getSession: getSession,
   updateCurrentGrading: updateCurrentGrading,
   clear: clear
 };
@@ -101,6 +102,20 @@ function nextImage(user) {
     if (err) throw err;
     console.log("Saved the session index to next image");
   });
+}
+
+// Retrieve session
+function getSession(user) {
+  // Make sure we have a valid session index
+  if (user.session.length == 0) {
+    console.log("No sessions available");
+    return null;
+  } else {
+    // Found session array with elements
+    var session = user.session;
+    console.log("Return session array");
+    return session;
+  }
 }
 
 // Set the grading for the current image
