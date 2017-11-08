@@ -113,7 +113,7 @@ function getSession(user) {
   } else {
     // Found session array with elements
     var session = user.session;
-    console.log("Return session array");
+    console.log("session.server.service: " + user.session[0].images[1].name);
     return session;
   }
 }

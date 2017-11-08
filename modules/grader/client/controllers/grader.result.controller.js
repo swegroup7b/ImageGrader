@@ -1,14 +1,17 @@
-angular.module('grader').controller('resultController', ['$scope', 'Listings', 
+(function () {
+  'use strict';
 
-  function($scope, Listings) {
-    console.log("Loading the controller");
-    $scope.results = Listings;
-    $scope.detailedInfo = undefined;
-     $scope.searchListing = function(input){
-    };
-    $scope.showResults = function(index){
-     $scope.results = $scope.listings[index];
-     console.log("results");
-    };
-  }
-]);
+  angular
+    .module('grader')
+    .controller('ResultController', ResultController);
+
+    //ResultController.$inject = ['$scope', '$state', '$http', 'GraderService'];
+
+    function ResultController($scope, $state, $http, GraderService) {
+      var vm = $scope;
+      GraderService.getSession().then(function(result) {
+        console.log("grader.result.controller: " + result[0].images[0].name);
+        vm.session = result;
+      });
+    }
+}());

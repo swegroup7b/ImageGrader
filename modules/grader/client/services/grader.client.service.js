@@ -44,6 +44,20 @@
             throw err;
           });
       },
+      getSession: function() {
+        // Replace this with an http requeset
+        return $http({
+          method: 'GET',
+          url: '/api/grader/getSession'
+        }).then(function successCallback(response) {
+            console.log(response);
+            return response.data;
+          }, function errorCallback(err) {
+            // called asynchronously if an error occurs
+            // or server returns response with an error status.
+            throw err;
+          });
+      },
       numImages: function() {
         return $http({
           method: 'GET',
