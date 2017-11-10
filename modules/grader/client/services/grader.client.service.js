@@ -50,6 +50,22 @@
           method: 'GET',
           url: '/api/grader/getSession'
         }).then(function successCallback(response) {
+            console.log("Current session array");
+            console.log(response);
+            return response.data;
+          }, function errorCallback(err) {
+            // called asynchronously if an error occurs
+            // or server returns response with an error status.
+            throw err;
+          });
+      },
+      getCurrentSessionIndex: function() {
+        // Replace this with an http request
+        return $http({
+          method: 'GET',
+          url: '/api/grader/getCurrentSessionIndex'
+        }).then(function successCallback(response) {
+            console.log("Current session index");
             console.log(response);
             return response.data;
           }, function errorCallback(err) {
