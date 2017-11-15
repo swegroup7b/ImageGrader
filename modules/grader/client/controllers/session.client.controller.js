@@ -3,9 +3,9 @@
 
   angular
     .module('grader')
-    .controller('ResultController', ResultController);
+    .controller('SessionController', SessionController);
 
-    function ResultController($scope, $state, $http, GraderService) {
+    function SessionController($scope, $state, $http, GraderService) {
       var vm = $scope;
 
       GraderService.getSession().then(function(result) {

@@ -1,1 +1,42 @@
-<h1>This is the grader results thing</h1>
+<div class="container-fluid">
+  <div class="row">
+      <h1>Result Page</h1>
+  </div>
+</div>
+<div class="outer table-responsive">
+  <div class="inner">
+    <table class="table table-bordered">
+        <tr>
+          <th class="hard_left">ID</th>
+          <th class="next_left">Name</th>
+          <th class="last_left">Image URL</th>
+          <th>Grading Time</th>
+          <th>Lesion Area</th>
+          <th>Lesion Width (0%)</th>
+          <th>Lesion Width (50%)</th>
+          <th>Lesion Width (95%)</th>
+          <th>Lesion Max Depth</th>
+          <th>Lesion Surface Width</th>
+          <th>Osteophyte Area</th>
+          <th>Cartilage Depth (Avg)</th>
+          <th>Cartilage Depth (Std)</th>
+        </tr>
+        <tr ng-repeat="image in allSessions[currentSessionIndex].images">
+          <td class="hard_left">{{$index}}</td>
+          <td class="next_left">{{image.name}}</td>
+          <td class="last_left"><a href="{{image.url}}">View</a></td>
+          <td>{{image.gradingTime}}</td>
+          <td>{{image.lesionArea}}</td>
+          <td>{{image.lesionWidth.at0Depth}}</td>
+          <td>{{image.lesionWidth.at50Depth}}</td>
+          <td>{{image.lesionWidth.at95Depth}}</td>
+          <td>{{image.lesionMaxDepth}}</td>
+          <td>{{image.lesionSurfaceWidth}}</td>
+          <td>{{image.osteophyteArea}}</td>
+          <td>{{image.cartilageDepth.avgDepth}}</td>
+          <td>{{image.cartilageDepth.std}}</td>
+        </tr>
+        <tr>
+    </table>
+  </div>
+</div>

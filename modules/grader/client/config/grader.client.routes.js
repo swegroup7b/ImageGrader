@@ -37,13 +37,13 @@
       .state('grader.results', {
         url: '/results',
         templateUrl: '/modules/grader/client/views/results-grader.client.view.html',
-        controller: 'GraderController',
+        controller: 'SessionController',
         controllerAs: 'vm'
       })
       .state('grader.history', {
         url: '/history',
         templateUrl: '/modules/grader/client/views/history-grader.client.view.html',
-        controller: 'ResultController',
+        controller: 'SessionController',
         controllerAs: 'vm'
       });
 
