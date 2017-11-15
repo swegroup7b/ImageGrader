@@ -7,7 +7,7 @@ var path = require('path'),
 module.exports = function (app) {
   // load controller
   app.route('/api/grader/getImage').get(grader.getImage);
-  app.route('/api/grader/grade').post(grader.update);
+  app.route('/api/grader/grade').post(grader.submitGrading);
   app.route('/api/grader/currentImage').get(grader.currentImage);
   app.route('/api/grader/totalImages').get(grader.totalImages);
   app.route('/api/grader/reset').get(function(req, res) {

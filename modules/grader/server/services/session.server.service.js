@@ -5,13 +5,23 @@ module.exports = {
   addImage: addImage,
   getImage: getImage,
   nextImage: nextImage,
-  updateCurrentGrading: updateCurrentGrading,
+  finishCurrentImage: finishCurrentImage,
   clear: clear
 };
 
+// Returns index while in a session
+// Returns -1 when a new session is created but not started
+// Returns undefined if the session is invalid
 function currentImage(user) {
   var sessionIndex = user.currentSessionIndex;
-  if (sessionIndex < 0 || sessionIndex >= user.session.length) return undefined;
+  // if the session is invalid, return undefined
+  if (sessionIndex < 0 || sessionIndex >= user.session.length) {
+    console.log("Session index is: "+sessionIndex);
+    console.log("Number of sessions is: "+users.session.length);
+    return undefined;
+  }
+
+  // otherwise return the current session value
   var session = user.session[sessionIndex];
   return session.currentImageIndex;
 }
@@ -30,7 +40,7 @@ function newSession(user, callback) {
     expires: 0,
     duration: 0,
     images: [],
-    currentImageIndex: -1
+    currentImageIndex: -1 // the user can uploading images
   };
   user.session.push(session);
   user.currentSessionIndex = user.session.length-1;
@@ -53,6 +63,8 @@ function addImage(user, image, callback) {
   user.save(callback);
 }
 
+// Returns undefined if there are no images left to grade
+// i.e. current session.finished is true
 function getImage(user) {
   var sessionIndex = user.currentSessionIndex;
   if (sessionIndex < 0 || sessionIndex >= user.session.length || user.session[sessionIndex].finished) {
@@ -87,7 +99,6 @@ function nextImage(user) {
   console.log("Lenght-1: "+(session.images.length-1));
   if (session.currentImageIndex == session.images.length - 1) {
     session.finished = true;
-    user.currentImageIndex = -1;
     user.save(function(err) {
       if (err) throw err;
       console.log("Finished the current session");
@@ -104,7 +115,7 @@ function nextImage(user) {
 }
 
 // Set the grading for the current image
-function updateCurrentGrading(user, grading) {
+function finishCurrentImage(user, grading) {
   // Make sure we have a valid session
   var sessionIndex = user.currentSessionIndex;
   if (sessionIndex < 0 || sessionIndex >= user.session.length) throw new Error("Invalid session");
@@ -112,23 +123,23 @@ function updateCurrentGrading(user, grading) {
 
   // Make sure we have a valid current image
   var imageIndex = session.currentImageIndex;
-  if (imageIndex < 0 || imageIndex >= session.images.length) throw new Error("Invalid image");
+  if (imageIndex < 0 || imageIndex >= session.images.length) {
+    console.log("Current index: " + imageIndex);
+    console.log("Session image count: "+session.images.length);
+    throw new Error("Invalid image");
+  }
   var image = session.images[imageIndex];
 
+  // Set the grading results
   for (var field in grading) {
     image[field] = grading[field];
-    console.log("Setting the image's points "+ field + " to "+grading[field]);
+    console.log("Setting the image's "+ field + " to "+grading[field]);
   }
 
-  // For now, assume this means the grading is done
-  if (grading["sufacePoints"]) {
-    nextImage(user);
-  }
-
-  user.save(function(err) {
-    if (err) throw err;
-    console.log("Saved the updated grading");
-  });
+  // Since the current image has been graded, advance to the next one
+  // (this function also saves the user object, and it finishes the
+  //  session if there are no images left)
+  nextImage(user);
 }
 
 // Delete images in the current session
