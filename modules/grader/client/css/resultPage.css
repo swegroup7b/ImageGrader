@@ -8,6 +8,11 @@ td, th {
   padding:10px;
   width:160px;
 }
+td {
+  height: 55px;
+  overflow:hidden;
+  overflow-wrap:break-word;
+}
 .hard_left {
   position:absolute;
   *position: relative; /*ie7*/
