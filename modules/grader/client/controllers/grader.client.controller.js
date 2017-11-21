@@ -39,38 +39,38 @@
       }
     };
 
-    vm.finishAnnotation = function() {
+    // This function is called by the grading directive whenever
+    // the user has inputted a new annotation
+    vm.addAnnotation = function(callback)  {
       console.log("Finishing Step "+vm.on.step);
-      // Update the server
-      GraderService.submitAnnotation(vm.annotations[vm.on.step]).then(function() {
-        if (vm.on.step == annotationSteps.length - 1) {
-          // If this was the last annotation, fetch a new image from the server
-          GraderService.getImage().then(function(result) {
+      // Update the server with the image's grading
+      if (vm.on.step == annotationSteps.length - 1) {
+        GraderService.submitGrading(vm.annotations)
+          .then(GraderService.getImage)
+          .then(function(result) {
             if (result) {
+              // there was a new image to fetch
               vm.on = result;
               vm.on.step = 0;
+
               // reset the annotations
-              vm.annotations = [new GraderService.Annotation(vm.on.step)];
-              vm.numImages = GraderService.numImages();
-              vm.numCompleted++;
-              console.log(vm.on);
+              vm.annotations = [new GraderService.Annotation(0)];
             } else {
+              // we're done grading images
               vm.finished = true;
             }
+            // the user has completed one more image
+            vm.numCompleted++;
           });
-        } else {
-          // Go to the next annotation
-          vm.on.step = (1 + vm.on.step) % annotationSteps.length;
-          vm.annotations.push(new GraderService.Annotation(vm.on.step));
-        }
-        GraderService.numImages().then(function(result) {
-          vm.numImages = result;
-        });      GraderService.numCompleted().then(function(result) {
-          vm.numCompleted = result;
-        });
-        vm.redraw();
-        //vm.$apply();
-      });
-    };
+      } else {
+        // Go to the next annotation
+        vm.on.step = (1 + vm.on.step) % annotationSteps.length;
+        vm.annotations.push(new GraderService.Annotation(vm.on.step));
+        vm.$apply();
+      }
+      if (callback) {
+        callback();
+      }
+    }
   }
 }());

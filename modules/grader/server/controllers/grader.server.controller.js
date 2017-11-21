@@ -1,5 +1,5 @@
-var session = require('../services/session.server.service.js');
-
+var session = require('../services/session.server.service.js'),
+  grader = require('../services/algorithms.server.service.js')
 exports.currentImage = function(req, res) {
   console.log("Getting the current index API");
   var user = req.user;
@@ -28,11 +28,6 @@ exports.getImage = function(req, res) {
   if (user) {
     console.log("Getting an image");
     res.json(session.getImage(user));
-    /*res.json({
-      name: 'IMage1.jpg',
-      url: '/modules/grader/client/img/D4_KDA_3.jpg',
-      step: 0
-    })*/
   } else {
     res.status(500);
     res.send();
@@ -61,22 +56,16 @@ exports.getCurrentSessionIndex = function(req, res) {
   }
 }
 
-exports.update = function(req, res) {
+exports.submitGrading = function(req, res) {
   var user = req.user;
   var points = req.body.points;
 
   console.log("Trying to update the grading");
-
-  //var pointsAndGrading = {};
-  //Object.assign(pointsAndGrading, points, grading);
-
-  //console.log("User: ");
-  //console.log(user);
-  console.log("Points: ");
+  // TODO: Verify that we have all the info we need
   console.log(points);
   if (user && points) {
-
-    session.updateCurrentGrading(user, points);
+    grading = grader.grade(points);
+    session.finishCurrentImage(user, grading);
     // Check whether the image is done grading.
     // For now, we'll say that the image is done
     // if we've graded the "cartilageDepthPoints"

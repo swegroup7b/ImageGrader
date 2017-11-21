@@ -79,9 +79,7 @@
           method: 'GET',
           url: '/api/grader/totalImages'
         }).then(function successCallback(response) {
-            console.log("Num images");
-            console.log(response);
-            return response.data.result;
+            return Math.max(0, response.data.result);
           }, function errorCallback(err) {
             // called asynchronously if an error occurs
             // or server returns response with an error status.
@@ -93,21 +91,24 @@
           method: 'GET',
           url: '/api/grader/currentImage'
         }).then(function successCallback(response) {
-            return response.data.result;
+            return Math.max(0, response.data.result);
           }, function errorCallback(err) {
             // called asynchronously if an error occurs
             // or server returns response with an error status.
             throw err;
           });
       },
-      submitAnnotation: function(annotation) {
+      submitGrading: function(annotations) {
         var points = {};
-        points[annotation.name] = [];
-        for (var i = 0; i < annotation.pointX.length; i++) {
-          points[annotation.name].push([
-            annotation.pointX[i],
-            annotation.pointY[i]
-          ]);
+        for (var i = 0; i < annotations.length; i++) {
+          var annotation = annotations[i];
+          points[annotation.name] = [];
+          for (var j = 0; j < annotation.pointX.length; j++) {
+            points[annotation.name].push([
+              annotation.pointX[j],
+              annotation.pointY[j]
+            ]);
+          }
         }
         return $http.post('/api/grader/grade', {
           points: points
@@ -118,6 +119,8 @@
           function errorCallback(err) {
             // called asynchronously if an error occurs
             // or server returns response with an error status.
+            alert("Internal error");
+            location.reload();
             throw err;
           });
       },
@@ -132,27 +135,27 @@
     {
       name: "osteophytePoints",
       color: "#ff0000",
-      type: "line"
+      type: "polygon"
     },
     {
       name: "plateauPoints",
       color: "#50ff00",
-      type: "polygon"
+      type: "line"
     },
     {
       name: "lesionBorderPoints",
       color: "#50ff00",
-      type: "line"
+      type: "polygon"
     },
     {
       name: "lesionSurfacePoints",
       color: "#50ff00",
-      type: "polygon"
+      type: "line"
     },
     {
       name: "interfacePoints",
       color: "#50ff00",
-      type: "line"
+      type: "polygon"
     },
     {
       name: "sufacePoints",
