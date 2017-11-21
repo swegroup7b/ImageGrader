@@ -7,7 +7,6 @@ module.exports = {
   nextImage: nextImage,
   getSession: getSession,
   getCurrentSessionIndex: getCurrentSessionIndex,
-  updateCurrentGrading: updateCurrentGrading,
   finishCurrentImage: finishCurrentImage,
   clear: clear
 };
