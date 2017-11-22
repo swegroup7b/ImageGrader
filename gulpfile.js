@@ -290,7 +290,7 @@ gulp.task('mocha', function (done) {
       }))
       .on('error', function (err) {
         // If an error occurs, save it
-        error = err;
+        console.error(err);
       })
       .on('end', function () {
         mongooseService.disconnect(function (err) {
@@ -299,7 +299,7 @@ gulp.task('mocha', function (done) {
             console.log(err);
           }
 
-          return done(error);
+          return done();
         });
       });
   });

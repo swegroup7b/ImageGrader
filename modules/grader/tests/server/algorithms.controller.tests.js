@@ -1,8 +1,6 @@
 var assert = require('should'),
   path = require('path'),
-  controller = require(path.resolve('../../server/controllers/algorithms.controller'));
-  //app = require(path.resolve('../../../../config/lib/express'))
-  //request = require('supertest');
+  controller = require(path.resolve('modules/grader/server/services/algorithms.server.service'));
 
 // ensures that the area function works
 describe("Test Area Function", function () {
@@ -73,9 +71,11 @@ describe('Test Lesion Analysis', function() {
   it('tests the function with a simple trapazoidal region', function() {
     var plateau = [[0,1], [4,1]];  // a horizontal line
     var surface = [[0,0], [4,0]];
-    var border = [[0,0], [1,-1], [2,-1], [3,0]];
+    var border = [[0,0], [1,-1], [1.5,-2], [2,-1], [3,0]];
     var data = controller.evaluateLesion(plateau, border, surface);
     console.log(data);
+    data.area.should.be.equal(2.5);
+    data.lesionWidth.at0Depth.should.be.equal(3);
   });
 });
 

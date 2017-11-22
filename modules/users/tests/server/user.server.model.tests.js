@@ -5,8 +5,8 @@
  */
 var should = require('should'),
   mongoose = require('mongoose'),
-  User = mongoose.model('User'),
   path = require('path'),
+  User = require(path.resolve('./modules/users/server/models/user.server.model')).User,
   config = require(path.resolve('./config/config'));
 
 /**
