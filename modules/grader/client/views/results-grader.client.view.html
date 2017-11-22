@@ -1,8 +1,12 @@
 <section>
   <div class="page-header">
     <div class="row">
-      <h1>Result Page</h1>
-    </div>
+      <div class="col-md-7">
+        <h1>Result Page</h1>
+      </div>
+      <div class="col-md-4" style="margin-top: 2.5em">
+        <input class="form-control" type="text" ng-model="search" placeholder="Search" ng-change="figureOutItemsToDisplay()" />
+      </div>
   </div>
   <div class="outer table-responsive">
     <div class="inner">
@@ -22,8 +26,8 @@
             <th>Cartilage Depth (Avg)</th>
             <th>Cartilage Depth (Std)</th>
           </tr>
-          <tr ng-repeat="image in allSessions[sessionIndex].images">
-            <td class="hard_left">{{$index}}</td>
+          <tr ng-repeat="image in pagedItems">
+            <td class="hard_left">{{images.indexOf(image)}}</td>
             <td class="next_left">{{image.name}}</td>
             <td class="last_left"><a href="{{image.url}}">View</a></td>
             <td>{{image.gradingTime}}</td>
@@ -41,4 +45,5 @@
       </table>
     </div>
   </div>
+  <uib-pagination boundary-links="true" max-size="8" items-per-page="itemsPerPage" total-items="filterLength" ng-model="currentPage" ng-change="pageChanged()"></uib-pagination>
 </section>

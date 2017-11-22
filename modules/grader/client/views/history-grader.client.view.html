@@ -1,15 +1,19 @@
 <section>
   <div class="page-header">
     <div class="row">
-      <h1>Grading History</h1>
-    </div>
+      <div class="col-md-7">
+        <h1>Grading History</h1>
+      </div>
+      <div class="col-md-4" style="margin-top: 2.5em">
+        <input class="form-control" type="text" ng-model="search" placeholder="Search" ng-change="figureOutItemsToDisplay()" />
+      </div>
   </div>
   <div class="list-group">
-    <a ng-repeat="session in allSessions" ng-click="setSessionIndex($index)" ui-sref="grader.results" class="list-group-item">
+    <a ng-repeat="session in pagedItems" ng-click="setSessionIndex(allSessions.indexOf(session))" ui-sref="grader.results" class="list-group-item">
       <h4 class="list-group-item-heading">Date: {{session.created.substr(0, 10)}}</h4>
-      <p class="list-group-item-text pull-right small">{{$index}}</p>
+      <p class="list-group-item-text pull-right small">{{allSessions.indexOf(session)}}</p>
       <p class="list-group-item-text">Finished: {{session.finished}}</p>
     </a>
   </div>
-  <uib-pagination boundary-links="true" max-size="8" items-per-page="vm.itemsPerPage" total-items="vm.filterLength" ng-model="vm.currentPage" ng-change="vm.pageChanged()"></uib-pagination>
+  <uib-pagination boundary-links="true" max-size="8" items-per-page="itemsPerPage" total-items="filterLength" ng-model="currentPage" ng-change="pageChanged()"></uib-pagination>
 </section>
