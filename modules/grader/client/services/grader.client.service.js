@@ -7,6 +7,9 @@
     .factory('GraderService', GraderService);
   GraderService.$inject = ['$http'];
 
+  // Shared session index variable
+  var sessionIndex = 0;
+
   function Annotation(stepNumber) {
     console.log("Creating annotation number: "+stepNumber);
     var step = annotationSteps[stepNumber];
@@ -59,20 +62,11 @@
             throw err;
           });
       },
-      getCurrentSessionIndex: function() {
-        // Replace this with an http request
-        return $http({
-          method: 'GET',
-          url: '/api/grader/getCurrentSessionIndex'
-        }).then(function successCallback(response) {
-            console.log("Current session index");
-            console.log(response);
-            return response.data;
-          }, function errorCallback(err) {
-            // called asynchronously if an error occurs
-            // or server returns response with an error status.
-            throw err;
-          });
+      getSessionIndex: function() {
+        return sessionIndex;
+      },
+      setSessionIndex: function(session) {
+        sessionIndex = session;
       },
       numImages: function() {
         return $http({

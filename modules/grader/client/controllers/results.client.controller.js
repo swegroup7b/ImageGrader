@@ -7,12 +7,9 @@
 
     function ResultsController($scope, $state, $http, GraderService) {
       var vm = $scope;
-
+      vm.sessionIndex = GraderService.getSessionIndex();
       GraderService.getSession().then(function(result) {
         vm.allSessions = result;
-      });
-      GraderService.getCurrentSessionIndex().then(function(result) {
-        vm.currentSessionIndex = result;
       });
     }
 }());

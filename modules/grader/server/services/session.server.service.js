@@ -6,7 +6,6 @@ module.exports = {
   getImage: getImage,
   nextImage: nextImage,
   getSession: getSession,
-  getCurrentSessionIndex: getCurrentSessionIndex,
   finishCurrentImage: finishCurrentImage,
   clear: clear
 };
@@ -128,13 +127,6 @@ function getSession(user) {
     console.log("Return session");
     return session;
   }
-}
-
-// Retrieve current session index
-function getCurrentSessionIndex(user) {
-  var currentSessionIndex = user.currentSessionIndex;
-  console.log("Return current session index");
-  return currentSessionIndex;
 }
 
 // Set the grading for the current image

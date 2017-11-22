@@ -5,12 +5,11 @@
     </div>
   </div>
   <div class="list-group">
-    <a ng-repeat="session in allSessions" class="list-group-item">
+    <a ng-repeat="session in allSessions" ng-click="setSessionIndex($index)" ui-sref="grader.results" class="list-group-item">
       <h4 class="list-group-item-heading">Date: {{session.created.substr(0, 10)}}</h4>
       <p class="list-group-item-text pull-right small">{{$index}}</p>
       <p class="list-group-item-text">Finished: {{session.finished}}</p>
     </a>
   </div>
-
   <uib-pagination boundary-links="true" max-size="8" items-per-page="vm.itemsPerPage" total-items="vm.filterLength" ng-model="vm.currentPage" ng-change="vm.pageChanged()"></uib-pagination>
 </section>

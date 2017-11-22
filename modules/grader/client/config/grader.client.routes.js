@@ -45,12 +45,6 @@
         templateUrl: '/modules/grader/client/views/history-grader.client.view.html',
         controller: 'HistoryController',
         controllerAs: 'vm'
-      })
-      .state('grader.history.results', {
-        url: '/history/results',
-        templateUrl: '/modules/grader/client/views/results-grader.client.view.html',
-        controller: 'ResultsController',
-        controllerAs: 'vm'
       });
 
       $urlRouterProvider

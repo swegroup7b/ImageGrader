@@ -11,5 +11,9 @@
       GraderService.getSession().then(function(result) {
         vm.allSessions = result;
       });
+
+      vm.setSessionIndex = function(index) {
+        GraderService.setSessionIndex(index);
+      };
     }
 }());
