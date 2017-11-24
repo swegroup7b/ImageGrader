@@ -7,6 +7,7 @@
       <div class="col-md-4" style="margin-top: 2.5em">
         <input class="form-control" type="text" ng-model="search" placeholder="Search" ng-change="figureOutItemsToDisplay()" />
       </div>
+    </div>
   </div>
   <div class="list-group">
     <a ng-repeat="session in pagedItems" ng-click="setSessionIndex(allSessions.indexOf(session))" ui-sref="grader.results" class="list-group-item">

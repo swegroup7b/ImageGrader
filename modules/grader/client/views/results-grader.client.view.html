@@ -1,12 +1,18 @@
 <section>
   <div class="page-header">
     <div class="row">
-      <div class="col-md-7">
-        <h1>Result Page</h1>
+      <div class="col-md-1">
+        <a class="btn btn-primary" ui-sref="grader.history" style="margin-top: 2.5em">
+          <span class="glyphicon glyphicon-arrow-left"></span>
+        </a>
+      </div>
+      <div class="col-md-6">
+        <h1 class="resultpage_title">Result Page</h1>
       </div>
       <div class="col-md-4" style="margin-top: 2.5em">
         <input class="form-control" type="text" ng-model="search" placeholder="Search" ng-change="figureOutItemsToDisplay()" />
       </div>
+    </div>
   </div>
   <div class="outer table-responsive">
     <div class="inner">
@@ -29,7 +35,7 @@
           <tr ng-repeat="image in pagedItems">
             <td class="hard_left">{{images.indexOf(image)}}</td>
             <td class="next_left">{{image.name}}</td>
-            <td class="last_left"><a href="{{image.url}}">View</a></td>
+            <td class="last_left"><a href="../{{image.url.substr(7)}}" target="_blank">View</a></td>
             <td>{{image.gradingTime}}</td>
             <td>{{image.lesionArea}}</td>
             <td>{{image.lesionWidth.at0Depth}}</td>

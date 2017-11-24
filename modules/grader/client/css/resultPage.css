@@ -13,6 +13,10 @@ td {
   overflow:hidden;
   overflow-wrap:break-word;
 }
+.resultpage_title {
+  margin-left: 2em;
+  display: inline-block;
+}
 .hard_left {
   position:absolute;
   *position: relative; /*ie7*/
