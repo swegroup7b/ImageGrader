@@ -10,6 +10,7 @@
     function ResultsController($scope, $state, $filter, $http, GraderService) {
       var vm = $scope;
       vm.sessionIndex = GraderService.getSessionIndex();
+      vm.transFromHistory = GraderService.getTransHistory();
       vm.buildPager = buildPager;
       vm.figureOutItemsToDisplay = figureOutItemsToDisplay;
       vm.pageChanged = pageChanged;

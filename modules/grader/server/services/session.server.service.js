@@ -6,6 +6,7 @@ module.exports = {
   getImage: getImage,
   nextImage: nextImage,
   getSession: getSession,
+  getCurrentSessionIndex: getCurrentSessionIndex,
   finishCurrentImage: finishCurrentImage,
   clear: clear
 };
@@ -126,6 +127,20 @@ function getSession(user) {
     var session = user.session;
     console.log("Return session");
     return session;
+  }
+}
+
+// Retrieve current session index
+function getCurrentSessionIndex(user) {
+  // Make sure there is at least one session
+  if (user.currentSessionIndex == -1) {
+    console.log("No sessions have been created");
+    return null;
+  } else {
+    // Found at least one session
+    var currentSessionIndex = user.currentSessionIndex;
+    console.log("Return current session index");
+    return currentSessionIndex;
   }
 }
 

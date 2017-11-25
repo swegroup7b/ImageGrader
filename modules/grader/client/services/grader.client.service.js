@@ -5,10 +5,11 @@
   angular
     .module('grader.routes')
     .factory('GraderService', GraderService);
-  GraderService.$inject = ['$http'];
+  GraderService.$inject = ['$http', '$state'];
 
   // Shared session index variable
   var sessionIndex = 0;
+  var transitionFromHistory = true;
 
   function Annotation(stepNumber) {
     console.log("Creating annotation number: "+stepNumber);
@@ -62,11 +63,19 @@
             throw err;
           });
       },
-      getSessionIndex: function() {
-        return sessionIndex;
-      },
-      setSessionIndex: function(session) {
-        sessionIndex = session;
+      getCurrentSessionIndex: function() {
+        // Replace this with an http request
+        return $http({
+          method: 'GET',
+          url: '/api/grader/getCurrentSessionIndex'
+        }).then(function successCallback(response) {
+            console.log("Current session index is" + response);
+            return response.data;
+          }, function errorCallback(err) {
+            // called asynchronously if an error occurs
+            // or server returns response with an error status.
+            throw err;
+          });
       },
       numImages: function() {
         return $http({
@@ -117,6 +126,18 @@
             location.reload();
             throw err;
           });
+      },
+      getSessionIndex: function() {
+        return sessionIndex;
+      },
+      setSessionIndex: function(session) {
+        sessionIndex = session;
+      },
+      getTransHistory: function() {
+        return transitionFromHistory;
+      },
+      setTransHistory: function(fromHistory) {
+        transitionFromHistory = fromHistory;
       },
       annotationSteps: function() {
         return annotationSteps;

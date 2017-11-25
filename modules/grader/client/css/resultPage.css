@@ -31,13 +31,13 @@ td {
 }
 .last_left {
   position:absolute;
-  *position: relative; /*ie7*/
+  *position: relative;
   left:240px;
   width:160px;
 }
 .outer {position:relative}
 .inner {
-  overflow-x:scroll;
+  overflow-x:auto;
   overflow-y:visible;
   margin-left:400px;
 }

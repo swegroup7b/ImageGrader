@@ -18,9 +18,14 @@
       vm.finished = true;
     }
 
+    GraderService.getCurrentSessionIndex().then(function(result) {
+      vm.currentSessionIndex = result;
+    });
+
     GraderService.numImages().then(function(result) {
       vm.numImages = result;
     });
+
     GraderService.numCompleted().then(function(result) {
       vm.numCompleted = result;
     });
@@ -37,6 +42,11 @@
         vm.annotations[vm.on.step].clear();
         vm.redraw();
       }
+    };
+
+    vm.setSessionIndex = function() {
+      GraderService.setSessionIndex(vm.currentSessionIndex);
+      GraderService.setTransHistory(false);
     };
 
     // This function is called by the grading directive whenever

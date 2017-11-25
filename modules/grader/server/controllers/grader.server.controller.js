@@ -45,6 +45,17 @@ exports.getSession = function(req, res) {
   }
 }
 
+exports.getCurrentSessionIndex = function(req, res) {
+  var user = req.user;
+  if(user) {
+    console.log("Getting current session index")
+    res.json(session.getCurrentSessionIndex(user));
+  } else {
+    res.status(500);
+    res.send();
+  }
+}
+
 exports.submitGrading = function(req, res) {
   var user = req.user;
   var points = req.body.points;
