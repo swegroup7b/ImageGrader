@@ -72,10 +72,16 @@ describe('Test Lesion Analysis', function() {
     var plateau = [[0,1], [4,1]];  // a horizontal line
     var surface = [[0,0], [4,0]];
     var border = [[0,0], [1,-1], [1.5,-2], [2,-1], [3,0]];
-    var data = controller.evaluateLesion(plateau, border, surface);
+    var input = {'plateauPoints': plateau, 'lesionBorderPoints': border, 'lesionSurfacePoints': surface};
+    var data = controller.grade(input);
     console.log(data);
-    data.area.should.be.equal(2.5);
-    data.lesionWidth.at0Depth.should.be.equal(3);
+    data.lesionArea.should.be.equal(2.5);
+    data.maxDepth.should.be.equal(2);
+    data.maxDepthPosition.should.be.equal(0.5);
+    data.lesionWidth.at0Depth.should.be.approximately(2.9, 0.1);
+    data.lesionWidth.at50Depth.should.be.approximately(1, 0.1);
+    data.lesionWidth.at95Depth.should.be.approximately(0.1, 0.1);
+    data.lesionSurfaceWidth.should.be.equal(4);
   });
 });
 

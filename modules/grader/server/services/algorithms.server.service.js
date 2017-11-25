@@ -232,7 +232,7 @@ function evaluateLesion(plateau, border, surface){
   }
   var max_depth_pos = 0;
   for (var i = 0; i < new_points.length; i++){
-    if (new_points[0][1] === lowest){
+    if (new_points[i][1] === lowest){
       max_depth_pos = (new_points[i][0]-left_bound) / (right_bound-left_bound);  // as a fraction of the total width
     }
   }
@@ -352,7 +352,7 @@ exports.grade = function(data) {
       'at50Depth': lesionProperties.width_50,
       'at95Depth': lesionProperties.width_95
     };
-    results['lesionSurfaceWidth'] = results.surface;
+    results['lesionSurfaceWidth'] = lesionProperties.surface;
   }
 
   // find properties of lesion
