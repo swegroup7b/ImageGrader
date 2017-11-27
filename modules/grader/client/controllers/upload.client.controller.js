@@ -45,6 +45,16 @@
       };
       uploader.onAfterAddingAll = function(addedFileItems) {
           console.info('onAfterAddingAll', addedFileItems);
+          $http({
+            method: 'GET',
+            url: '/api/grader/newSession'
+          }).then(function successCallback(response) {
+              console.log("Created new session");
+            }, function errorCallback(err) {
+              // called asynchronously if an error occurs
+              // or server returns response with an error status.
+              throw err;
+            });
       };
       uploader.onBeforeUploadItem = function(item) {
           console.info('onBeforeUploadItem', item);

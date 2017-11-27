@@ -5,7 +5,11 @@
   angular
     .module('grader.routes')
     .factory('GraderService', GraderService);
-  GraderService.$inject = ['$http'];
+  GraderService.$inject = ['$http', '$state'];
+
+  // Shared session index variable
+  var sessionIndex = 0;
+  var transitionFromHistory = true;
 
   function Annotation(stepNumber) {
     console.log("Creating annotation number: "+stepNumber);
@@ -44,14 +48,41 @@
             throw err;
           });
       },
+      getSession: function() {
+        // Replace this with an http requeset
+        return $http({
+          method: 'GET',
+          url: '/api/grader/getSession'
+        }).then(function successCallback(response) {
+            console.log("Current session array");
+            console.log(response);
+            return response.data;
+          }, function errorCallback(err) {
+            // called asynchronously if an error occurs
+            // or server returns response with an error status.
+            throw err;
+          });
+      },
+      getCurrentSessionIndex: function() {
+        // Replace this with an http request
+        return $http({
+          method: 'GET',
+          url: '/api/grader/getCurrentSessionIndex'
+        }).then(function successCallback(response) {
+            console.log("Current session index is" + response);
+            return response.data;
+          }, function errorCallback(err) {
+            // called asynchronously if an error occurs
+            // or server returns response with an error status.
+            throw err;
+          });
+      },
       numImages: function() {
         return $http({
           method: 'GET',
           url: '/api/grader/totalImages'
         }).then(function successCallback(response) {
-            console.log("Num images");
-            console.log(response);
-            return response.data.result;
+            return Math.max(0, response.data.result);
           }, function errorCallback(err) {
             // called asynchronously if an error occurs
             // or server returns response with an error status.
@@ -63,21 +94,24 @@
           method: 'GET',
           url: '/api/grader/currentImage'
         }).then(function successCallback(response) {
-            return response.data.result;
+            return Math.max(0, response.data.result);
           }, function errorCallback(err) {
             // called asynchronously if an error occurs
             // or server returns response with an error status.
             throw err;
           });
       },
-      submitAnnotation: function(annotation) {
+      submitGrading: function(annotations) {
         var points = {};
-        points[annotation.name] = [];
-        for (var i = 0; i < annotation.pointX.length; i++) {
-          points[annotation.name].push([
-            annotation.pointX[i],
-            annotation.pointY[i]
-          ]);
+        for (var i = 0; i < annotations.length; i++) {
+          var annotation = annotations[i];
+          points[annotation.name] = [];
+          for (var j = 0; j < annotation.pointX.length; j++) {
+            points[annotation.name].push([
+              annotation.pointX[j],
+              annotation.pointY[j]
+            ]);
+          }
         }
         return $http.post('/api/grader/grade', {
           points: points
@@ -88,8 +122,22 @@
           function errorCallback(err) {
             // called asynchronously if an error occurs
             // or server returns response with an error status.
+            alert("Internal error");
+            location.reload();
             throw err;
           });
+      },
+      getSessionIndex: function() {
+        return sessionIndex;
+      },
+      setSessionIndex: function(session) {
+        sessionIndex = session;
+      },
+      getTransHistory: function() {
+        return transitionFromHistory;
+      },
+      setTransHistory: function(fromHistory) {
+        transitionFromHistory = fromHistory;
       },
       annotationSteps: function() {
         return annotationSteps;
@@ -102,27 +150,27 @@
     {
       name: "osteophytePoints",
       color: "#ff0000",
-      type: "line"
+      type: "polygon"
     },
     {
       name: "plateauPoints",
       color: "#50ff00",
-      type: "polygon"
+      type: "line"
     },
     {
       name: "lesionBorderPoints",
       color: "#50ff00",
-      type: "line"
+      type: "polygon"
     },
     {
       name: "lesionSurfacePoints",
       color: "#50ff00",
-      type: "polygon"
+      type: "line"
     },
     {
       name: "interfacePoints",
       color: "#50ff00",
-      type: "line"
+      type: "polygon"
     },
     {
       name: "sufacePoints",

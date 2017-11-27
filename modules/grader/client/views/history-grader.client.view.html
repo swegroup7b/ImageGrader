@@ -1,65 +1,20 @@
-
-    <div class="container-fluid">
-      <div class="row" style="text-align: center">
-        <h1>Result Page</h1>
+<section>
+  <div class="page-header">
+    <div class="row">
+      <div class="col-md-7">
+        <h1>Grading History</h1>
       </div>
-
-
-        </div>
-
-<br>
-      <div class="container-fluid">
-      <div class="row" >
-
-
-            <div class="tableWrapper">
-
-            <table class="table table-striped table-hover ">
-            <thead>
-            <tr>
-             <th>ID</th>
-             <th>legionMaxDepth</th>
-             <th>Leision Area</th>
-             <th>legionMaxDepthPoints.x</th>
-             <th>legionMaxDepthPoints.y</th>
-             <th>osteochondralInterface</th>
-             </tr>
-            </thead>
-                <tr ng-repeat="grader in results"  ng-click="showResults($index)">
-                <th>
-                <div id="codeBuilding" >
-                 {{grader.imageId}}
-                </div>
-                </th>
-
-                <th>
-                <div id="legionMaxDepth" >
-                 {{grader.legionMaxDepth}}
-                </div>
-                </th>
-
-                <th>
-                <div id="cartilageDepth">
-                <p>{{grader.cartilageDepth}}</p>
-                </div>
-                </th>
-                <th>
-                <div id="legionMaxDepthPoints.x">
-                <p>{{grader.legionMaxDepthPoints.x}}</p>
-                </div>
-                </th>
-                <th>
-                <div id="legionMaxDepthPoints">
-                <p> {{grader.legionMaxDepthPoints.y}}</p>
-                </div>
-                </th>
-                <th>
-                <div id="osteochondralInterface">
-                <p> {{grader.osteochondralInterface}}</p>
-                </div>
-                </th>
-              </tr>
-
-
-            </table>
-          </div>
+      <div class="col-md-4" style="margin-top: 2.5em">
+        <input class="form-control" type="text" ng-model="search" placeholder="Search" ng-change="figureOutItemsToDisplay()" />
+      </div>
+    </div>
+  </div>
+  <div class="list-group">
+    <a ng-repeat="session in pagedItems" ng-click="setSessionIndex(allSessions.indexOf(session))" ui-sref="grader.results" class="list-group-item">
+      <h4 class="list-group-item-heading">Date: {{session.created.substr(0, 10)}}</h4>
+      <p class="list-group-item-text pull-right small">{{allSessions.indexOf(session)}}</p>
+      <p class="list-group-item-text">Finished: {{session.finished}}</p>
+    </a>
+  </div>
+  <uib-pagination boundary-links="true" max-size="8" items-per-page="itemsPerPage" total-items="filterLength" ng-model="currentPage" ng-change="pageChanged()"></uib-pagination>
+</section>
