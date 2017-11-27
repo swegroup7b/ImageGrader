@@ -1,4 +1,4 @@
-Project​ ​Workflow
+### Project​ ​Workflow
 To facilitate proper software management, the following project workflow will be used by our
 team while managing our GitHub repository at https://github.com/swegroup7b/ImageGrader:
 ● Our git repository will have two long-term branches: the dev branch and the master
