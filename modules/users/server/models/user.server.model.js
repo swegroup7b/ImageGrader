@@ -122,8 +122,6 @@ var UserSchema = new Schema({
     images: [{
       name: String,
       url: String,
-      gradingTime: Number,
-      plateauPoints: [{ x: Number, y: Number }],
       lesionArea: Number,
       lesionWidth: {
         at0Depth: Number,
@@ -132,11 +130,8 @@ var UserSchema = new Schema({
       },
       lesionMaxDepthPosition: Number,
       lesionMaxDepth: Number,
-      lesionSurfacePoints: [{ x: Number, y: Number }],
       lesionSurfaceWidth: Number,
-      osteophyteAreaPoints: [{ x: Number, y: Number }],
       osteophyteArea: Number,
-      osteochondralInterfacePoints: [{ x: Number, y: Number }],
       cartilageDepth: [{
         avgDepth: Number,
         std: Number
