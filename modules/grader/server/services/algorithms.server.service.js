@@ -345,8 +345,8 @@ exports.grade = function(data) {
   if (data.plateauPoints && data.lesionBorderPoints && data.lesionSurfacePoints) {
     var lesionProperties = evaluateLesion(data.plateauPoints, data.lesionBorderPoints, data.lesionSurfacePoints);
     results['lesionArea'] = lesionProperties.area;
-    results['maxDepth'] = lesionProperties.depth;
-    results['maxDepthPosition'] = lesionProperties.maxDepthPosition;
+    results['lesionMaxDepth'] = lesionProperties.depth;
+    results['lesionMaxDepthPosition'] = lesionProperties.maxDepthPosition;
     results['lesionWidth'] = {
       'at0Depth': lesionProperties.width_0,
       'at50Depth': lesionProperties.width_50,
@@ -358,7 +358,7 @@ exports.grade = function(data) {
   // find properties of lesion
   // find widths (along with standard deviation) over regular intervals
   if (data.interfacePoints && data.surfacePoints) {
-    results.cartilageDepth = evaluateCartilage(data.surfacePoints, data.interfacePoints, 3);
+    results['cartilageDepth'] = evaluateCartilage(data.surfacePoints, data.interfacePoints, 3);
   }
 
   return results;
