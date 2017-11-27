@@ -9,7 +9,6 @@ var express = require(path.resolve(__dirname, './config/lib/express'));
 var app,
 agent;
 
-
 describe('upload', function() {
 
   before(function (done) {
@@ -18,7 +17,6 @@ describe('upload', function() {
    agent = request.agent(app);
   done();
 });
-
 
     it('an image file', function(done) {
        request.post('/api/grader/upload')
