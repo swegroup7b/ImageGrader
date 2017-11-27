@@ -137,10 +137,10 @@ var UserSchema = new Schema({
       osteophyteAreaPoints: [{ x: Number, y: Number }],
       osteophyteArea: Number,
       osteochondralInterfacePoints: [{ x: Number, y: Number }],
-      cartilageDepth: {
+      cartilageDepth: [{
         avgDepth: Number,
         std: Number
-      }
+      }]
     }]
   }],
   provider: {
