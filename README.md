@@ -1,5 +1,5 @@
 # GUI for the Evaluation of Knee Osteoarthritis (GEKO) Image Grader
-This is a project that has been done on behalf of Dr. Kyle D. Allen and his Biomedical Engineering Osteoarthritis lab. See his [website](https://www.bme.ufl.edu/people/allen_kyle) for more information on his research. This web application was build by University of Florida students for CEN3031, Introduction to Software Engineering, under the instruction of Dr. Christine Gardner-McCune.
+This is a project that has been done on behalf of [Dr. Kyle D. Allen](https://www.bme.ufl.edu/people/allen_kyle) and his [Orthopedic Biomedical Engineering Lab](http://bme.ufl.edu/labs/allen/). This web application was build by University of Florida students for CEN3031, Introduction to Software Engineering, under the instruction of Dr. Christine Gardner-McCune.
 
 The software development teams consists of:
 * Erol Bahadiroglu: Development Team
