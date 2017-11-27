@@ -25,7 +25,7 @@ $ docker run -p 3000:3000 --link db:db_1 mean
 ```
 
 ## Contributing
-We welcome pull requests from the community! Just be sure to read the [contributing](https://github.com/swegroup7b/ImageGrader/master/CONTRIBUTING.md) doc to get started.
+We welcome pull requests from the community! Just be sure to read the [contributing](/CONTRIBUTING.md) doc to get started.
 
 ## Credits
 * Thank you to Dr. Allen for giving us the opportunity to work on this project!
