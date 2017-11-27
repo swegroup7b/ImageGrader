@@ -12,6 +12,7 @@ var path = require('path'),
   errorHandler = require(path.resolve('./modules/core/server/controllers/errors.server.controller')),
   session = require('../services/session.server.service.js');
 
+//sends a response when all of the uploads have been completed
 exports.doneUploading = function(req, res) {
   req.user.session[req.user.currentSessionIndex].currentImageIndex = 0;
   req.user.save(function(err) {
@@ -20,6 +21,7 @@ exports.doneUploading = function(req, res) {
   });
 }
 
+//uploads the file. if a session does not exist, a new session is created first.
 exports.upload = function (req, res) {
   console.log(req.files);
   if (session.currentImage(req.user) === undefined) {
@@ -28,6 +30,7 @@ exports.upload = function (req, res) {
     addImage();
   }
 
+//function that adds a new image to the session.
   function addImage() {
     session.addImage(req.user, {
       name: req.files.file.filename,
