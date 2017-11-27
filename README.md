@@ -1,6 +1,8 @@
-### Project​ ​Workflow
+## Project​ ​Workflow
 To facilitate proper software management, the following project workflow will be used by our
-team while managing our GitHub repository at https://github.com/swegroup7b/ImageGrader:
+team while managing our GitHub repository at https://github.com/swegroup7b/ImageGrader.
+
+Following are the general principles for how this repository is managed:
 
 * Our git repository will have two long-term branches: the dev branch and the master
 branch. The dev branch will contain all of our currently working features, and the master
@@ -60,11 +62,6 @@ $ docker run -p 3000:3000 --link db:db_1 mean
 You have your application running, but there is a lot of stuff to understand. We recommend you go over the [Official Documentation](http://meanjs.org/docs.html).
 In the docs we'll try to explain both general concepts of MEAN components and give you some guidelines to help you improve your development process. We tried covering as many aspects as possible, and will keep it updated by your request. You can also help us develop and improve the documentation by checking out the *gh-pages* branch of this repository.
 
-## Community
-* Use the [Official Website](http://meanjs.org) to learn about changes and the roadmap.
-* Join #meanjs on freenode.
-* Discuss it in the new [Google Group](https://groups.google.com/d/forum/meanjs)
-* Ping us on [Twitter](http://twitter.com/meanjsorg) and [Facebook](http://facebook.com/meanjs)
 
 ## Contributing
 We welcome pull requests from the community! Just be sure to read the [contributing](https://github.com/meanjs/mean/blob/master/CONTRIBUTING.md) doc to get started.
