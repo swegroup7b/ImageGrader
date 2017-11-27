@@ -5,8 +5,9 @@ table {
 }
 td, th {
   vertical-align: top;
+  /*text-align: center;*/
   padding:10px;
-  width:160px;
+  width:225px;
 }
 td {
   height: 55px;
