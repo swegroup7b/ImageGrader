@@ -1,3 +1,4 @@
+//credits to https://github.com/nervgh/angular-file-upload for some example code that helped here.
 (function () {
   'use strict';
 
