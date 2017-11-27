@@ -352,7 +352,7 @@ exports.grade = function(data) {
       'at50Depth': lesionProperties.width_50,
       'at95Depth': lesionProperties.width_95
     };
-    results['lesionSurfaceWidth'] = results.surface;
+    results['lesionSurfaceWidth'] = lesionProperties.surface;
   }
 
   // find properties of lesion
