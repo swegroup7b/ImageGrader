@@ -16,7 +16,7 @@ features.
 * Each separate, stand-alone feature will require the creation of a feature branch, and the
 dev branch will be the starting point for creating these branches. Each feature will cover
 a collection of related user stories that implement one stand-alone function that adds
-value to the webapp. Only the developers working on a given feature will have write
+value to the web application. Only the developers working on a given feature will have write
 access to that feature branch. This will help prevent merge conflicts that could happen
 from team members working on code that they were not assigned to work on. After
 feature completion, each branch can be merged into dev via pull request. The pull
@@ -25,7 +25,7 @@ Master will merge it.
 
 * Each team member will have discretion over creating sub-branches that are based on
 one of their feature branches; however, all new features have to be based off of the dev
-branch. It is up the the team members who own a feature branch to decide whether or
+branch. It is up the team members who own a feature branch to decide whether or
 not to create additional branches; they will have full access and control about their
 feature branches.
 
@@ -58,7 +58,7 @@ should commit broken code to a branch that another member of the team relies on.
   * The subject line should be clear and concise as to what is being accomplished in the commit.
 * General Rules:
   * No Line in the Commit message can be longer than 80 characters.
-* Refrence: [Angular Conventions](https://github.com/ajoslin/conventional-changelog/blob/master/conventions/angular.md)
+* Reference: [Angular Conventions](https://github.com/ajoslin/conventional-changelog/blob/master/conventions/angular.md)
 
 
 ## Submitting the Pull Request
