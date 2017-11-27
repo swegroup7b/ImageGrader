@@ -18,11 +18,6 @@
       vm.buildPager();
     });
 
-    vm.setSessionIndex = function(index) {
-      GraderService.setSessionIndex(index);
-      GraderService.setTransHistory(true);
-    };
-
     function buildPager() {
       vm.pagedItems = [];
       vm.itemsPerPage = 6;

@@ -10,7 +10,7 @@
     </div>
   </div>
   <div class="list-group">
-    <a ng-repeat="session in pagedItems" ng-click="setSessionIndex(allSessions.indexOf(session))" ui-sref="grader.results" class="list-group-item">
+    <a ng-repeat="session in pagedItems" ui-sref="grader.history.results({id: allSessions.indexOf(session)})" class="list-group-item">
       <h4 class="list-group-item-heading">Date: {{session.created.substr(0, 10)}}</h4>
       <p class="list-group-item-text pull-right small">{{allSessions.indexOf(session)}}</p>
       <p class="list-group-item-text" ng-show="session.finished">Finished</p>

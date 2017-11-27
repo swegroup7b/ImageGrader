@@ -7,10 +7,6 @@
     .factory('GraderService', GraderService);
   GraderService.$inject = ['$http', '$state'];
 
-  // Shared session index variable
-  var sessionIndex = 0;
-  var transitionFromHistory = true;
-
   function Annotation(stepNumber) {
     console.log("Creating annotation number: "+stepNumber);
     var step = annotationSteps[stepNumber];
@@ -126,18 +122,6 @@
             location.reload();
             throw err;
           });
-      },
-      getSessionIndex: function() {
-        return sessionIndex;
-      },
-      setSessionIndex: function(session) {
-        sessionIndex = session;
-      },
-      getTransHistory: function() {
-        return transitionFromHistory;
-      },
-      setTransHistory: function(fromHistory) {
-        transitionFromHistory = fromHistory;
       },
       annotationSteps: function() {
         return annotationSteps;

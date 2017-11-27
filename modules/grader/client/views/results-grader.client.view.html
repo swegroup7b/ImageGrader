@@ -2,7 +2,10 @@
   <div class="page-header">
     <div class="row">
       <div class="col-md-1">
-        <a class="btn btn-primary" ng-show="transFromHistory" ui-sref="grader.history" style="margin-top: 2.5em">
+        <a class="btn btn-primary" ng-show="state" ui-sref="grader.history.list" style="margin-top: 2.5em">
+          <span class="glyphicon glyphicon-arrow-left"></span>
+        </a>
+        <a class="btn btn-primary" ng-hide="state" ui-sref="grader.annotate" style="margin-top: 2.5em">
           <span class="glyphicon glyphicon-arrow-left"></span>
         </a>
       </div>
