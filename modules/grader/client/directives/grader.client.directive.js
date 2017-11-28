@@ -6,6 +6,8 @@
     .module('grader')
     .directive('annotator', ['$document', annotator]);
 
+  var drawing = false;
+
   function annotator($document) {
     var directive = {
       replace: false,
@@ -35,14 +37,16 @@
 
       // $scope.on contains the url of the current image
       scope.$watch('on', function(newValue, oldValue) {
-        console.log("$scope.on was changed");
+        console.log("$scope.on was changed to: ");
+        console.log(newValue);
         if (newValue && newValue.url) {
+          newValue.url = newValue.url.substring(6);
           var aImage = new Image();
-          aImage.src = newValue.url;
           aImage.onload = function() {
             console.log("Loaded image");
             mImage.src = newValue.url;
           }
+          aImage.src = newValue.url;
         } else {
           if (newValue === undefined) {
             console.log("vm.on is undefined");
@@ -70,12 +74,14 @@
       }
 
       function drawImage() {
-        var width=490, height=425;
+        // Render the image with it's visable aspect ratio
+        //
+        var width=domElement.width, height=domElement.height;
         var canvasRatio = width/height;
         var imageRatio = mImage.width/mImage.height;
-        // If the image is wider than ours, use their width to set the height
 
-        if (imageRatio > canvasRatio) {
+        // If the image is wider than it is tall, fill the width of the canvas
+        if (imageRatio > 1.0) {
           height = width/imageRatio;
         } else {
           width = height * imageRatio;
@@ -84,7 +90,7 @@
         context.drawImage(mImage, 0, 0, width, height);
       }
 
-      function redraw(){
+      function redraw(highlight){
         // Clear the canvas
         context.clearRect(0, 0, domElement.width, domElement.height);
         drawImage();
@@ -98,6 +104,9 @@
           context.strokeStyle = annotation.strokeColor;
           context.lineWidth = annotation.strokeWidth;
 
+          if (i == scope.on.step && highlight) {
+            context.strokeStyle = annotation.highlightColor;
+          }
 
           if (scope.on.step == i) {
             drawPolygon(annotation.pointX, annotation.pointY, mouseX, mouseY);
@@ -111,7 +120,6 @@
         mouseX = e.pageX - this.offsetLeft;
         mouseY = e.pageY - this.offsetTop;
 
-        console.log("Mouse Down, "+mouseX+", "+mouseY);
         var ann = scope.annotations[scope.on.step];
 
         function dist(x1, y1, x2, y2) {
@@ -119,17 +127,27 @@
         }
 
         switch (ann.annotationType) {
-          case "polygon":
-            if (dist(mouseX, mouseY, ann.pointX[0], ann.pointY[0]) < 10) {
-              ann.addPoint(ann.pointX[0], ann.pointY[0]);
+          case "polyline":
+            if (ann.pointX.length > 0 && (e.ctrlKey || e.metaKey)) {
+              ann.addPoint(mouseX, mouseY);
+              drawing = false;
+              redraw();
               scope.addAnnotation();
             } else {
-              ann.addPoint(mouseX, mouseY);
+                ann.addPoint(mouseX, mouseY);
+                drawing = true;
+                redraw();
             }
             break;
           case "line":
+            if (ann.pointX.length == 2) break;
+
+            // First point in line
             ann.addPoint(mouseX, mouseY);
+            drawing = true;
+
             if (ann.pointX.length == 2) {
+              drawing = false;
               scope.addAnnotation();
             }
             break;
@@ -141,9 +159,15 @@
         mouseX = e.pageX - this.offsetLeft;
         mouseY = e.pageY - this.offsetTop;
 
-        var ann = scope.annotations[scope.on.step];
-        if (ann.pointX.length > 0) {
-          redraw();
+        if (drawing) {
+          var ann = scope.annotations[scope.on.step];
+          if ((e.ctrlKey || e.metaKey) && ann.annotationType == "polyline" && ann.pointX.length > 0) {
+            // highlight the polyline before the user ends it
+            redraw(true);
+          } else {
+            // don't highlight the currnent line
+            redraw(false);
+          }
         }
       });
 
@@ -151,14 +175,14 @@
         //paint = false;
       });
 
-      elem.on('mouseover', function() {
-        elem.css('cursor', 'pointer');
-      });
+      elem.css('cursor', 'crosshair');
 
-      $document.on('keypress', function(e) {
-        console.log('Key pressed: '+e.which);
-        scope.resetAnnotation();
-        redraw();
+      $document.on('keydown', function(e) {
+        console.log('Key down: '+e.which);
+        if (e.which == 8) {
+          scope.resetAnnotation();
+          redraw();
+        }
       });
     }
   }

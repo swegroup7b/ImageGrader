@@ -1,14 +1,15 @@
-table {
+table.result {
   table-layout: fixed;
   width: 100%;
   margin: 0 auto;
 }
-td, th {
+.result td, th {
   vertical-align: top;
+  /*text-align: center;*/
   padding:10px;
-  width:160px;
+  width:225px;
 }
-td {
+.result td {
   height: 55px;
   overflow:hidden;
   overflow-wrap:break-word;
@@ -17,27 +18,27 @@ td {
   margin-left: 2em;
   display: inline-block;
 }
+td{
+
+  height:55px;
+  overflow-wrap:break-word;
+  overflow: hidden;
+}
 .hard_left {
   position:absolute;
   *position: relative; /*ie7*/
   left:0;
   width:80px;
 }
-.next_left {
-  position:absolute;
-  *position: relative; /*ie7*/
-  left:80px;
-  width:160px;
-}
 .last_left {
   position:absolute;
   *position: relative;
-  left:240px;
-  width:160px;
+  left:80px;
+  width:225px;
 }
 .outer {position:relative}
 .inner {
   overflow-x:auto;
   overflow-y:visible;
-  margin-left:400px;
+  margin-left:305px;
 }

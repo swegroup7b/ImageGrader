@@ -9,13 +9,13 @@
 
     function ResultsController($scope, $state, $filter, $http, GraderService) {
       var vm = $scope;
-      vm.sessionIndex = GraderService.getSessionIndex();
-      vm.transFromHistory = GraderService.getTransHistory();
+      vm.state = $state.is('grader.history.results');
       vm.buildPager = buildPager;
       vm.figureOutItemsToDisplay = figureOutItemsToDisplay;
       vm.pageChanged = pageChanged;
 
       GraderService.getSession().then(function(result) {
+        vm.sessionIndex = getSessionIndex();
         vm.images = result[vm.sessionIndex].images;
         vm.buildPager();
       });
@@ -39,6 +39,12 @@
 
       function pageChanged() {
         vm.figureOutItemsToDisplay();
+      }
+
+      function getSessionIndex() {
+        var url = window.location.pathname;
+        url = url.substr(url.lastIndexOf('/') + 1);
+        return url;
       }
     }
 }());

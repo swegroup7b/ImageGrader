@@ -35,15 +35,26 @@
         }
       })
       .state('grader.results', {
-        url: '/results',
+        url: '/results/:id',
         templateUrl: '/modules/grader/client/views/results-grader.client.view.html',
         controller: 'ResultsController',
         controllerAs: 'vm'
       })
       .state('grader.history', {
+        abstract: true,
         url: '/history',
+        template: '<ui-view/>'
+      })
+      .state('grader.history.list', {
+        url: '/list',
         templateUrl: '/modules/grader/client/views/history-grader.client.view.html',
         controller: 'HistoryController',
+        controllerAs: 'vm'
+      })
+      .state('grader.history.results', {
+        url: '/results/:id',
+        templateUrl: '/modules/grader/client/views/results-grader.client.view.html',
+        controller: 'ResultsController',
         controllerAs: 'vm'
       });
 

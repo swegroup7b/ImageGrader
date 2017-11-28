@@ -9,7 +9,6 @@
     var vm = $scope;
     var annotationSteps = vm.annotationSteps = GraderService.annotationSteps();
     if (currentImage && currentImage.url) {
-      currentImage.url = currentImage.url.substring(6);
       console.log(currentImage);
       vm.on = currentImage;
       vm.on.step = 0;
@@ -42,11 +41,6 @@
         vm.annotations[vm.on.step].clear();
         vm.redraw();
       }
-    };
-
-    vm.setSessionIndex = function() {
-      GraderService.setSessionIndex(vm.currentSessionIndex);
-      GraderService.setTransHistory(false);
     };
 
     // This function is called by the grading directive whenever

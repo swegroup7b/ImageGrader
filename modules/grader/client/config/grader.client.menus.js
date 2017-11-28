@@ -30,7 +30,7 @@
 
     menuService.addMenuItem('topbar', {
       title: 'Grading History',
-      state: 'grader.history',
+      state: 'grader.history.list',
       roles: ['user', 'admin']
     });
   }
