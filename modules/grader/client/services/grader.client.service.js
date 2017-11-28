@@ -13,6 +13,8 @@
     this.name = step.name;
     this.pointX = [];
     this.pointY = [];
+    this.niceName = step.niceName;
+    this.highlightColor = step.highlightColor;
     this.annotationType = step.type;
     this.strokeColor = step.color || "#ff0000";
     this.strokeWidth = step.width || 2;
@@ -133,33 +135,43 @@
   var annotationSteps = [
     {
       name: "osteophytePoints",
+      niceName: "Osteophyte Region",
       color: "#ff0000",
-      type: "polygon"
+      highlightColor: "#ff33ff",
+      type: "polyline"
     },
     {
       name: "plateauPoints",
+      niceName: "Plateau Span",
       color: "#50ff00",
       type: "line"
     },
     {
       name: "lesionBorderPoints",
-      color: "#50ff00",
-      type: "polygon"
+      niceName: "Lesion Border",
+      color: "#ff0000",
+      type: "polyline",
+      highlightColor: "#ff33ff"
     },
     {
       name: "lesionSurfacePoints",
+      niceName: "Lesion Surface Span",
       color: "#50ff00",
       type: "line"
     },
     {
       name: "interfacePoints",
-      color: "#50ff00",
-      type: "polygon"
+      color: "#ff0000",
+      type: "polyline",
+      niceName: "Cartilage Interface",
+      highlightColor: "#ff33ff"
     },
     {
       name: "surfacePoints",
-      color: "#50ff00",
-      type: "polygon"
+      niceName: "Cartilage Surface",
+      color: "#ff0000",
+      type: "polyline",
+      highlightColor: "#ff33ff"
     },
   ];
 }());
