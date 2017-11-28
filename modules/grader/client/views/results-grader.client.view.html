@@ -20,42 +20,41 @@
   <div class="outer table-responsive">
     <div class="inner">
       <table class="table table-bordered result">
-          <tr>
-            <th class="hard_left">ID</th>
-            <th class="last_left">Name</th>
-            <th>Lesion Area</th>
-            <th>Lesion Width (0%)</th>
-            <th>Lesion Width (50%)</th>
-            <th>Lesion Width (95%)</th>
-            <th>Lesion Max Depth</th>
-            <th>Lesion Surface Width</th>
-            <th>Osteophyte Area</th>
-            <th>Cartilage Depth Avg (0-33%)</th>
-            <th>Cartilage Depth Std (0-33%)</th>
-            <th>Cartilage Depth Avg (34-66%)</th>
-            <th>Cartilage Depth Std (34-66%)</th>
-            <th>Cartilage Depth Avg (67-100%)</th>
-            <th>Cartilage Depth Std (67-100%)</th>
-          </tr>
-          <tr ng-repeat="image in pagedItems">
-            <td class="hard_left">{{images.indexOf(image)}}</td>
-            <td class="last_left" ng-show="state">{{image.name}}</td>
-            <td class="last_left" ng-hide="state"><a href="../../../{{image.url.substr(7)}}" target="_blank">{{image.name}}</a></td>
-            <td>{{image.lesionArea.toFixed(1)}}</td>
-            <td>{{image.lesionWidth.at0Depth.toFixed(1)}}</td>
-            <td>{{image.lesionWidth.at50Depth.toFixed(1)}}</td>
-            <td>{{image.lesionWidth.at95Depth.toFixed(1)}}</td>
-            <td>{{image.lesionMaxDepth.toFixed(1)}}</td>
-            <td>{{image.lesionSurfaceWidth.toFixed(1)}}</td>
-            <td>{{image.osteophyteArea.toFixed(1)}}</td>
-            <td>{{image.cartilageDepth[0].avgDepth.toFixed(1)}}</td>
-            <td>{{image.cartilageDepth[0].std.toFixed(1)}}</td>
-            <td>{{image.cartilageDepth[1].avgDepth.toFixed(1)}}</td>
-            <td>{{image.cartilageDepth[1].std.toFixed(1)}}</td>
-            <td>{{image.cartilageDepth[2].avgDepth.toFixed(1)}}</td>
-            <td>{{image.cartilageDepth[2].std.toFixed(1)}}</td>
-          </tr>
-          <tr>
+        <tr>
+          <th class="hard_left">ID</th>
+          <th class="last_left">Name</th>
+          <th>Lesion Area</th>
+          <th>Lesion Width (0%)</th>
+          <th>Lesion Width (50%)</th>
+          <th>Lesion Width (95%)</th>
+          <th>Lesion Max Depth</th>
+          <th>Lesion Surface Width</th>
+          <th>Osteophyte Area</th>
+          <th>Cartilage Depth Avg (0-33%)</th>
+          <th>Cartilage Depth Std (0-33%)</th>
+          <th>Cartilage Depth Avg (34-66%)</th>
+          <th>Cartilage Depth Std (34-66%)</th>
+          <th>Cartilage Depth Avg (67-100%)</th>
+          <th>Cartilage Depth Std (67-100%)</th>
+        </tr>
+        <tr ng-repeat="image in pagedItems">
+          <td class="hard_left">{{images.indexOf(image)}}</td>
+          <td class="last_left" ng-show="state">{{image.name}}</td>
+          <td class="last_left" ng-hide="state"><a href="../../../{{image.url.substr(7)}}" target="_blank">{{image.name}}</a></td>
+          <td>{{image.lesionArea.toFixed(1)}}</td>
+          <td>{{image.lesionWidth.at0Depth.toFixed(1)}}</td>
+          <td>{{image.lesionWidth.at50Depth.toFixed(1)}}</td>
+          <td>{{image.lesionWidth.at95Depth.toFixed(1)}}</td>
+          <td>{{image.lesionMaxDepth.toFixed(1)}}</td>
+          <td>{{image.lesionSurfaceWidth.toFixed(1)}}</td>
+          <td>{{image.osteophyteArea.toFixed(1)}}</td>
+          <td>{{image.cartilageDepth[0].avgDepth.toFixed(1)}}</td>
+          <td>{{image.cartilageDepth[0].std.toFixed(1)}}</td>
+          <td>{{image.cartilageDepth[1].avgDepth.toFixed(1)}}</td>
+          <td>{{image.cartilageDepth[1].std.toFixed(1)}}</td>
+          <td>{{image.cartilageDepth[2].avgDepth.toFixed(1)}}</td>
+          <td>{{image.cartilageDepth[2].std.toFixed(1)}}</td>
+        </tr>
       </table>
     </div>
     <br>
