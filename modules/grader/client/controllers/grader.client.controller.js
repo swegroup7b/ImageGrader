@@ -44,11 +44,6 @@
       }
     };
 
-    vm.setSessionIndex = function() {
-      GraderService.setSessionIndex(vm.currentSessionIndex);
-      GraderService.setTransHistory(false);
-    };
-
     // This function is called by the grading directive whenever
     // the user has inputted a new annotation
     vm.addAnnotation = function(callback)  {

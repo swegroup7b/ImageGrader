@@ -290,7 +290,12 @@ function evaluateCartilage(surface, oc_interface, interval_count){
           break;
         }
       }
-      distances.push(vertical_distance(current_x, line1_p1, line1_p2, line2_p1, line2_p2));
+      if (line1_p1 && line1_p2 && line2_p1 && line2_p2) {
+        distances.push(vertical_distance(current_x, line1_p1, line1_p2, line2_p1, line2_p2));
+      }
+    }
+    if (distances.length == 0) {
+      distances = [0];
     }
     var mean = avg(distances);
     var deviation = std(distances);
@@ -345,20 +350,20 @@ exports.grade = function(data) {
   if (data.plateauPoints && data.lesionBorderPoints && data.lesionSurfacePoints) {
     var lesionProperties = evaluateLesion(data.plateauPoints, data.lesionBorderPoints, data.lesionSurfacePoints);
     results['lesionArea'] = lesionProperties.area;
-    results['maxDepth'] = lesionProperties.depth;
-    results['maxDepthPosition'] = lesionProperties.maxDepthPosition;
+    results['lesionMaxDepth'] = lesionProperties.depth;
+    results['lesionMaxDepthPosition'] = lesionProperties.maxDepthPosition;
     results['lesionWidth'] = {
       'at0Depth': lesionProperties.width_0,
       'at50Depth': lesionProperties.width_50,
       'at95Depth': lesionProperties.width_95
     };
-    results['lesionSurfaceWidth'] = results.surface;
+    results['lesionSurfaceWidth'] = lesionProperties.surface;
   }
 
   // find properties of lesion
   // find widths (along with standard deviation) over regular intervals
   if (data.interfacePoints && data.surfacePoints) {
-    results.cartilageDepth = evaluateCartilage(data.surfacePoints, data.interfacePoints, 3);
+    results['cartilageDepth'] = evaluateCartilage(data.surfacePoints, data.interfacePoints, 3);
   }
 
   return results;

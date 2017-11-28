@@ -6,7 +6,7 @@
 <div ng-show="!finished"  style="display: inline-block; margin: auto;margin-top: 1em; background-color: rgba(50, 50, 50, .3); padding: 1em; border-radius: 1em">
 <canvas annotator style="display: block;padding:0px;margin: auto" id="canvas" width="500" height="375"></canvas>
 </div>
-<h3 style="margin-top:3em;" ng-show="finished"><i>No images left to grade</i><br><br>Would you like to <a ng-click="setSessionIndex(); setPrevState()" ui-sref="grader.results">
+<h3 style="margin-top:3em;" ng-show="finished"><i>No images left to grade</i><br><br>Would you like to <a ui-sref="grader.results({id: currentSessionIndex})">
   see results</a> or <a href="/grader/upload">start a new session</a>?</h3>
 <br>
 <h4>Completed {{numCompleted}}/{{numImages}}<h4>
