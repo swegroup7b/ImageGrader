@@ -16,6 +16,8 @@ module.exports = {
         // bower:js
         'public/lib/angular/angular.js',
         'public/lib/angular-animate/angular-animate.js',
+        'public/lib/angular-sanitize/angular-sanitize.js',
+        'public/lib/ng-csv/build/ng-csv.js',
         'public/lib/angular-file-upload/dist/angular-file-upload.js',
         'public/lib/angular-animate/angular-image-upload.js',
         'public/lib/angular-bootstrap/ui-bootstrap-tpls.js',

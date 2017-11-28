@@ -1,15 +1,15 @@
-table {
+table.result {
   table-layout: fixed;
   width: 100%;
   margin: 0 auto;
 }
-td, th {
+.result td, th {
   vertical-align: top;
   /*text-align: center;*/
   padding:10px;
   width:225px;
 }
-td {
+.result td {
   height: 55px;
   overflow:hidden;
   overflow-wrap:break-word;
@@ -17,6 +17,12 @@ td {
 .resultpage_title {
   margin-left: 2em;
   display: inline-block;
+}
+td{
+
+  height:55px;
+  overflow-wrap:break-word;
+  overflow: hidden;
 }
 .hard_left {
   position:absolute;
