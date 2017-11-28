@@ -290,7 +290,12 @@ function evaluateCartilage(surface, oc_interface, interval_count){
           break;
         }
       }
-      distances.push(vertical_distance(current_x, line1_p1, line1_p2, line2_p1, line2_p2));
+      if (line1_p1 && line1_p2 && line2_p1 && line2_p2) {
+        distances.push(vertical_distance(current_x, line1_p1, line1_p2, line2_p1, line2_p2));
+      }
+    }
+    if (distances.length == 0) {
+      distances = [0];
     }
     var mean = avg(distances);
     var deviation = std(distances);

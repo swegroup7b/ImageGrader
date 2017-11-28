@@ -157,7 +157,7 @@
       type: "polygon"
     },
     {
-      name: "sufacePoints",
+      name: "surfacePoints",
       color: "#50ff00",
       type: "polygon"
     },
