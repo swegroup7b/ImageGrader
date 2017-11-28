@@ -22,8 +22,7 @@
       <table class="table table-bordered">
           <tr>
             <th class="hard_left">ID</th>
-            <th class="next_left">Name</th>
-            <th class="last_left">Image URL</th>
+            <th class="last_left">Name</th>
             <th>Lesion Area</th>
             <th>Lesion Width (0%)</th>
             <th>Lesion Width (50%)</th>
@@ -40,8 +39,8 @@
           </tr>
           <tr ng-repeat="image in pagedItems">
             <td class="hard_left">{{images.indexOf(image)}}</td>
-            <td class="next_left">{{image.name}}</td>
-            <td class="last_left"><a href="../{{image.url.substr(7)}}" target="_blank">View Image</a></td>
+            <td class="last_left" ng-show="state">{{image.name}}</td>
+            <td class="last_left" ng-hide="state"><a href="../../../{{image.url.substr(7)}}" target="_blank">{{image.name}}</a></td>
             <td>{{image.lesionArea.toFixed(1)}}</td>
             <td>{{image.lesionWidth.at0Depth.toFixed(1)}}</td>
             <td>{{image.lesionWidth.at50Depth.toFixed(1)}}</td>
