@@ -36,11 +36,17 @@
       // $scope.on contains the url of the current image
       scope.$watch('on', function(newValue, oldValue) {
         console.log("$scope.on was changed");
-        var aImage = new Image();
-        aImage.src = newValue.url;
-        aImage.onload = function() {
-          console.log("Loaded image");
-          mImage.src = newValue.url;
+        if (newValue && newValue.url) {
+          var aImage = new Image();
+          aImage.src = newValue.url;
+          aImage.onload = function() {
+            console.log("Loaded image");
+            mImage.src = newValue.url;
+          }
+        } else {
+          if (newValue === undefined) {
+            console.log("vm.on is undefined");
+          }
         }
       });
 
@@ -116,7 +122,7 @@
           case "polygon":
             if (dist(mouseX, mouseY, ann.pointX[0], ann.pointY[0]) < 10) {
               ann.addPoint(ann.pointX[0], ann.pointY[0]);
-              scope.finishAnnotation();
+              scope.addAnnotation();
             } else {
               ann.addPoint(mouseX, mouseY);
             }
@@ -124,7 +130,7 @@
           case "line":
             ann.addPoint(mouseX, mouseY);
             if (ann.pointX.length == 2) {
-              scope.finishAnnotation();
+              scope.addAnnotation();
             }
             break;
         }
