@@ -12,21 +12,10 @@
     // Training state routing
     $stateProvider
       .state('training', {
-        abstract: true,
         url: '/training',
-        template: '<ui-view/>'
-      })
-      .state('training.example', {
-        url: '',
         templateUrl: '/modules/training/client/views/training.client.view.html',
         controller: 'TrainingController',
         controllerAs: 'vm'
       })
-      .state('training.interactive', {
-        url: '',
-        templateUrl: '/modules/training/client/views/interactive-training.client.view.html',
-        controller: 'TrainingController',
-        controllerAs: 'vm'
-      });
   }
 }());
