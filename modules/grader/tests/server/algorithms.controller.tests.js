@@ -1,3 +1,5 @@
+'use strict'
+
 var assert = require('should'),
   path = require('path'),
   controller = require(path.resolve('modules/grader/server/services/algorithms.server.service'));

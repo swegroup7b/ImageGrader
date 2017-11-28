@@ -277,7 +277,7 @@ describe('Users E2E Tests:', function () {
       // Password Error
       expect(element.all(by.css('.error-text')).get(0).getText()).toBe('The password must be at least 8 characters long.');
     });
-    
+
     it('Should Successfully register new user', function () {
       browser.get('http://localhost:3001/authentication/signup');
       // Enter FirstName

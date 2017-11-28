@@ -457,7 +457,7 @@ gulp.task('build', function (done) {
 // Run the project tests
 gulp.task('test', function (done) {
   //runSequence('env:test', 'test:server', 'karma', 'nodemon', 'protractor', done);
-  runSequence('env:test', 'test:e2e', done);
+  runSequence('env:test', 'karma', 'test:e2e', done);
 });
 
 gulp.task('test:server', function (done) {
