@@ -9,7 +9,6 @@
     var vm = $scope;
     var annotationSteps = vm.annotationSteps = GraderService.annotationSteps();
     if (currentImage && currentImage.url) {
-      currentImage.url = currentImage.url.substring(6);
       console.log(currentImage);
       vm.on = currentImage;
       vm.on.step = 0;

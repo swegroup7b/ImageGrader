@@ -4,7 +4,10 @@
 .text-window {
   background-color: #DFDFDF;
   width: 425px;
-  padding: 1em;
+  padding: 0.1em;
+}
+.text-window h3 {
+  margin:0;
 }
     .margin-top-50 {
 	margin-top: 50px;}
@@ -37,15 +40,15 @@
 .table-widthB{
     width: 48%;
     }
-    
+
 .table-widthA{
     width: 49.8%;
     }
-    
+
 .bg{
     background-color: white;
-    }  
-      
+    }
+
 .tablescroll {
     overflow-y: auto;
 	overflow-x: hidden;
@@ -61,12 +64,12 @@
   margin-top: 0px;
   margin-bottom: 0px;
   }
-  
+
   .checkbox,.radio{
   margin-top:0px;
   margin-bottom:0px
   }
-  
+
 .radio-margin{
     margin-left: -13px;
 	margin-top: 7px;
@@ -88,7 +91,7 @@ th {
   height: 40px;
 }
 /*Radio and Checkbox START*/
-.checkbox label:after, 
+.checkbox label:after,
 .radio label:after {
     content: '';
     display: table;
@@ -143,4 +146,3 @@ th {
     opacity: .5;
 }
 /*Radio and Checkbox END*/
->>>>>>> framework
