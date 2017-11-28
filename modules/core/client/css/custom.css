@@ -15,12 +15,15 @@
 }
 .labLogo-img {
   background-color: rgba(255,255,255,0.8);
-  width: 220px;
+  width: 190px;
   position: absolute;
-  top: 60px;
-  right: 15px;
+  opacity: .5;
+  top: 10px;
+  right: 10px;
 }
-
+.jumbotron {
+  position: relative;
+}
 .home-footer {
   padding-top: 20px;
   padding-bottom: 50px;
