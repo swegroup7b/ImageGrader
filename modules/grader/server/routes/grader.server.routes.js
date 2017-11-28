@@ -1,5 +1,6 @@
 'use strict';
 var path = require('path'),
+  results = require('../controllers/results.server.controller.js'),
   grader = require('../controllers/grader.server.controller.js'),
   algorithms = require('../services/algorithms.server.service.js');
 
@@ -12,8 +13,8 @@ module.exports = function (app) {
   app.route('/api/grader/grade').post(grader.submitGrading);
   app.route('/api/grader/currentImage').get(grader.currentImage);
   app.route('/api/grader/totalImages').get(grader.totalImages);
+  app.route('/api/grader/CSV').get(results.getCSV);
   app.route('/api/grader/reset').get(function(req, res) {
-
     console.log(req.user);
     req.user.set('session', []);
     req.user.save(function(err){

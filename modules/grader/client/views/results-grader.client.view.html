@@ -19,7 +19,7 @@
   </div>
   <div class="outer table-responsive">
     <div class="inner">
-      <table class="table table-bordered">
+      <table class="table table-bordered result">
           <tr>
             <th class="hard_left">ID</th>
             <th class="last_left">Name</th>
@@ -58,6 +58,8 @@
           <tr>
       </table>
     </div>
+    <br>
+    <a class="btn btn-primary" target="_blank" href='/api/grader/CSV'> Export results</a>
   </div>
   <uib-pagination boundary-links="true" max-size="8" items-per-page="itemsPerPage" total-items="filterLength" ng-model="currentPage" ng-change="pageChanged()"></uib-pagination>
 </section>
