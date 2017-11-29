@@ -1,46 +1,5 @@
-<!DOCTYPE html>
-
-<html id="ng-app" ng-app="app"> <!-- id="ng-app" IE<8 -->
-
-    <head>
-        <title>Upload</title>
-        <link rel="stylesheet" href="http://netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css" />
-
-        <!-- Fix for old browsers -->
-        <script src="http://nervgh.github.io/js/es5-shim.min.js"></script>
-        <script src="http://nervgh.github.io/js/es5-sham.min.js"></script>
-        <script src="http://code.jquery.com/jquery-1.8.3.min.js"></script>
-        <script src="../console-sham.js"></script>
-
-        <script src="http://netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
-
-        <!--<script src="../bower_components/angular/angular.js"></script>-->
-        <script src="http://code.angularjs.org/1.2.0/angular.min.js"></script>
-        <script src="../../dist/angular-file-upload.min.js"></script>
-        <script src="controllers.js"></script>
-
-        <style>
-            .my-drop-zone { border: dotted 3px lightgray; } /*may use these late if we need to implement a drop box*/
-            .nv-file-over { border: dotted 3px red; } /* Default class applied to drop zones on over */
-            .another-file-over-class { border: dotted 3px green; }
-            table{
-               overflow-y:scroll;
-               height:250px;
-               display:block;
-            }
-
-            html, body { height: 100%; }
-
-
-        </style>
-
-    </head>
-
     <!-- 1. nv-file-drop="" uploader="{Object}" options="{Object}" filters="{String}" -->
-    <body ng-controller="AppController" nv-file-drop="" uploader="uploader" filters="queueLimit, customFilter">
-
             <div class="row">
-
                 <div class="col-md-3" style="padding: 10px">
 
                     <h3 style="display: block; border: solid 3px lightgray; text-align: center">Please Select Image Files</h3>
@@ -49,7 +8,6 @@
                     <input type="file" nv-file-select="" uploader="uploader" name="file" id="file" class="inputfile" accept="image/*" data-multiple-caption="{count} files selected" multiple />
                     <label class="btn btn-primary" for="file">Choose images</label>
                 </div>
-
                 <div class="col-md-9" style="margin-bottom: 40px; padding:10px">
                     <table class="table upload" style="margin-top:20px;">
                         <thead>
@@ -95,7 +53,7 @@
                                 <div class="progress-bar" role="progressbar" ng-style="{ 'width': uploader.progress + '%' }"></div>
                             </div>
                         </div>
-                        <button type="button" class="btn btn-success btn-s" ng-click="uploader.uploadAll()" ng-disabled="!uploader.getNotUploadedItems().length">
+                        <button type="button" class="btn btn-success btn-s" ng-click="uploader.uploadAll()" ng-disabled="!ready || !uploader.getNotUploadedItems().length">
                             <span class="glyphicon glyphicon-upload"></span> Upload all
                         </button>
                         <!--<button type="button" class="btn btn-warning btn-s" ng-click="uploader.cancelAll()" ng-disabled="!uploader.isUploading">
@@ -107,12 +65,4 @@
                     </div>
 
                 </div>
-
-
-
             </div>
-
-        </div>
-
-    </body>
-</html>

@@ -11,7 +11,7 @@
 
     function UploadController($scope, $state, $http, FileUploader) {
       var vm = this;
-
+      $scope.ready = false;
       var uploader = $scope.uploader = new FileUploader({
         url: '/api/grader/upload'
       });
@@ -42,6 +42,7 @@
           console.info('onWhenAddingFileFailed', item, filter, options);
       };
       uploader.onAfterAddingFile = function(fileItem) {
+          $scope.ready = false;
           console.info('onAfterAddingFile', fileItem);
       };
       uploader.onAfterAddingAll = function(addedFileItems) {
@@ -51,6 +52,7 @@
             url: '/api/grader/newSession'
           }).then(function successCallback(response) {
               console.log("Created new session");
+              $scope.ready = true;
             }, function errorCallback(err) {
               // called asynchronously if an error occurs
               // or server returns response with an error status.
