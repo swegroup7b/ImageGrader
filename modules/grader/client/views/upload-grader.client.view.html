@@ -1,7 +1,5 @@
 <!DOCTYPE html>
 
-<html id="ng-app" ng-app="app"> <!-- id="ng-app" IE<8 -->
-
     <head>
         <title>Upload</title>
         <link rel="stylesheet" href="http://netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css" />
@@ -95,7 +93,7 @@
                                 <div class="progress-bar" role="progressbar" ng-style="{ 'width': uploader.progress + '%' }"></div>
                             </div>
                         </div>
-                        <button type="button" class="btn btn-success btn-s" ng-click="uploader.uploadAll()" ng-disabled="!uploader.getNotUploadedItems().length">
+                        <button type="button" class="btn btn-success btn-s" ng-click="uploader.uploadAll()" ng-disabled="!readyToUpload">
                             <span class="glyphicon glyphicon-upload"></span> Upload all
                         </button>
                         <!--<button type="button" class="btn btn-warning btn-s" ng-click="uploader.cancelAll()" ng-disabled="!uploader.isUploading">

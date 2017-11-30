@@ -10,8 +10,9 @@
     UploadController.$inject = ['$scope', '$state', '$http', 'FileUploader'];
 
     function UploadController($scope, $state, $http, FileUploader) {
-      var vm = this;
+      var vm = $scope;
 
+      vm.readyToUpload = false;
       var uploader = $scope.uploader = new FileUploader({
         url: '/api/grader/upload'
       });
@@ -46,6 +47,7 @@
       };
       uploader.onAfterAddingAll = function(addedFileItems) {
           console.info('onAfterAddingAll', addedFileItems);
+          vm.readyToUpload = true;
           $http({
             method: 'GET',
             url: '/api/grader/newSession'
