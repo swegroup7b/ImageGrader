@@ -19,6 +19,10 @@
     $scope.goFirst = function() {
       $scope.currentAnnotation = 0;
     };
+    $scope.on = {
+      url: "public/modules/training/client/img/grader/D4_KDA_1.jpg"
+    };
+
   }
 
 }());

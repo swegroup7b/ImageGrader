@@ -86,4 +86,47 @@
       }
     });
   }
+
+  var annotationSteps = [
+    {
+      name: "osteophytePoints",
+      niceName: "Osteophyte Region",
+      color: "#1b9e77",
+      highlightColor: "#ff33ff",
+      type: "polyline"
+    },
+    {
+      name: "plateauPoints",
+      niceName: "Plateau Span",
+      color: "#d95f02",
+      type: "line"
+    },
+    {
+      name: "lesionBorderPoints",
+      niceName: "Lesion Border",
+      color: "#7570b3",
+      type: "polyline",
+      highlightColor: "#ff33ff"
+    },
+    {
+      name: "lesionSurfacePoints",
+      niceName: "Lesion Surface Span",
+      color: "#e7298a",
+      type: "line"
+    },
+    {
+      name: "interfacePoints",
+      color: "#66a61e",
+      type: "polyline",
+      niceName: "Cartilage Interface",
+      highlightColor: "#ff33ff"
+    },
+    {
+      name: "surfacePoints",
+      niceName: "Cartilage Surface",
+      color: "#e6ab02",
+      type: "polyline",
+      highlightColor: "#ff33ff"
+    }
+  ];
 }());
