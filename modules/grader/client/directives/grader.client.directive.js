@@ -74,7 +74,8 @@
       }
 
       function drawImage() {
-        var width=490, height=425;
+        //var width=490, height=425;
+        var width=domElement.width, height=domElement.height;
         var canvasRatio = width/height;
         var imageRatio = mImage.width/mImage.height;
         // If the image is wider than ours, use their width to set the height
