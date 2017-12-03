@@ -19,8 +19,8 @@
   </div>
   <div class="outer table-responsive">
     <div class="inner">
-      <table class="table table-bordered result">
-        <tr>
+      <table class="result table">
+        <tr class>
           <th class="hard_left">ID</th>
           <th class="last_left">Name</th>
           <th>Lesion Area</th>
@@ -38,9 +38,11 @@
           <th>Cartilage Depth Std (67-100%)</th>
         </tr>
         <tr ng-repeat="image in pagedItems">
-          <td class="hard_left">{{images.indexOf(image)}}</td>
-          <td class="last_left" ng-show="state">{{image.name}}</td>
-          <td class="last_left" ng-hide="state"><a href="../../../{{image.url.substr(7)}}" target="_blank">{{image.name}}</a></td>
+          <td class="hard_left">{{images.indexOf(image)}}
+          <td class="last_left">
+            <span ng-show="state">{{image.name}}</span>
+            <span ng-hide="state"><a href="../../../{{image.url.substr(7)}}" target="_blank">{{image.name}}</a></span>
+          </td>
           <td>{{image.lesionArea.toFixed(1)}}</td>
           <td>{{image.lesionWidth.at0Depth.toFixed(1)}}</td>
           <td>{{image.lesionWidth.at50Depth.toFixed(1)}}</td>
