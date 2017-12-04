@@ -275,7 +275,8 @@ gulp.task('templatecache', function () {
 // Mocha tests task
 gulp.task('mocha', function (done) {
   var mongooseService = require('./config/lib/mongoose');
-  var testSuites = changedTestFiles.length ? changedTestFiles : testAssets.tests.server;
+  //var testSuites = changedTestFiles.length ? changedTestFiles : testAssets.tests.server;
+  var testSuites = testAssets.tests.server
   var error;
 
   // Connect mongoose
@@ -457,7 +458,7 @@ gulp.task('build', function (done) {
 // Run the project tests
 gulp.task('test', function (done) {
   //runSequence('env:test', 'test:server', 'karma', 'nodemon', 'protractor', done);
-  runSequence('env:test', 'dropdb', 'karma', 'test:e2e', done);
+  runSequence('env:test', 'dropdb', 'mocha', 'test:e2e', done);
 });
 
 gulp.task('test:server', function (done) {

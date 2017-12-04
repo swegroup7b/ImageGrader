@@ -78,8 +78,8 @@ describe('Test Lesion Analysis', function() {
     var data = controller.grade(input);
     console.log(data);
     data.lesionArea.should.be.equal(2.5);
-    data.maxDepth.should.be.equal(2);
-    data.maxDepthPosition.should.be.equal(0.5);
+    data.lesionMaxDepth.should.be.equal(2);
+    data.lesionMaxDepthPosition.should.be.equal(0.5);
     data.lesionWidth.at0Depth.should.be.approximately(2.9, 0.1);
     data.lesionWidth.at50Depth.should.be.approximately(1, 0.1);
     data.lesionWidth.at95Depth.should.be.approximately(0.1, 0.1);
