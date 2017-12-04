@@ -1,27 +1,37 @@
 <h1>Geko Instructions</h1>
-<div style="display: inline-block;text-align: left;float: left;margin: auto;" width="500" height="375">
+<div style="display: inline-block;text-align: left;float: left;margin: auto;" width="725" height="530">
 	<div ng-show="currentAnnotation==0">
-		<h3>1. Identify the osteophyte points</h3>
+		<h3>1. Identify the osteophyte region</h3>
+		<img src="/modules/training/client/img/grader/D4_KDA_1.jpg" width="480" height="350">
 	</div>
 	<div ng-show="currentAnnotation==1">
-		<h3>2. Identify the plateau points</h3>
+		<h3>2. Identify the plateau span</h3>
+		<img src="/modules/training/client/img/grader/D4_KDA_1.jpg" width="480" height="350">
 	</div>
 	<div ng-show="currentAnnotation==2">
-		<h3>3. Identify the lesion border points</h3>
+		<h3>3. Identify the lesion border</h3>
+		<img src="/modules/training/client/img/grader/D4_KDA_1.jpg" width="480" height="350">
 	</div>
 	<div ng-show="currentAnnotation==3">
 		<h3>4. Identify the lesion surface points</h3>
+		<img src="/modules/training/client/img/grader/D4_KDA_1.jpg" width="480" height="350">
 	</div>
 	<div ng-show="currentAnnotation==4">
-		<h3>5. Identify the osteochondrial interface points</h3>
+		<h3>5. Identify the cartilage interface</h3>
+		<img src="/modules/training/client/img/grader/D4_KDA_1.jpg" width="480" height="350">
 	</div>
 	<div ng-show="currentAnnotation==5">
-		<h3>6. Identify the surface points</h3>
+		<h3>6. Identify the cartilage surface</h3>
+		<img src="/modules/training/client/img/grader/D4_KDA_1.jpg" width="480" height="350">
+	</div>
+	<div ng-show="currentAnnotation==6">
+		<h3>Final Graded Image</h3>
+		<img src="/modules/training/client/img/grader/D4_KDA_1.jpg" width="480" height="350">
 	</div>
 	<button style="float: left;" ng-show="currentAnnotation>0" ng-click="goBack()">Back</button>
-	<button style="float: left;" ng-show="currentAnnotation<5" ng-click="goNext()">Next</button>
+	<button style="float: left;" ng-show="currentAnnotation<6" ng-click="goNext()">Next</button>
 	<button style="float: left;" ng-show="currentAnnotation>1" ng-click="goFirst()">Start Over</button>
 </div>
 <div style="float: right;display: inline-block;margin: auto;margin-top: 1em;background-color: rgba(50, 50, 50, .3);padding: 1em;border-radius: 1em;">
-	<canvas annotator style="display: block;padding:0px;margin: auto" id="canvas" width="500" height="375"></canvas>
+	<canvas annotator style="display: block;padding:0px;margin: auto" id="canvas" width="560" height="420"></canvas>
 </div>
