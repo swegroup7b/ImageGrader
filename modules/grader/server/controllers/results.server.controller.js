@@ -40,16 +40,30 @@ var path = require('path'),
 
 exports.getCSV = function(req, res) {
   var user = req.user;
-  var currentSession = user.session[user.currentSessionIndex];
-  var images = currentSession.images;
-  var csv="Image Name,Lesion Area,Lesion Width 0,Lesion Width 50,Lesion Width 95,Lesion Max Depth,Lesion Surface Width,Osteophyte Area,Cartilage Mean Depth 0,Cartilage Std Depth 0\n";
+
+  // Access requested session id from client-side
+  var selectedSession = user.session[req.query.id];
+
+  // Retrieve images from the requested session
+  var images = selectedSession.images;
+
+  // CSV file column headers
+  var csv="Image Name,Lesion Area,Lesion Width 0,Lesion Width 50,Lesion Width 95,Lesion Max Depth,Lesion Surface Width,Osteophyte Area,Cartilage Mean Depth 0-33,Cartilage Std Depth 0-33,Cartilage Mean Depth 34-66,Cartilage Std Depth 34-66,Cartilage Mean Depth 67-100,Cartilage Std Depth 67-100\n";
+
+  // Add all defined image measurements to CSV file
   for (var i=0; i< images.length; i++){
-  csv += images[i].name +"," +images[i].lesionArea +
-        "," +images[i].lesionWidth.at0Depth +"," + images[i].lesionWidth.at50Depth +"," +
-         images[i].lesionWidth.at95Depth + "," + images[i].lesionMaxDepth +"," +
-         images[i].lesionSurfaceWidth +"," +images[i].osteophyteArea +"," +
-         images[i].cartilageDepth[0].avgDepth +"," +images[i].cartilageDepth[0].std+"\n";
+  if(images[i].lesionArea != undefined){
+    csv += images[i].name +"," +images[i].lesionArea +
+          "," +images[i].lesionWidth.at0Depth +"," + images[i].lesionWidth.at50Depth +"," +
+           images[i].lesionWidth.at95Depth + "," + images[i].lesionMaxDepth +"," +
+           images[i].lesionSurfaceWidth +"," +images[i].osteophyteArea +"," +
+           images[i].cartilageDepth[0].avgDepth +"," +images[i].cartilageDepth[0].std+"," +
+           images[i].cartilageDepth[1].avgDepth +"," +images[i].cartilageDepth[1].std+"," +
+           images[i].cartilageDepth[2].avgDepth +"," +images[i].cartilageDepth[2].std+"\n";
+    }
   }
+
+  // Send CSV file download to client-side
   res.set({
     'Content-Disposition': 'attachment; filename=export.csv'
   });
