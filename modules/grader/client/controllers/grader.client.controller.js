@@ -17,6 +17,7 @@
       vm.finished = true;
     }
 
+    // Retrieve index of most recent (current) session
     GraderService.getCurrentSessionIndex().then(function(result) {
       vm.currentSessionIndex = result;
     });

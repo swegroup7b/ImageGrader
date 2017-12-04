@@ -2,14 +2,17 @@
   <div class="page-header">
     <div class="row">
       <div class="col-md-7">
+        <!-- Page header -->
         <h1>Grading History</h1>
       </div>
       <div class="col-md-4" style="margin-top: 2.5em">
+        <!-- Search bar input field -->
         <input class="form-control" type="text" ng-model="search" placeholder="Search" ng-change="figureOutItemsToDisplay()" />
       </div>
     </div>
   </div>
   <div class="list-group">
+    <!-- List of finished and unfinished grading sessions of current user -->
     <a ng-repeat="session in pagedItems" ui-sref="grader.history.results({id: allSessions.indexOf(session)})" class="list-group-item">
       <h4 class="list-group-item-heading">Date: {{session.created.substr(0, 10)}}</h4>
       <p class="list-group-item-text pull-right small">{{allSessions.indexOf(session)}}</p>
@@ -17,5 +20,6 @@
       <p class="list-group-item-text" ng-hide="session.finished">Not Finished</p>
     </a>
   </div>
+  <!-- Page navigation bar -->
   <uib-pagination boundary-links="true" max-size="8" items-per-page="itemsPerPage" total-items="filterLength" ng-model="currentPage" ng-change="pageChanged()"></uib-pagination>
 </section>

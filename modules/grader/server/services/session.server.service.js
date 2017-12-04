@@ -116,7 +116,8 @@ function nextImage(user) {
   });
 }
 
-// Retrieve session
+// Returns entire user session array if it has at least one
+// session element, otherwise returns undefined
 function getSession(user) {
   // Make sure we have a valid session index
   if (user.session.length == 0) {
@@ -130,7 +131,9 @@ function getSession(user) {
   }
 }
 
-// Retrieve current session index
+// Returns most recent (current) session array index for resume
+// session functionality. If the array has no elements, hence no index,
+// this function returns undefined
 function getCurrentSessionIndex(user) {
   // Make sure there is at least one session
   if (user.currentSessionIndex == -1) {

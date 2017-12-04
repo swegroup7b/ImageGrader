@@ -47,7 +47,7 @@
           });
       },
       getSession: function() {
-        // Replace this with an http requeset
+        // Replace this with an http request
         return $http({
           method: 'GET',
           url: '/api/grader/getSession'
