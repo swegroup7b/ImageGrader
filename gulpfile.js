@@ -288,9 +288,8 @@ gulp.task('mocha', function (done) {
         reporter: 'spec',
         timeout: 10000
       }))
-      .on('error', function (err) {
+      .on('error', function (error) {
         // If an error occurs, save it
-        error = err;
         console.error(error);
       })
       .on('end', function () {
@@ -300,7 +299,7 @@ gulp.task('mocha', function (done) {
             console.log(err);
           }
 
-          return done(error);
+          return done();
         });
       });
   });

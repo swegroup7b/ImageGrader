@@ -66,7 +66,7 @@
     </div>
     <br>
     <!-- Button to export result page as CSV file -->
-    <a class="btn btn-primary" target="_blank" href='/api/grader/CSV'> Export results</a>
+    <a class="btn btn-primary" target="_blank" href='/api/grader/CSV?id={{sessionIndex}}'> Export results</a>
   </div>
   <!-- Page navigation bar -->
   <uib-pagination boundary-links="true" max-size="8" items-per-page="itemsPerPage" total-items="filterLength" ng-model="currentPage" ng-change="pageChanged()"></uib-pagination>
