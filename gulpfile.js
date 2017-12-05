@@ -275,7 +275,8 @@ gulp.task('templatecache', function () {
 // Mocha tests task
 gulp.task('mocha', function (done) {
   var mongooseService = require('./config/lib/mongoose');
-  var testSuites = changedTestFiles.length ? changedTestFiles : testAssets.tests.server;
+  //var testSuites = changedTestFiles.length ? changedTestFiles : testAssets.tests.server;
+  var testSuites = testAssets.tests.server
   var error;
 
   // Connect mongoose
@@ -288,9 +289,9 @@ gulp.task('mocha', function (done) {
         reporter: 'spec',
         timeout: 10000
       }))
-      .on('error', function (error) {
+      .on('error', function (err) {
         // If an error occurs, save it
-        console.error(error);
+        console.error(err);
       })
       .on('end', function () {
         mongooseService.disconnect(function (err) {
@@ -456,7 +457,8 @@ gulp.task('build', function (done) {
 
 // Run the project tests
 gulp.task('test', function (done) {
-  runSequence('env:test', 'test:server', 'karma', 'nodemon', 'protractor', done);
+  //runSequence('env:test', 'test:server', 'karma', 'nodemon', 'protractor', done);
+  runSequence('env:test', 'dropdb', 'mocha', 'karma', 'test:e2e', done);
 });
 
 gulp.task('test:server', function (done) {
@@ -473,7 +475,7 @@ gulp.task('test:client', function (done) {
 });
 
 gulp.task('test:e2e', function (done) {
-  runSequence('env:test', 'lint', 'dropdb', 'nodemon', 'protractor', done);
+  runSequence('env:test', 'nodemon', 'protractor', done);
 });
 
 gulp.task('test:coverage', function (done) {

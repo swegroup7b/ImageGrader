@@ -74,14 +74,13 @@
       }
 
       function drawImage() {
-        // Render the image with it's visable aspect ratio
-        //
+        //var width=490, height=425;
         var width=domElement.width, height=domElement.height;
         var canvasRatio = width/height;
         var imageRatio = mImage.width/mImage.height;
+        // If the image is wider than ours, use their width to set the height
 
-        // If the image is wider than it is tall, fill the width of the canvas
-        if (imageRatio > 1.0) {
+        if (imageRatio > canvasRatio) {
           height = width/imageRatio;
         } else {
           width = height * imageRatio;
@@ -120,6 +119,7 @@
         mouseX = e.pageX - this.offsetLeft;
         mouseY = e.pageY - this.offsetTop;
 
+        console.log("Mouse Down, "+mouseX+", "+mouseY);
         var ann = scope.annotations[scope.on.step];
 
         function dist(x1, y1, x2, y2) {

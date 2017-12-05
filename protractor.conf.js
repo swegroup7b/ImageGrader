@@ -2,7 +2,8 @@
 
 // Protractor configuration
 var config = {
-  specs: ['modules/*/tests/e2e/*.js']
+  specs: ['modules/users/tests/e2e/*', 'modules/grader/tests/e2e/*'],
+  displayStacktrace: true
 };
 
 exports.config = config;

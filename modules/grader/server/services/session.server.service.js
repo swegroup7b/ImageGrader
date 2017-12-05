@@ -19,7 +19,7 @@ function currentImage(user) {
   // if the session is invalid, return undefined
   if (sessionIndex < 0 || sessionIndex >= user.session.length) {
     console.log("Session index is: "+sessionIndex);
-    console.log("Number of sessions is: "+users.session.length);
+    console.log("Number of sessions is: "+user.session.length);
     return undefined;
   }
 
@@ -62,7 +62,7 @@ function addImage(user, image, callback) {
   session.images.push(image);
 
   console.log("Session index: "+sessionIndex);
-  user.save(callback);
+  user.save(function(err){});
 }
 
 // Returns undefined if there are no images left to grade

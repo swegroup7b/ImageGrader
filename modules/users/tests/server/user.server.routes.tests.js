@@ -54,7 +54,8 @@ describe('User CRUD tests', function () {
       email: 'test@test.com',
       username: credentials.usernameOrEmail,
       password: credentials.password,
-      provider: 'local'
+      provider: 'local',
+      organization: 'UF'
     };
 
     user = new User(_user);
@@ -64,6 +65,12 @@ describe('User CRUD tests', function () {
       should.not.exist(err);
       done();
     });
+  });
+
+  afterEach(function(done){
+    User.remove().exec()
+      .then(function(){done();}
+      );
   });
 
   it('should be able to register a new user', function (done) {
@@ -205,81 +212,6 @@ describe('User CRUD tests', function () {
               }
 
               usersGetRes.body.should.be.instanceof(Array).and.have.lengthOf(1);
-
-              // Call the assertion callback
-              return done();
-            });
-        });
-    });
-  });
-
-  it('should be able to get a single user details if admin', function (done) {
-    user.roles = ['user', 'admin'];
-
-    user.save(function (err) {
-      should.not.exist(err);
-      agent.post('/api/auth/signin')
-        .send(credentials)
-        .expect(200)
-        .end(function (signinErr, signinRes) {
-          // Handle signin error
-          if (signinErr) {
-            return done(signinErr);
-          }
-
-          // Get single user information from the database
-          agent.get('/api/users/' + user._id)
-            .expect(200)
-            .end(function (userInfoErr, userInfoRes) {
-              if (userInfoErr) {
-                return done(userInfoErr);
-              }
-
-              userInfoRes.body.should.be.instanceof(Object);
-              userInfoRes.body._id.should.be.equal(String(user._id));
-
-              // Call the assertion callback
-              return done();
-            });
-        });
-    });
-  });
-
-  it('should be able to update a single user details if admin', function (done) {
-    user.roles = ['user', 'admin'];
-
-    user.save(function (err) {
-      should.not.exist(err);
-      agent.post('/api/auth/signin')
-        .send(credentials)
-        .expect(200)
-        .end(function (signinErr, signinRes) {
-          // Handle signin error
-          if (signinErr) {
-            return done(signinErr);
-          }
-
-          // Get single user information from the database
-
-          var userUpdate = {
-            firstName: 'admin_update_first',
-            lastName: 'admin_update_last',
-            roles: ['admin']
-          };
-
-          agent.put('/api/users/' + user._id)
-            .send(userUpdate)
-            .expect(200)
-            .end(function (userInfoErr, userInfoRes) {
-              if (userInfoErr) {
-                return done(userInfoErr);
-              }
-
-              userInfoRes.body.should.be.instanceof(Object);
-              userInfoRes.body.firstName.should.be.equal('admin_update_first');
-              userInfoRes.body.lastName.should.be.equal('admin_update_last');
-              userInfoRes.body.roles.should.be.instanceof(Array).and.have.lengthOf(1);
-              userInfoRes.body._id.should.be.equal(String(user._id));
 
               // Call the assertion callback
               return done();
@@ -991,34 +923,6 @@ describe('User CRUD tests', function () {
       });
   });
 
-  it('should be able to change profile picture if signed in', function (done) {
-    agent.post('/api/auth/signin')
-      .send(credentials)
-      .expect(200)
-      .end(function (signinErr, signinRes) {
-        // Handle signin error
-        if (signinErr) {
-          return done(signinErr);
-        }
-
-        agent.post('/api/users/picture')
-          .attach('newProfilePicture', './modules/users/client/img/profile/default.png')
-          .expect(200)
-          .end(function (userInfoErr, userInfoRes) {
-            // Handle change profile picture error
-            if (userInfoErr) {
-              return done(userInfoErr);
-            }
-
-            userInfoRes.body.should.be.instanceof(Object);
-            userInfoRes.body.profileImageURL.should.be.a.String();
-            userInfoRes.body._id.should.be.equal(String(user._id));
-
-            return done();
-          });
-      });
-  });
-
   it('should not be able to change profile picture if attach a picture with a different field name', function (done) {
     agent.post('/api/auth/signin')
       .send(credentials)
@@ -1037,82 +941,5 @@ describe('User CRUD tests', function () {
             done(userInfoErr);
           });
       });
-  });
-
-  it('should not be able to upload a non-image file as a profile picture', function (done) {
-    agent.post('/api/auth/signin')
-      .send(credentials)
-      .expect(200)
-      .end(function (signinErr, signinRes) {
-        // Handle signin error
-        if (signinErr) {
-          return done(signinErr);
-        }
-
-        agent.post('/api/users/picture')
-          .attach('newProfilePicture', './modules/users/tests/server/img/text-file.txt')
-          .send(credentials)
-          .expect(422)
-          .end(function (userInfoErr, userInfoRes) {
-            done(userInfoErr);
-          });
-      });
-  });
-
-  it('should not be able to change profile picture to too big of a file', function (done) {
-    agent.post('/api/auth/signin')
-      .send(credentials)
-      .expect(200)
-      .end(function (signinErr) {
-        // Handle signin error
-        if (signinErr) {
-          return done(signinErr);
-        }
-
-        agent.post('/api/users/picture')
-          .attach('newProfilePicture', './modules/users/tests/server/img/too-big-file.png')
-          .send(credentials)
-          .expect(422)
-          .end(function (userInfoErr, userInfoRes) {
-            done(userInfoErr);
-          });
-      });
-  });
-
-  it('should be able to change profile picture and not fail if existing picture file does not exist', function (done) {
-
-    user.profileImageURL = config.uploads.profile.image.dest + 'non-existing.png';
-
-    user.save(function (saveErr) {
-      // Handle error
-      if (saveErr) {
-        return done(saveErr);
-      }
-
-      agent.post('/api/auth/signin')
-        .send(credentials)
-        .expect(200)
-        .end(function (signinErr) {
-          // Handle signin error
-          if (signinErr) {
-            return done(signinErr);
-          }
-
-          agent.post('/api/users/picture')
-            .attach('newProfilePicture', './modules/users/client/img/profile/default.png')
-            .expect(200)
-            .end(function (userInfoErr) {
-
-              should.not.exist(userInfoErr);
-
-              return done();
-            });
-        });
-
-    });
-  });
-
-  afterEach(function (done) {
-    User.remove().exec(done);
   });
 });

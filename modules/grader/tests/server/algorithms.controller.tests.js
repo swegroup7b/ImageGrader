@@ -1,8 +1,8 @@
+'use strict'
+
 var assert = require('should'),
   path = require('path'),
-  controller = require(path.resolve('../../server/controllers/algorithms.controller'));
-  //app = require(path.resolve('../../../../config/lib/express'))
-  //request = require('supertest');
+  controller = require(path.resolve('modules/grader/server/services/algorithms.server.service'));
 
 // ensures that the area function works
 describe("Test Area Function", function () {
@@ -73,9 +73,17 @@ describe('Test Lesion Analysis', function() {
   it('tests the function with a simple trapazoidal region', function() {
     var plateau = [[0,1], [4,1]];  // a horizontal line
     var surface = [[0,0], [4,0]];
-    var border = [[0,0], [1,-1], [2,-1], [3,0]];
-    var data = controller.evaluateLesion(plateau, border, surface);
+    var border = [[0,0], [1,-1], [1.5,-2], [2,-1], [3,0]];
+    var input = {'plateauPoints': plateau, 'lesionBorderPoints': border, 'lesionSurfacePoints': surface};
+    var data = controller.grade(input);
     console.log(data);
+    data.lesionArea.should.be.equal(2.5);
+    data.lesionMaxDepth.should.be.equal(2);
+    data.lesionMaxDepthPosition.should.be.equal(0.5);
+    data.lesionWidth.at0Depth.should.be.approximately(2.9, 0.1);
+    data.lesionWidth.at50Depth.should.be.approximately(1, 0.1);
+    data.lesionWidth.at95Depth.should.be.approximately(0.1, 0.1);
+    data.lesionSurfaceWidth.should.be.equal(4);
   });
 });
 
