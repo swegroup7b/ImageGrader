@@ -90,6 +90,7 @@ module.exports = {
         data: {
           username: 'seedadmin',
           email: 'admin@localhost.com',
+          organization: 'UF',
           firstName: 'Admin',
           lastName: 'Local',
           roles: ['admin', 'user']
@@ -101,16 +102,8 @@ module.exports = {
           email: 'user@localhost.com',
           firstName: 'User',
           lastName: 'Local',
+          organization: 'UF',
           roles: ['user']
-        }
-      }]
-    }, {
-      model: 'Article',
-      docs: [{
-        overwrite: true,
-        data: {
-          title: 'Test Article',
-          content: 'Code coverage test article!'
         }
       }]
     }]

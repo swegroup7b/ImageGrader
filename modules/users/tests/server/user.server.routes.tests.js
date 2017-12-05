@@ -67,6 +67,12 @@ describe('User CRUD tests', function () {
     });
   });
 
+  afterEach(function(done){
+    User.remove().exec()
+      .then(function(){done();}
+      );
+  });
+
   it('should be able to register a new user', function (done) {
 
     _user.username = 'register_new_user';
@@ -206,81 +212,6 @@ describe('User CRUD tests', function () {
               }
 
               usersGetRes.body.should.be.instanceof(Array).and.have.lengthOf(1);
-
-              // Call the assertion callback
-              return done();
-            });
-        });
-    });
-  });
-
-  it('should be able to get a single user details if admin', function (done) {
-    user.roles = ['user', 'admin'];
-
-    user.save(function (err) {
-      should.not.exist(err);
-      agent.post('/api/auth/signin')
-        .send(credentials)
-        .expect(200)
-        .end(function (signinErr, signinRes) {
-          // Handle signin error
-          if (signinErr) {
-            return done(signinErr);
-          }
-
-          // Get single user information from the database
-          agent.get('/api/users/' + user._id)
-            .expect(200)
-            .end(function (userInfoErr, userInfoRes) {
-              if (userInfoErr) {
-                return done(userInfoErr);
-              }
-
-              userInfoRes.body.should.be.instanceof(Object);
-              userInfoRes.body._id.should.be.equal(String(user._id));
-
-              // Call the assertion callback
-              return done();
-            });
-        });
-    });
-  });
-
-  it('should be able to update a single user details if admin', function (done) {
-    user.roles = ['user', 'admin'];
-
-    user.save(function (err) {
-      should.not.exist(err);
-      agent.post('/api/auth/signin')
-        .send(credentials)
-        .expect(200)
-        .end(function (signinErr, signinRes) {
-          // Handle signin error
-          if (signinErr) {
-            return done(signinErr);
-          }
-
-          // Get single user information from the database
-
-          var userUpdate = {
-            firstName: 'admin_update_first',
-            lastName: 'admin_update_last',
-            roles: ['admin']
-          };
-
-          agent.put('/api/users/' + user._id)
-            .send(userUpdate)
-            .expect(200)
-            .end(function (userInfoErr, userInfoRes) {
-              if (userInfoErr) {
-                return done(userInfoErr);
-              }
-
-              userInfoRes.body.should.be.instanceof(Object);
-              userInfoRes.body.firstName.should.be.equal('admin_update_first');
-              userInfoRes.body.lastName.should.be.equal('admin_update_last');
-              userInfoRes.body.roles.should.be.instanceof(Array).and.have.lengthOf(1);
-              userInfoRes.body._id.should.be.equal(String(user._id));
 
               // Call the assertion callback
               return done();
@@ -989,34 +920,6 @@ describe('User CRUD tests', function () {
 
         // Call the assertion callback
         return done();
-      });
-  });
-
-  it('should be able to change profile picture if signed in', function (done) {
-    agent.post('/api/auth/signin')
-      .send(credentials)
-      .expect(200)
-      .end(function (signinErr, signinRes) {
-        // Handle signin error
-        if (signinErr) {
-          return done(signinErr);
-        }
-
-        agent.post('/api/users/picture')
-          .attach('newProfilePicture', './modules/users/client/img/profile/default.png')
-          .expect(200)
-          .end(function (userInfoErr, userInfoRes) {
-            // Handle change profile picture error
-            if (userInfoErr) {
-              return done(userInfoErr);
-            }
-
-            userInfoRes.body.should.be.instanceof(Object);
-            userInfoRes.body.profileImageURL.should.be.a.String();
-            userInfoRes.body._id.should.be.equal(String(user._id));
-
-            return done();
-          });
       });
   });
 

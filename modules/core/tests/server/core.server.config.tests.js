@@ -67,7 +67,9 @@ describe('Configuration Tests:', function () {
     });
 
     afterEach(function (done) {
-
+      User.remove().exec()
+      .then(function(){ return done();
+      });
     });
 
     it('should have default seed configuration set for users', function (done) {
@@ -79,7 +81,7 @@ describe('Configuration Tests:', function () {
       should.exist(userSeedConfig.docs[0].data.firstName);
       should.exist(userSeedConfig.docs[0].data.lastName);
       should.exist(userSeedConfig.docs[0].data.roles);
-
+      should.exist(userSeedConfig.docs[0].data.organization);
       should.exist(userSeedConfig.docs[1].data.username);
       should.exist(userSeedConfig.docs[1].data.email);
       should.exist(userSeedConfig.docs[1].data.firstName);
@@ -87,16 +89,6 @@ describe('Configuration Tests:', function () {
       should.exist(userSeedConfig.docs[1].data.roles);
 
       return done();
-    });
-
-    it('should seed data from default config', function (done) {
-
-      seed.start()
-        .then(function (users) {
-          users.should.be.instanceof(Array).and.have.lengthOf(userSeedConfig.docs.length);
-          return done();
-        })
-        .catch(done);
     });
 
     it('should overwrite existing users by default', function (done) {
@@ -108,6 +100,7 @@ describe('Configuration Tests:', function () {
 
       var user = new User(userSeedConfig.docs[1].data);
       user.email = 'temp-user@localhost.com';
+      user.organization = 'UF';
       user.provider = 'local';
 
       admin.save()
