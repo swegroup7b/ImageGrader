@@ -109,9 +109,9 @@ function min_distance(point, surface){
   var x_intersect = (point[0] + m*point[1] + m*(m*p1[0] - p1[1])) / (m*m + 1);
   // find if the intersection point is between the two boundary points
   if (between(x_intersect, p1[0], p2[0])){
-    return d_line;
+    return d_line;  // the distance between the point and the line
   } else{
-    return d2;
+    return d2;  // the distance to the closest point
   }
 }
 
@@ -203,10 +203,10 @@ function evaluateOsteophyte(border){
 // analyzes lesion
 function evaluateLesion(plateau, border, surface){
   var lesion_area = area(border);
-  var plateau_slope = (plateau[1][1]-plateau[0][1]) / (plateau[1][0]-plateau[0][0]);
+  var surface_slope = (surface[1][1]-surface[0][1]) / (surface[1][0]-surface[0][0]);
   var surface_width = distance(surface[0], surface[1]);
   // convert coordinates
-  var new_points = translate(plateau_slope, plateau[0][0], plateau[0][1], border);
+  var new_points = translate(surface_slope, surface[0][0], surface[0][1], border);
   // find maximum depth
   var highest = -1000000;
   var lowest = 1000000;
@@ -341,12 +341,12 @@ exports.evaluateCartilage = evaluateCartilage;
 exports.grade = function(data) {
   console.log('Grading an image!');
   var results = {};
-
+  // analyze osteopyhte (if given)
   if (data.osteophytePoints) {
     var points = data.osteophytePoints;
     results['osteophyteArea'] = evaluateOsteophyte(points);
   }
-
+  // analyze lesion (if given)
   if (data.plateauPoints && data.lesionBorderPoints && data.lesionSurfacePoints) {
     var lesionProperties = evaluateLesion(data.plateauPoints, data.lesionBorderPoints, data.lesionSurfacePoints);
     results['lesionArea'] = lesionProperties.area;
@@ -360,7 +360,7 @@ exports.grade = function(data) {
     results['lesionSurfaceWidth'] = lesionProperties.surface;
   }
 
-  // find properties of lesion
+  // analyze cartilage (if given)
   // find widths (along with standard deviation) over regular intervals
   if (data.interfacePoints && data.surfacePoints) {
     results['cartilageDepth'] = evaluateCartilage(data.surfacePoints, data.interfacePoints, 3);
