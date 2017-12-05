@@ -47,7 +47,7 @@
           });
       },
       getSession: function() {
-        // Replace this with an http requeset
+        // Replace this with an http request
         return $http({
           method: 'GET',
           url: '/api/grader/getSession'
@@ -136,32 +136,32 @@
     {
       name: "osteophytePoints",
       niceName: "Osteophyte Region",
-      color: "#ff0000",
+      color: "#1b9e77",
       highlightColor: "#ff33ff",
       type: "polyline"
     },
     {
       name: "plateauPoints",
       niceName: "Plateau Span",
-      color: "#50ff00",
+      color: "#d95f02",
       type: "line"
     },
     {
       name: "lesionBorderPoints",
       niceName: "Lesion Border",
-      color: "#ff0000",
+      color: "#7570b3",
       type: "polyline",
       highlightColor: "#ff33ff"
     },
     {
       name: "lesionSurfacePoints",
       niceName: "Lesion Surface Span",
-      color: "#50ff00",
+      color: "#e7298a",
       type: "line"
     },
     {
       name: "interfacePoints",
-      color: "#ff0000",
+      color: "#66a61e",
       type: "polyline",
       niceName: "Cartilage Interface",
       highlightColor: "#ff33ff"
@@ -169,7 +169,7 @@
     {
       name: "surfacePoints",
       niceName: "Cartilage Surface",
-      color: "#ff0000",
+      color: "#e6ab02",
       type: "polyline",
       highlightColor: "#ff33ff"
     },

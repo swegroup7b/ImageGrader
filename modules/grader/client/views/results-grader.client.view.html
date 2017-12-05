@@ -2,6 +2,7 @@
   <div class="page-header">
     <div class="row">
       <div class="col-md-1">
+        <!-- Back button that either leads to annotator page or history page based on state -->
         <a class="btn btn-primary" ng-show="state" ui-sref="grader.history.list" style="margin-top: 2.5em">
           <span class="glyphicon glyphicon-arrow-left"></span>
         </a>
@@ -10,56 +11,63 @@
         </a>
       </div>
       <div class="col-md-6">
+        <!-- Page header -->
         <h1 class="resultpage_title">Result Page</h1>
       </div>
       <div class="col-md-4" style="margin-top: 2.5em">
+        <!-- Search bar input field -->
         <input class="form-control" type="text" ng-model="search" placeholder="Search" ng-change="figureOutItemsToDisplay()" />
       </div>
     </div>
   </div>
   <div class="outer table-responsive">
     <div class="inner">
-      <table class="table table-bordered result">
-          <tr>
-            <th class="hard_left">ID</th>
-            <th class="last_left">Name</th>
-            <th>Lesion Area</th>
-            <th>Lesion Width (0%)</th>
-            <th>Lesion Width (50%)</th>
-            <th>Lesion Width (95%)</th>
-            <th>Lesion Max Depth</th>
-            <th>Lesion Surface Width</th>
-            <th>Osteophyte Area</th>
-            <th>Cartilage Depth Avg (0-33%)</th>
-            <th>Cartilage Depth Std (0-33%)</th>
-            <th>Cartilage Depth Avg (34-66%)</th>
-            <th>Cartilage Depth Std (34-66%)</th>
-            <th>Cartilage Depth Avg (67-100%)</th>
-            <th>Cartilage Depth Std (67-100%)</th>
-          </tr>
-          <tr ng-repeat="image in pagedItems">
-            <td class="hard_left">{{images.indexOf(image)}}</td>
-            <td class="last_left" ng-show="state">{{image.name}}</td>
-            <td class="last_left" ng-hide="state"><a href="../../../{{image.url.substr(7)}}" target="_blank">{{image.name}}</a></td>
-            <td>{{image.lesionArea.toFixed(1)}}</td>
-            <td>{{image.lesionWidth.at0Depth.toFixed(1)}}</td>
-            <td>{{image.lesionWidth.at50Depth.toFixed(1)}}</td>
-            <td>{{image.lesionWidth.at95Depth.toFixed(1)}}</td>
-            <td>{{image.lesionMaxDepth.toFixed(1)}}</td>
-            <td>{{image.lesionSurfaceWidth.toFixed(1)}}</td>
-            <td>{{image.osteophyteArea.toFixed(1)}}</td>
-            <td>{{image.cartilageDepth[0].avgDepth.toFixed(1)}}</td>
-            <td>{{image.cartilageDepth[0].std.toFixed(1)}}</td>
-            <td>{{image.cartilageDepth[1].avgDepth.toFixed(1)}}</td>
-            <td>{{image.cartilageDepth[1].std.toFixed(1)}}</td>
-            <td>{{image.cartilageDepth[2].avgDepth.toFixed(1)}}</td>
-            <td>{{image.cartilageDepth[2].std.toFixed(1)}}</td>
-          </tr>
-          <tr>
+      <!-- Table that displays image grading results with first two columns fixed -->
+      <table class="result table">
+        <tr class>
+          <th class="hard_left">ID</th>
+          <th class="last_left">Name</th>
+          <th>Lesion Area</th>
+          <th>Lesion Width (0%)</th>
+          <th>Lesion Width (50%)</th>
+          <th>Lesion Width (95%)</th>
+          <th>Lesion Max Depth</th>
+          <th>Lesion Surface Width</th>
+          <th>Osteophyte Area</th>
+          <th>Cartilage Depth Avg (0-33%)</th>
+          <th>Cartilage Depth Std (0-33%)</th>
+          <th>Cartilage Depth Avg (34-66%)</th>
+          <th>Cartilage Depth Std (34-66%)</th>
+          <th>Cartilage Depth Avg (67-100%)</th>
+          <th>Cartilage Depth Std (67-100%)</th>
+        </tr>
+        <tr ng-repeat="image in pagedItems">
+          <td class="hard_left">{{images.indexOf(image)}}
+          <td class="last_left">
+              <!-- Either have a link behind the picture name or not based on state -->
+            <span ng-show="state">{{image.name}}</span>
+            <span ng-hide="state"><a href="../../../{{image.url.substr(7)}}" target="_blank">{{image.name}}</a></span>
+          </td>
+          <td>{{image.lesionArea.toFixed(1)}}</td>
+          <td>{{image.lesionWidth.at0Depth.toFixed(1)}}</td>
+          <td>{{image.lesionWidth.at50Depth.toFixed(1)}}</td>
+          <td>{{image.lesionWidth.at95Depth.toFixed(1)}}</td>
+          <td>{{image.lesionMaxDepth.toFixed(1)}}</td>
+          <td>{{image.lesionSurfaceWidth.toFixed(1)}}</td>
+          <td>{{image.osteophyteArea.toFixed(1)}}</td>
+          <td>{{image.cartilageDepth[0].avgDepth.toFixed(1)}}</td>
+          <td>{{image.cartilageDepth[0].std.toFixed(1)}}</td>
+          <td>{{image.cartilageDepth[1].avgDepth.toFixed(1)}}</td>
+          <td>{{image.cartilageDepth[1].std.toFixed(1)}}</td>
+          <td>{{image.cartilageDepth[2].avgDepth.toFixed(1)}}</td>
+          <td>{{image.cartilageDepth[2].std.toFixed(1)}}</td>
+        </tr>
       </table>
     </div>
     <br>
-    <a class="btn btn-primary" target="_blank" href='/api/grader/CSV'> Export results</a>
+    <!-- Button to export result page as CSV file -->
+    <a class="btn btn-primary" target="_blank" href='/api/grader/CSV?id={{sessionIndex}}'> Export results</a>
   </div>
+  <!-- Page navigation bar -->
   <uib-pagination boundary-links="true" max-size="8" items-per-page="itemsPerPage" total-items="filterLength" ng-model="currentPage" ng-change="pageChanged()"></uib-pagination>
 </section>

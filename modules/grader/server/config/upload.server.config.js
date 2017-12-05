@@ -5,9 +5,8 @@
  */
 var bb = require('express-busboy');
 
-/**
- * Module init function
- */
+/*this uses the busboy module to download the images
+into the public/uploaded-images folder*/
 module.exports = function (app) {
   bb.extend(app, {
     upload: true,

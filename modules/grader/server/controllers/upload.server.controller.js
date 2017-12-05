@@ -45,6 +45,7 @@ exports.upload = function (req, res) {
   }
 };
 
+//create a new session
 exports.newSession = function(req, res) {
   console.log("New session controller");
   session.newSession(req.user, function() {

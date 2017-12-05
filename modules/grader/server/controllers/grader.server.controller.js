@@ -34,6 +34,8 @@ exports.getImage = function(req, res) {
   }
 };
 
+// Uses current user to retrieve entire session array
+// and hand it via route to client-side
 exports.getSession = function(req, res) {
   var user = req.user;
   if(user) {
@@ -45,6 +47,8 @@ exports.getSession = function(req, res) {
   }
 }
 
+// Uses current user to retrieve current session array
+// index and hands it via route to client-side
 exports.getCurrentSessionIndex = function(req, res) {
   var user = req.user;
   if(user) {

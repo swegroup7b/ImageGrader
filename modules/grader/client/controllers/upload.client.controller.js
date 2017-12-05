@@ -9,9 +9,12 @@
 
     UploadController.$inject = ['$scope', '$state', '$http', 'FileUploader'];
 
+    //this controller is called from the "angular-file-upload" module that
+    //is compatible with npm
     function UploadController($scope, $state, $http, FileUploader) {
       var vm = this;
-
+      //scope variable used to keep track of the uploadAll button
+      $scope.ready = false;
       var uploader = $scope.uploader = new FileUploader({
         url: '/api/grader/upload'
       });
@@ -36,12 +39,12 @@
           }
       });
 
-      // CALLBACKS
-
+      //these callbacks are used generally for debugging in the console.
       uploader.onWhenAddingFileFailed = function(item /*{File|FileLikeObject}*/, filter, options) {
           console.info('onWhenAddingFileFailed', item, filter, options);
       };
       uploader.onAfterAddingFile = function(fileItem) {
+          $scope.ready = false;
           console.info('onAfterAddingFile', fileItem);
       };
       uploader.onAfterAddingAll = function(addedFileItems) {
@@ -51,6 +54,9 @@
             url: '/api/grader/newSession'
           }).then(function successCallback(response) {
               console.log("Created new session");
+              //this variable will turn the uploadAll button on when
+              //all of the images have been added to the queue.
+              $scope.ready = true;
             }, function errorCallback(err) {
               // called asynchronously if an error occurs
               // or server returns response with an error status.
@@ -90,8 +96,7 @@
               // or server returns response with an error status.
               throw err;
             });
-      };
-
+      }
       console.info('uploader', uploader);
     }
 
