@@ -24,10 +24,10 @@ To use the website offline, the git repository can be cloned and connected to a 
 2. Create a new user to access the database
 ![image](doc_images/mongoAddUser.png)
 
-3. Locate the link the your database at the top
-![image](doc_images/mongoDBLink.png) 
+3. Locate the link to your database at the beginning of the page
+![image](doc_images/mongoDBLink.png)
 
-4. Open [config/env/development.js](config/env/development.js) in your local repository copy and replace the following line with the link from the previous step. Make sure <dbuser> and <dbpassword> are equivalent to the user credentials of step 2.
+4. Open [config/env/development.js](config/env/development.js) in your local repository copy and replace the following line with the link from the previous step. Make sure dbuser and dbpassword are equivalent to the user credentials of step 2.
 ![image](doc_images/linkDevelop.png)
 
 ## Credits
