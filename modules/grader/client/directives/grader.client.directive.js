@@ -122,6 +122,11 @@
         console.log("Mouse Down, "+mouseX+", "+mouseY);
         var ann = scope.annotations[scope.on.step];
 
+        if (ann.skipNum && ann.pointX.length == 0 && (e.ctrlKey || e.metaKey)) {
+            scope.skipAnnotations(ann.skipNum);
+            return;
+        }
+
         function dist(x1, y1, x2, y2) {
           return Math.sqrt(Math.pow(x1-x2,2) + Math.pow(y1-y2,2));
         }
@@ -132,7 +137,7 @@
               ann.addPoint(mouseX, mouseY);
               drawing = false;
               redraw();
-              scope.addAnnotation();
+              scope.onAnnotationEnd();
             } else {
                 ann.addPoint(mouseX, mouseY);
                 drawing = true;
@@ -148,10 +153,12 @@
 
             if (ann.pointX.length == 2) {
               drawing = false;
-              scope.addAnnotation();
+              scope.onAnnotationEnd();
             }
             break;
         }
+        scope.updateStatus();
+        scope.$apply();
         redraw();
       });
 
@@ -179,9 +186,11 @@
 
       $document.on('keydown', function(e) {
         console.log('Key down: '+e.which);
-        if (e.which == 8) {
+        if (e.which == 8 || e.which == 27) {
           scope.resetAnnotation();
           redraw();
+          scope.updateStatus();
+          scope.$apply();
         }
       });
     }

@@ -342,12 +342,15 @@ exports.grade = function(data) {
   console.log('Grading an image!');
   var results = {};
   // analyze osteopyhte (if given)
-  if (data.osteophytePoints) {
+  if (data.osteophytePoints && data.osteophytePoints.length) {
     var points = data.osteophytePoints;
     results['osteophyteArea'] = evaluateOsteophyte(points);
+  } else {
+    results['osteophyteArea'] = 0;
   }
   // analyze lesion (if given)
-  if (data.plateauPoints && data.lesionBorderPoints && data.lesionSurfacePoints) {
+  if (data.plateauPoints && data.lesionBorderPoints && data.lesionSurfacePoints &&
+        data.plateauPoints.length && data.lesionBorderPoints.length && data.lesionSurfacePoints.length) {
     var lesionProperties = evaluateLesion(data.plateauPoints, data.lesionBorderPoints, data.lesionSurfacePoints);
     results['lesionArea'] = lesionProperties.area;
     results['lesionMaxDepth'] = lesionProperties.depth;
@@ -358,12 +361,25 @@ exports.grade = function(data) {
       'at95Depth': lesionProperties.width_95
     };
     results['lesionSurfaceWidth'] = lesionProperties.surface;
+  } else {
+    results['lesionArea'] = 0;
+    results['lesionMaxDepth'] = 0;
+    results['lesionMaxDepthPosition'] = 0;
+    results['lesionWidth'] = {
+      'at0Depth': 0,
+      'at50Depth': 0,
+      'at95Depth': 0
+    };
+    results['lesionSurfaceWidth'] = 0;
   }
 
   // analyze cartilage (if given)
   // find widths (along with standard deviation) over regular intervals
-  if (data.interfacePoints && data.surfacePoints) {
+  if (data.interfacePoints && data.surfacePoints && data.interfacePoints.length && data.surfacePoints.length) {
     results['cartilageDepth'] = evaluateCartilage(data.surfacePoints, data.interfacePoints, 3);
+  } else {
+    results['cartilageDepth'] = [{"avgDepth": 0, "std": 0}, {"avgDepth": 0, "std": 0}, {"avgDepth": 0, "std": 0}];
+
   }
 
   return results;

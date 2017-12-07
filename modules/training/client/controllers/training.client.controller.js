@@ -51,10 +51,44 @@
     }
 
     //Moves on to the next grading step and saves the annotation
-    $scope.addAnnotation = function() {
+    $scope.onAnnotationEnd = function() {
       $scope.goNext();
       $scope.$apply();
     }
+
+    // Called by the directive when the user tries to clear the current annotation
+    $scope.resetAnnotation = function() {
+      var ann = $scope.annotations[$scope.on.step];
+      ann.clear();
+    };
+
+    $scope.updateStatus = function (){
+      var vm = $scope;
+      var ann = vm.annotations[vm.on.step];
+      var annotationSteps = GraderService.annotationSteps();
+
+      if (!ann) {
+        vm.status = 'Finished grading the image';
+      }
+      if (ann.pointX.length && ann.type == 'polyline') {
+        vm.status = 'Hold control to mark the end of the polyline.';
+      }
+      else if (ann.type == 'polyline') {
+        vm.status = 'Draw a polyline to mark the '+ann.niceName;
+      }
+      else if (ann.type == 'line' && !ann.pointX.length) {
+        vm.status = 'Draw a line to mark the '+ann.niceName;
+      }
+      else if (ann.pointX.length) {
+        vm.status = 'Press backspace to clear.';
+      }
+      else {
+        vm.status = "";
+      }
+    };
+
+    $scope.updateStatus();
+
 
   }
 

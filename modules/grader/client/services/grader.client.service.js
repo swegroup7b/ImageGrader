@@ -10,9 +10,11 @@
   function Annotation(stepNumber) {
     console.log("Creating annotation number: "+stepNumber);
     var step = annotationSteps[stepNumber];
+    this.type = step.type;
     this.name = step.name;
     this.pointX = [];
     this.pointY = [];
+    this.skipNum = step.skipNum;
     this.niceName = step.niceName;
     this.highlightColor = step.highlightColor;
     this.annotationType = step.type;
@@ -61,8 +63,8 @@
             throw err;
           });
       },
+      // Returns the index of the current image in the session
       getCurrentSessionIndex: function() {
-        // Replace this with an http request
         return $http({
           method: 'GET',
           url: '/api/grader/getCurrentSessionIndex'
@@ -138,20 +140,16 @@
       niceName: "Osteophyte Region",
       color: "#1b9e77",
       highlightColor: "#ff33ff",
-      type: "polyline"
-    },
-    {
-      name: "plateauPoints",
-      niceName: "Plateau Span",
-      color: "#d95f02",
-      type: "line"
+      type: "polyline",
+      skipNum: 1
     },
     {
       name: "lesionBorderPoints",
       niceName: "Lesion Border",
       color: "#7570b3",
       type: "polyline",
-      highlightColor: "#ff33ff"
+      highlightColor: "#ff33ff",
+      skipNum: 3
     },
     {
       name: "lesionSurfacePoints",
@@ -160,11 +158,17 @@
       type: "line"
     },
     {
+      name: "plateauPoints",
+      niceName: "Plateau Span",
+      color: "#d95f02",
+      type: "line",
+    },
+    {
       name: "interfacePoints",
       color: "#66a61e",
       type: "polyline",
       niceName: "Cartilage Interface",
-      highlightColor: "#ff33ff"
+      highlightColor: "#ff33ff",
     },
     {
       name: "surfacePoints",

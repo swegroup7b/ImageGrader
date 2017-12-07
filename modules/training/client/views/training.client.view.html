@@ -6,9 +6,12 @@
 		<p>Mark the edges of the osteophyte (green in image above). If no osteophyte,<br> control-click to skip.</p>
 	</div>
 	<div ng-show="currentAnnotation==1">
-		<h3>2. Identify the Plateau Span</h3>
-		<img src="/modules/training/client/img/grader/step2.png" width="480" height="350">
-		<p>Mark the edges of the tibial plateau (orange in image above),<br> measuring the tibial plateau width.</p>
+		<h3>2. Identify the Lesion Surface Points</h3>
+		<img src="/modules/training/client/img/grader/step4.png" width="480" height="350">
+		<p>Mark the cartilage surface that has been lost or fibrilated due to osteoarthritis <br>
+			(pink in image above). This line must be parallel to the cartilage surface, defining the <br>
+			surface layer of the cartilage. Depth of lesion is defined as the perpendicular distance <br>
+			from this line.</p>
 	</div>
 	<div ng-show="currentAnnotation==2">
 		<h3>3. Identify the Lesion Border</h3>
@@ -16,12 +19,9 @@
 		<p>Mark the surface of the cartilage lesion (grey in image above). If no lesion,<br> control-click to skip.</p>
 	</div>
 	<div ng-show="currentAnnotation==3">
-		<h3>4. Identify the Lesion Surface Points</h3>
-		<img src="/modules/training/client/img/grader/step4.png" width="480" height="350">
-		<p>Mark the cartilage surface that has been lost or fibrilated due to osteoarthritis <br>
-			(pink in image above). This line must be parallel to the cartilage surface, defining the <br>
-			surface layer of the cartilage. Depth of lesion is defined as the perpendicular distance <br>
-			from this line.</p>
+		<h3>4. Identify the Plateau Span</h3>
+		<img src="/modules/training/client/img/grader/step2.png" width="480" height="350">
+		<p>Mark the edges of the tibial plateau (orange in image above),<br> measuring the tibial plateau width.</p>
 	</div>
 	<div ng-show="currentAnnotation==4">
 		<h3>5. Identify the Osteochondral Interface</h3>
@@ -43,5 +43,5 @@
 </div>
 <div style="text-align: center; float: right;display: inline-block;margin: auto;margin-top: 1em;background-color: rgba(50, 50, 50, .3);padding: 1em;border-radius: 1em;">
 	<canvas annotator style="display: block;padding:0px;margin: auto" id="canvas" width="560" height="420"></canvas>
-	<span ng-style="{opacity : (annotations[on.step].annotationType=='polyline') || '0'}">Hold control to mark the end of the polyline.</span>
+	<span ng-style="{opacity: status || '0'}">{{status || 'Grade the image'}}</span>
 </div>
