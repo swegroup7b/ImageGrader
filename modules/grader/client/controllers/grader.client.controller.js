@@ -104,19 +104,28 @@
       }
     }
 
+    vm.onImageLoaded = function() {
+      vm.on.step = 0;
+      // reset the annotations
+      vm.annotations = [];
+      for (var i = 0; i < annotationSteps.length; i++) {
+        vm.annotations.push(new GraderService.Annotation(i));
+      }
+    }
+
     function updateStatus() {
       var ann = vm.annotations[vm.on.step];
       if (!ann.pointX.length && ann.skipNum) {
-        vm.status = 'Control-click to skip if no ' + ann.niceName+ ' present.';
+        vm.status = 'Control-click to skip if no ' + ann.niceName.toLowerCase()+ ' present.';
       }
       else if (ann.pointX.length && ann.type == 'polyline') {
-        vm.status = 'Hold control to mark the end of the '+ann.niceName;
+        vm.status = 'Hold control to mark the end of the '+ann.niceName.toLowerCase();
       }
       else if (ann.type == 'polyline') {
-        vm.status = 'Draw a polyline to mark the '+ann.niceName;
+        vm.status = 'Draw a polyline to mark the '+ann.niceName.toLowerCase();
       }
       else if (ann.type == 'line' && !ann.pointX.length) {
-        vm.status = 'Draw a line to mark the '+ann.niceName;
+        vm.status = 'Draw a line to mark the '+ann.niceName.toLowerCase();
       }
       else if (ann.pointX.length) {
         vm.status = 'Press backspace to clear.';
@@ -140,13 +149,6 @@
           if (result) {
             // there was a new image to fetch
             vm.on = result;
-            vm.on.step = 0;
-
-            // reset the annotations
-            vm.annotations = [];
-            for (var i = 0; i < annotationSteps.length; i++) {
-              vm.annotations.push(new GraderService.Annotation(i));
-            }
           } else {
             // we're done grading images
             vm.finished = true;

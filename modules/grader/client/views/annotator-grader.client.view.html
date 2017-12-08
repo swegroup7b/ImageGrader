@@ -1,14 +1,25 @@
+<div ng-show="!finished" class="grader-container">
+  <div class="arrow-steps">
+    <div ng-class="{done: $index<on.step && annotations[$index].pointX.length, current: $index==on.step}"ng-repeat="step in annotationSteps track by $index" class="step"> <span>{{$index+1}}. {{step.niceName}}</span> </div>
+  </div>
+  <div class="grading-area">
+    <div class="text-window" style="text-align: center; margin:auto;position: relative">
+      <h3 style="display:inline-block">{{on.step+1}}. {{annotationSteps[on.step].niceName}}</h3>
+      <button style="float:right;" ng-disabled="on.step==0" ng-click="goBack()">Back</button>
+    </div>
+      <div style="display: inline-block; margin: auto;margin-top: 1em; background-color: rgba(50, 50, 50, .3); padding-top: 1em; padding-bottom:0.3em; border-radius: 1em;text-align: center">
+        <canvas annotator style="display: block;padding:0px;" id="canvas" width="725" height="530"></canvas>
+        <span style="position:relative;font-size:0.9em; top: 0.1em;opacity:0.8" >{{status || 'Grade the image.'}}</span>
+      </div>
+        <h4>Images completed: {{numCompleted}}/{{numImages}}</h4>
+  </div>
+  <div class="toolbox">
+  </div>
+</div>
 <div style="text-align:center">
-<div ng-show="!finished" class="text-window" style="margin:auto;position: relative">
-  <h3 style="display:inline-block">{{on.step+1}}. {{annotationSteps[on.step].niceName}}</h3>
-  <button style="float:right;" ng-disabled="on.step==0" ng-click="goBack()">Back</button>
-</div>
-<div ng-show="!finished"  style="display: inline-block; margin: auto;margin-top: 0.5em; background-color: rgba(50, 50, 50, .3); padding: 1em; border-radius: 1em">
-<canvas annotator style="display: block;padding:0px;margin: auto" id="canvas" width="725" height="530"></canvas>
-<span ng-style="{opacity: status || '0'}">{{status || 'Grade the image.'}}</span>
-</div>
+<div ng-show="finished">
 <h3 style="margin-top:3em;" ng-show="finished"><i>No images left to grade</i><br><br>Would you like to <a ui-sref="grader.results({id: currentSessionIndex})">
   see results</a> or <a href="/grader/upload">start a new session</a>?</h3>
 <br>
-<h4>Images completed: {{numCompleted}}/{{numImages}}</h4>
+</div>
 </div>

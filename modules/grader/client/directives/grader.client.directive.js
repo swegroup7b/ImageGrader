@@ -45,6 +45,7 @@
           aImage.onload = function() {
             console.log("Loaded image");
             mImage.src = newValue.url;
+            scope.onImageLoaded();
           }
           aImage.src = newValue.url;
         } else {
@@ -119,6 +120,10 @@
         mouseX = e.pageX - this.offsetLeft;
         mouseY = e.pageY - this.offsetTop;
 
+        // Scale based on displayed canvas' height and width;
+        mouseX *= domElement.width/domElement.offsetWidth;
+        mouseY *= domElement.height/domElement.offsetHeight
+
         console.log("Mouse Down, "+mouseX+", "+mouseY);
         var ann = scope.annotations[scope.on.step];
 
@@ -165,6 +170,10 @@
       elem.on('mousemove', function(e) {
         mouseX = e.pageX - this.offsetLeft;
         mouseY = e.pageY - this.offsetTop;
+
+        // Scale based on displayed canvas' height and width;
+        mouseX *= domElement.width/domElement.offsetWidth;
+        mouseY *= domElement.height/domElement.offsetHeight;
 
         if (drawing) {
           var ann = scope.annotations[scope.on.step];

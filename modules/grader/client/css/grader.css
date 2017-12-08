@@ -1,4 +1,27 @@
+.grader-container {
+  display: flex;
+}
+
+.grading-area {
+  text-align: center;
+  flex-basis:0;
+  flex-grow: 4;
+}
+
+.toolbox {
+  flex-basis: 200px;
+
+}
+
+#canvas {
+  width:95%;
+  min-height: 300px;
+  margin:auto;
+  display: block;
+}
+
 .annotator {
+
 }
 
 .text-window {
@@ -148,4 +171,3 @@ th {
     opacity: .5;
 }
 /*Radio and Checkbox END*/
->>>>>>> framework

@@ -74,10 +74,10 @@
         vm.status = 'Hold control to mark the end of the polyline.';
       }
       else if (ann.type == 'polyline') {
-        vm.status = 'Draw a polyline to mark the '+ann.niceName;
+        vm.status = 'Draw a polyline to mark the '+ann.niceName.toLowerCase();
       }
       else if (ann.type == 'line' && !ann.pointX.length) {
-        vm.status = 'Draw a line to mark the '+ann.niceName;
+        vm.status = 'Draw a line to mark the '+ann.niceName.toLowerCase();
       }
       else if (ann.pointX.length) {
         vm.status = 'Press backspace to clear.';
