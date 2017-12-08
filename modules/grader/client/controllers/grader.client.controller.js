@@ -111,10 +111,14 @@
       for (var i = 0; i < annotationSteps.length; i++) {
         vm.annotations.push(new GraderService.Annotation(i));
       }
+      vm.$apply();
     }
 
     function updateStatus() {
       var ann = vm.annotations[vm.on.step];
+      if (!ann.pointX) {
+         console.log("Step: "+vm.on.step);
+      }
       if (!ann.pointX.length && ann.skipNum) {
         vm.status = 'Control-click to skip if no ' + ann.niceName.toLowerCase()+ ' present.';
       }
@@ -148,7 +152,10 @@
         .then(function(result) {
           if (result) {
             // there was a new image to fetch
-            vm.on = result;
+            vm.on = {
+              url: result.url,
+              step: vm.on.step
+            };
           } else {
             // we're done grading images
             vm.finished = true;
